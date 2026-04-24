@@ -9,7 +9,7 @@ import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
-    <main style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
+    <main className="bg-canvas min-h-screen">
       <Navbar />
       <HeroSection />
       <FeaturesBar />

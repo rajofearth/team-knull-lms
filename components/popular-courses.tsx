@@ -55,16 +55,16 @@ const courses = [
 
 export function PopularCourses() {
   return (
-    <section className="py-16">
+    <section className="py-16 bg-canvas">
       <div className="mx-auto max-w-[1200px] px-6">
         {/* Section Header */}
         <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-foreground">
+          <h2 className="text-2xl font-bold text-ink">
             Popular Courses
           </h2>
           <a
             href="#"
-            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground hover:opacity-80"
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-deep hover:opacity-80"
           >
             View All Courses
             <ArrowRight className="size-3.5" strokeWidth={2.5} />
@@ -78,10 +78,10 @@ export function PopularCourses() {
               key={course.id}
               href="#"
               id={`course-${course.id}`}
-              className="group block overflow-hidden rounded-2xl border border-border bg-background shadow-subtle transition-all duration-200 hover:translate-y-[-2px] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.10)]"
+              className="group block overflow-hidden rounded-2xl border border-border bg-canvas shadow-subtle transition-all duration-200 hover:translate-y-[-2px] hover:shadow-float"
             >
               {/* Thumbnail */}
-              <div className="relative h-40 bg-secondary">
+              <div className="relative h-40 bg-surface">
                 <Image
                   src={course.image}
                   alt={course.title}
@@ -92,7 +92,7 @@ export function PopularCourses() {
                 {/* Badge */}
                 <Badge
                   variant="outline"
-                  className="absolute left-2.5 top-2.5 bg-background px-2 py-0.5 text-[10px] font-semibold text-foreground hover:bg-background"
+                  className="absolute left-2.5 top-2.5 bg-canvas/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-semibold text-ink hover:bg-canvas"
                 >
                   {course.badge}
                 </Badge>
@@ -102,38 +102,38 @@ export function PopularCourses() {
               <div className="p-4 pt-3.5">
                 {/* Rating */}
                 <div className="mb-1.5 flex items-center gap-1">
-                  <span className="text-xs font-bold text-foreground">
+                  <span className="text-xs font-bold text-ink">
                     {course.rating}
                   </span>
                   <Star
                     className="size-[11px] fill-amber-500 text-amber-500"
                     strokeWidth={0}
                   />
-                  <span className="text-[11px] text-muted-foreground">
+                  <span className="text-[11px] text-text-muted">
                     ({course.reviews})
                   </span>
                 </div>
 
-                <h3 className="mb-1.5 text-sm font-bold leading-[1.35] text-foreground">
+                <h3 className="mb-1.5 text-sm font-bold leading-[1.35] text-ink">
                   {course.title}
                 </h3>
-                <p className="mb-3 text-xs leading-normal text-muted-foreground">
+                <p className="mb-3 text-xs leading-normal text-text-secondary">
                   {course.desc}
                 </p>
 
                 {/* Meta */}
-                <div className="flex items-center justify-between border-t border-border/60 pt-2.5">
+                <div className="flex items-center justify-between border-t border-border-subtle pt-2.5">
                   <div className="flex items-center gap-2.5">
-                    <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                    <span className="flex items-center gap-1 text-[10px] text-text-muted">
                       <BarChart2 className="size-2.5" strokeWidth={2} />
                       {course.level}
                     </span>
-                    <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                    <span className="flex items-center gap-1 text-[10px] text-text-muted">
                       <Clock className="size-2.5" strokeWidth={2} />
                       {course.hours}h
                     </span>
                   </div>
-                  <span className="text-[15px] font-extrabold text-foreground">
+                  <span className="text-[15px] font-extrabold text-ink">
                     ${course.price}
                   </span>
                 </div>

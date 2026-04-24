@@ -25,20 +25,20 @@ const features = [
 
 export function FeaturesBar() {
   return (
-    <section className="border-y border-border bg-secondary py-8">
+    <section className="border-y border-border bg-surface py-8">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-8 px-6 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((f) => {
           const Icon = f.icon;
           return (
             <div key={f.title} className="flex items-start gap-3.5">
               <div className="mt-0.5 shrink-0">
-                <Icon className="size-[22px] text-foreground" strokeWidth={1.5} />
+                <Icon className="size-[22px] text-ink" strokeWidth={1.5} />
               </div>
               <div>
-                <p className="mb-1 text-sm font-bold text-foreground">
+                <p className="mb-1 text-sm font-bold text-ink">
                   {f.title}
                 </p>
-                <p className="text-[13px] leading-normal text-muted-foreground">
+                <p className="text-[13px] leading-normal text-text-secondary">
                   {f.desc}
                 </p>
               </div>

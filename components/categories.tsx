@@ -19,16 +19,16 @@ const categories = [
 
 export function Categories() {
   return (
-    <section className="border-t border-border py-16">
+    <section className="border-t border-border bg-canvas py-16">
       <div className="mx-auto max-w-[1200px] px-6">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-foreground">
+          <h2 className="text-2xl font-bold text-ink">
             Browse by Categories
           </h2>
           <a
             href="#"
-            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground hover:opacity-80"
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-deep hover:opacity-80"
           >
             View All Categories
             <ArrowRight className="size-3.5" strokeWidth={2.5} />
@@ -44,16 +44,16 @@ export function Categories() {
                 key={cat.id}
                 href="#"
                 id={`category-${cat.id}`}
-                className="group flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-background px-4 py-5 text-center transition-all duration-200 hover:border-foreground hover:bg-secondary"
+                className="group flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-canvas px-4 py-5 text-center transition-all duration-200 hover:border-ink hover:bg-surface"
               >
-                <div className="flex size-10 items-center justify-center rounded-md border border-border bg-[#f9f9f9] transition-colors group-hover:border-border">
-                  <Icon className="size-[18px] text-foreground" strokeWidth={1.5} />
+                <div className="flex size-10 items-center justify-center rounded-md border border-border-subtle bg-surface transition-colors group-hover:border-border">
+                  <Icon className="size-[18px] text-ink-secondary" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="mb-0.5 text-[13px] font-bold text-foreground">
+                  <p className="mb-0.5 text-[13px] font-bold text-ink">
                     {cat.label}
                   </p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-[11px] text-text-muted">
                     {cat.count} Courses
                   </p>
                 </div>

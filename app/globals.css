@@ -1,15 +1,48 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter), system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-outfit), system-ui, sans-serif;
+  --font-mono: var(--font-mono), monospace;
 
   /* Design System Colors */
   --color-canvas: #ffffff;
-  --color-surface: #f5f5f5;
-  --color-border: #e5e5e5;
-  --color-ink: #0a0a0a;
-  --color-text-secondary: #6b7280;
-  --color-success: #16a34a;
+  --color-surface: #fafafa;
+  --color-surface-dim: #f5f5f5;
+  
+  --color-border: #f0f0f0;
+  --color-border-dark: #e5e5e5;
+  --color-border-subtle: #efefef;
+  --color-border-alt: #eaeaea;
+
+  --color-ink: #1a1a1a;
+  --color-ink-deep: #030303;
+  --color-ink-secondary: #333333;
+  
+  --color-text-secondary: #666666;
+  --color-text-description: #555555;
+  --color-text-muted: #888888;
+  --color-text-dim: #aaaaaa;
+  
+  --color-success: #10b981;
+
+  /* Video Player Specific */
+  --color-video-bg: #0c0c0c;
+  --color-video-header: #1e1e1e;
+  --color-video-border: #2d2d2d;
+  --color-video-text: #d4d4d4;
+  --color-video-accent: #e34c26;
+
+  /* Window Controls */
+  --color-window-close: #ff5f56;
+  --color-window-minimize: #ffbd2e;
+  --color-window-maximize: #27c93f;
+
+  /* Syntax Highlighting */
+  --color-code-tag: #569cd6;
+  --color-code-attr: #9cdcfe;
+  --color-code-string: #ce9178;
+  --color-code-comment: #6a9955;
 
   /* Shadcn UI Variables Mapped to Design System */
   --color-background: var(--color-canvas);
@@ -21,7 +54,7 @@
   --color-popover: var(--color-canvas);
   --color-popover-foreground: var(--color-ink);
   
-  --color-primary: var(--color-ink);
+  --color-primary: var(--color-ink-deep);
   --color-primary-foreground: var(--color-canvas);
   
   --color-secondary: var(--color-surface);
@@ -36,17 +69,19 @@
   --color-destructive: #ef4444;
   --color-destructive-foreground: var(--color-canvas);
   
-  --color-input: var(--color-border);
+  --color-input: var(--color-border-dark);
   --color-ring: var(--color-ink);
 
   /* Radii */
   --radius-sm: 6px;
   --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 16px; /* Added for shadcn compatibility if it uses rounded-xl */
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 
   /* Shadows */
-  --shadow-subtle: 0px 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-subtle: 0px 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-float: 0px 20px 50px rgba(0, 0, 0, 0.15);
 }
 
 @layer base {

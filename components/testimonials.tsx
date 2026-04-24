@@ -70,9 +70,9 @@ export function Testimonials() {
   const current = testimonials[page];
 
   return (
-    <section className="border-t border-border bg-background py-[72px]">
+    <section className="border-t border-border bg-canvas py-[72px]">
       <div className="mx-auto max-w-[1200px] px-6">
-        <h2 className="mb-12 text-center text-2xl font-bold text-foreground">
+        <h2 className="mb-12 text-center text-2xl font-bold text-ink">
           What Our Learners Say
         </h2>
 
@@ -81,25 +81,25 @@ export function Testimonials() {
           {current.map((t) => (
             <Card
               key={t.id}
-              className="rounded-2xl border-border p-6 shadow-subtle"
+              className="rounded-2xl border-border bg-canvas p-6 shadow-subtle"
             >
               {/* Quote mark */}
-              <div className="mb-3 font-serif text-[32px] leading-none text-border">
+              <div className="mb-3 font-serif text-[32px] leading-none text-border-dark">
                 &ldquo;&ldquo;
               </div>
-              <p className="mb-5 text-sm leading-[1.65] text-[#374151]">
+              <p className="mb-5 text-sm leading-[1.65] text-text-secondary">
                 {t.quote}
               </p>
               {/* Avatar & name */}
               <div className="mb-2.5 flex items-center gap-2.5">
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-secondary text-[11px] font-bold text-foreground">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-[11px] font-bold text-ink">
                   {t.initials}
                 </div>
                 <div>
-                  <p className="text-[13px] font-bold text-foreground">
+                  <p className="text-[13px] font-bold text-ink">
                     {t.name}
                   </p>
-                  <p className="text-[11px] text-muted-foreground">{t.role}</p>
+                  <p className="text-[11px] text-text-muted">{t.role}</p>
                 </div>
               </div>
               {/* Stars */}
@@ -124,7 +124,7 @@ export function Testimonials() {
             className="flex cursor-pointer items-center disabled:cursor-not-allowed disabled:opacity-30"
             disabled={page === 0}
           >
-            <ChevronLeft className="size-4 text-foreground" />
+            <ChevronLeft className="size-4 text-ink" />
           </button>
           {testimonials.map((_, i) => (
             <button
@@ -132,7 +132,7 @@ export function Testimonials() {
               aria-label={`Page ${i + 1}`}
               onClick={() => setPage(i)}
               className={`h-2 cursor-pointer rounded-full p-0 transition-all duration-200 ${
-                i === page ? "w-5 bg-foreground" : "w-2 bg-gray-300"
+                i === page ? "w-5 bg-ink" : "w-2 bg-border-dark"
               }`}
             />
           ))}
@@ -144,7 +144,7 @@ export function Testimonials() {
             className="flex cursor-pointer items-center disabled:cursor-not-allowed disabled:opacity-30"
             disabled={page === testimonials.length - 1}
           >
-            <ChevronRight className="size-4 text-foreground" />
+            <ChevronRight className="size-4 text-ink" />
           </button>
         </div>
       </div>
