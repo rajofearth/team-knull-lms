@@ -44,9 +44,11 @@ export function Navbar() {
         <Button variant="ghost" className="text-text-muted hover:text-ink transition-colors" aria-label="Cart">
           <ShoppingBag size={20} strokeWidth={2} />
         </Button>
-        <Button className="hidden md:flex rounded-lg py-2.5 px-6 bg-ink-deep text-canvas hover:opacity-90 font-heading font-semibold text-sm">
-          Sign In
-        </Button>
+        <Link href="/login">
+          <Button className="hidden md:flex rounded-lg py-2.5 px-6 bg-ink-deep text-canvas hover:opacity-90 font-heading font-semibold text-sm">
+            Sign In
+          </Button>
+        </Link>
       </div>
     </nav>
   );

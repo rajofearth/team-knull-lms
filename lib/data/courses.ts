@@ -112,7 +112,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m1",
         title: "Module 1 · Getting Started",
-        description: "This introductory module serves as the foundational pillar of your web development journey. We will explore the theoretical underpinnings of the World Wide Web, dissecting the intricate client-server architecture, Domain Name Systems (DNS), and the fundamental protocols that govern internet communication. Following this conceptual grounding, students will engage in practical environment configuration, establishing a robust local development workspace utilizing modern IDEs and essential extensions. Finally, we will delve into the structural semantics of HyperText Markup Language (HTML), examining the critical importance of document flow, accessibility standards, and the anatomical construction of web pages.",
+        description: "The World Wide Web operates on a fundamental client-server architecture. When a user requests a webpage, their browser acts as the client, sending an HTTP request across the internet to a server hosting the site's files. The Domain Name System (DNS) functions as the internet's directory, translating human-readable domain names into IP addresses. At the structural core of these delivered files is HTML (HyperText Markup Language). HTML is not a programming language, but a markup language that utilizes a system of tags to define the semantic structure and content of a document, instructing the browser on how to interpret headings, paragraphs, links, and media elements within the document object model.",
         lessonsCompleted: 5,
         totalLessons: 5,
         lessons: [
@@ -126,7 +126,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m2",
         title: "Module 2 · CSS Fundamentals",
-        description: "Transitioning from structure to presentation, this module provides an exhaustive examination of Cascading Style Sheets (CSS). Students will systematically investigate the CSS object model, beginning with elementary selectors and specificity rules before advancing to the pivotal concept of the CSS Box Model—the geometric foundation of all web layout. The curriculum emphasizes modern, responsive layout paradigms, providing in-depth, practical instruction on both the Flexible Box Module (Flexbox) for one-dimensional alignment and the CSS Grid Layout for complex, two-dimensional architectural design. The module concludes with rigorous training in media queries and responsive design philosophies, ensuring fluid adaptability across disparate device viewports.",
+        description: "While HTML provides the structural skeleton of a web document, Cascading Style Sheets (CSS) dictate its visual presentation. CSS operates on a rule-based system where selectors target specific HTML elements to apply aesthetic properties. Central to CSS layout is the Box Model, a paradigm dictating that every HTML element is encapsulated within a rectangular box comprising content, padding, borders, and margins. Modern web design relies heavily on flexible layout systems; Flexbox provides a one-dimensional layout model ideal for aligning items in rows or columns, whereas CSS Grid offers a two-dimensional system for constructing complex, responsive page architectures that adapt seamlessly to varying viewport dimensions.",
         lessonsCompleted: 6,
         totalLessons: 6,
         lessons: [
@@ -141,7 +141,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m3",
         title: "Module 3 · JavaScript Basics",
-        description: "In this comprehensive module, we transition into the dynamic realm of programmatic logic using JavaScript, the lingua franca of the web. The curriculum begins with a rigorous exploration of core computer science concepts instantiated in JavaScript, including lexical environments, variable declarations, primitive data types, and complex data structures such as arrays and objects. Students will master control flow mechanisms, conditional branching, and iterative loops. The module culminates in the practical application of these concepts via the Document Object Model (DOM) API, teaching students to dynamically manipulate node trees, handle asynchronous user events, and orchestrate interactive, state-driven web experiences.",
+        description: "JavaScript is a high-level, interpreted programming language that introduces dynamic interactivity to otherwise static web documents. It is a multi-paradigm language supporting object-oriented, imperative, and declarative styles. Execution occurs within a lexical environment where variables store data primitives or complex references like arrays and objects. Control flow is managed through conditional statements and iterative loops. Crucially, JavaScript interacts with the browser environment via the Document Object Model (DOM) API, a tree-like representation of the HTML document. By querying and manipulating DOM nodes, JavaScript can dynamically alter content, inject styling, and attach event listeners to asynchronously respond to user inputs.",
         lessonsCompleted: 7,
         totalLessons: 7,
         lessons: [
@@ -157,7 +157,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m4",
         title: "Module 4 · Frontend Frameworks (React)",
-        description: "This module introduces students to the paradigm shift of component-based architecture through the lens of React, an industry-leading JavaScript library. Moving beyond imperative DOM manipulation, we will explore the declarative nature of JSX, virtual DOM reconciliation, and the unidirectional data flow that characterizes robust React applications. Deep dives into state management, component lifecycles, and prop drilling will equip students with the architectural foresight required to build scalable user interfaces. The module extensively covers React Hooks, fundamentally transforming how students conceptualize side effects and local state synchronization in functional components.",
+        description: "As web applications escalate in complexity, imperative DOM manipulation becomes difficult to maintain. React, a declarative JavaScript library, addresses this by introducing a component-based architecture. A React component is a self-contained, reusable piece of the user interface that encapsulates its own structure (written in JSX), styling, and logic. React utilizes a Virtual DOM to optimize rendering; instead of directly manipulating the actual DOM, React calculates the most efficient minimal set of changes required to synchronize the UI with underlying data state. State management and side effects in modern React are handled via Hooks, allowing functional components to maintain internal data across render cycles.",
         lessonsCompleted: 0,
         totalLessons: 5,
         lessons: [
@@ -171,7 +171,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m5",
         title: "Module 5 · Backend & APIs",
-        description: "The final module bridges the gap between client-side interfaces and server-side infrastructure, culminating in full-stack proficiency. Students will begin by dissecting Application Programming Interfaces (APIs), mastering the nuances of HTTP methods, RESTful design principles, and JSON payload structuring. Utilizing Node.js and Express.js, the curriculum guides students through the creation of robust web servers, routing mechanisms, and middleware integration. The course concludes with deployment strategies, teaching students how to containerize, host, and continuously integrate their applications into live production environments, transforming local code into globally accessible web services.",
+        description: "Server-side, or backend, development involves the architecture that operates behind the scenes, securely managing data and serving client requests. Application Programming Interfaces (APIs) act as the intermediary communication layer, utilizing Representational State Transfer (REST) principles and JavaScript Object Notation (JSON) payloads over HTTP. Node.js allows JavaScript to be executed outside the browser via the V8 engine, enabling asynchronous, non-blocking server operations. Express.js, a minimal routing framework for Node, streamlines the creation of endpoints. Ultimately, these server architectures must be containerized and deployed to cloud hosting environments to ensure continuous global availability.",
         lessonsCompleted: 0,
         totalLessons: 5,
         lessons: [
@@ -280,7 +280,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m1",
         title: "Module 1 · Intro to Design",
-        description: "This opening module lays the critical psychological and theoretical groundwork for User Interface (UI) and User Experience (UX) design. We systematically deconstruct the dichotomy and symbiotic relationship between visual aesthetics (UI) and functional usability (UX). Students will be immersed in the rigorous methodology of Design Thinking—a non-linear, iterative process encompassing empathy, definition, ideation, prototyping, and testing. Furthermore, the module delves deeply into visual hierarchy, Gestalt principles, and the imperative nature of digital accessibility (WCAG standards), ensuring that designed products are not only visually compelling but universally inclusive and cognitively frictionless.",
+        description: "User Experience (UX) and User Interface (UI) design are distinctly separate yet deeply interconnected disciplines. UX encompasses the overarching cognitive and emotional journey a user experiences while interacting with a product, prioritizing usability, efficiency, and logical flow. UI, conversely, represents the tangible visual touchpoints—typography, color, and layout—through which that interaction occurs. The foundation of successful UI/UX lies in Design Thinking, an iterative process prioritizing profound user empathy over rigid assumption. By adhering to Gestalt principles of visual perception and strict accessibility guidelines (such as WCAG), designers construct interfaces that naturally guide user attention and ensure equitable access for all demographics.",
         lessonsCompleted: 0,
         totalLessons: 5,
         lessons: [
@@ -294,7 +294,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m2",
         title: "Module 2 · User Research",
-        description: "User research constitutes the empirical backbone of effective product design. This module instructs students in qualitative and quantitative research methodologies essential for uncovering latent user needs and behavioral patterns. We will thoroughly explore the formulation and execution of unbiased user interviews, the synthesis of demographic data into functional user personas, and the strategic mapping of user journeys to identify critical pain points and opportunities. Additionally, students will learn to architect logical information hierarchies (Information Architecture) and conduct rigorous competitive analyses to establish strategic market positioning for their digital products.",
+        description: "Empirical research is the bedrock of objective design decisions, mitigating the inherent biases of the design team. Qualitative research, often conducted via semi-structured user interviews, seeks to understand the 'why' behind user behaviors, uncovering latent motivations and frustrations. This qualitative data is synthesized into User Personas: archetypical representations of core demographic segments that serve to anchor design decisions in human empathy. Subsequent mapping of User Journeys visually articulates the sequential phases a user navigates to achieve a specific goal, highlighting critical friction points. Concurrently, Information Architecture (IA) establishes the ontological structure of the product's content, ensuring intuitive navigability.",
         lessonsCompleted: 0,
         totalLessons: 5,
         lessons: [
@@ -308,7 +308,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m3",
         title: "Module 3 · Figma & Prototyping",
-        description: "Transitioning from theory to applied praxis, this module focuses on mastering industry-standard design tooling, specifically Figma. Students will embark on an exhaustive exploration of vector-based design, manipulating atomic elements, and constructing complex, scalable components utilizing Auto Layout paradigms. The curriculum progresses methodically from low-fidelity structural wireframing to high-fidelity, pixel-perfect visual design, incorporating typography, color theory, and advanced imagery. Ultimately, students will learn to interlink these static frames into dynamic, interactive prototypes, complete with micro-interactions and transitional animations, essential for user testing and stakeholder handoff.",
+        description: "Modern interface design is predominantly executed within vector graphics editors like Figma, which allow for infinite scalability without resolution degradation. The construction of robust interfaces relies on atomic design principles, wherein elemental shapes and typographic rules are combined into complex, reusable Components. Auto Layout systems enforce mathematical consistency in padding and responsive resizing behavior. The design lifecycle transitions from wireframing (low-fidelity structural blueprints) to high-fidelity mockups encompassing definitive branding. Finally, these static frames are connected via prototyping tools to simulate state changes, micro-interactions, and navigational transitions, yielding a testable artifact prior to engineering handoff.",
         lessonsCompleted: 0,
         totalLessons: 5,
         lessons: [
@@ -394,7 +394,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m1",
         title: "Module 1 · Design Basics",
-        description: "This foundational module serves as a rigorous introduction to the formal elements and principles of visual communication. We will academically dissect the core tenets of design—balance, contrast, emphasis, movement, pattern, and rhythm—and their psychological impact on the viewer. Students will explore the fundamental building blocks of art, including lines, shapes, forms, space, and texture. A critical technical distinction will be established between raster (pixel-based) and vector (mathematically-defined) graphics, outlining their respective applications, limitations, and standard file formats. Finally, the module ensures students establish an optimized hardware and software ecosystem for professional graphic production.",
+        description: "Graphic design is the formal arrangement of visual elements to communicate a specific message or evoke a targeted response. The foundational grammar of this visual language consists of the Elements of Art—line, shape, form, space, texture, and color. These elements are orchestrated according to the Principles of Design, which dictate how balance (symmetrical or asymmetrical), contrast, emphasis, and rhythm are deployed to establish visual hierarchy. A fundamental technical distinction in digital design is between raster and vector formats. Raster graphics consist of a fixed grid of colored pixels, resolution-dependent and prone to degradation when scaled, whereas vector graphics are defined by mathematical curves and polygons, allowing infinite, lossless scalability.",
         lessonsCompleted: 0,
         totalLessons: 5,
         lessons: [
@@ -408,7 +408,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m2",
         title: "Module 2 · Color Theory & Typography",
-        description: "This module delves into the profound psychological and structural elements of visual aesthetics: color and typography. We will begin with a comprehensive study of color theory, analyzing the color wheel, chromatic harmonies (analogous, complementary, triadic), and the emotional resonance specific palettes evoke within diverse cultural contexts. Transitioning to typography, the curriculum academically dissects the anatomy of typefaces—examining serifs, x-heights, ascenders, and descenders—as well as the spatial relationships of kerning, leading, and tracking. Students will master the art of typographic hierarchy and font pairing, ensuring optimal legibility and thematic cohesion in their designs.",
+        description: "Color and typography are the primary vehicles for emotional resonance and brand identity in visual communication. Color theory is rooted in the color wheel, utilizing standardized harmonies—such as complementary (opposite), analogous (adjacent), or triadic (evenly spaced)—to construct cohesive palettes. Beyond aesthetics, color psychology dictates that specific hues inherently trigger specific cultural and cognitive associations. Typography, the art of arranging type, is governed by structural anatomy (x-height, ascenders, serifs) and spatial metrics (kerning, leading, tracking). Effective typographic design establishes a clear hierarchy of information through variations in scale, weight, and strategic font pairing, ensuring optimal legibility.",
         lessonsCompleted: 0,
         totalLessons: 5,
         lessons: [
@@ -422,7 +422,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m3",
         title: "Module 3 · Adobe Illustrator Mastery",
-        description: "Focused exclusively on vector-based illustration, this module provides an intensive, masterclass-level exploration of Adobe Illustrator. Students will begin by mastering the workspace topology before advancing to the critical Pen Tool, learning the mathematical precision required to draft Bézier curves and execute complex pathfinder operations. The curriculum emphasizes the construction of complex geometries from primitive shapes using the Shape Builder tool. The module culminates in applied brand identity design, where students will utilize advanced typographic manipulation and vector artistry to synthesize professional, scalable logos and brand marks from conceptual sketches.",
+        description: "Vector illustration relies on the precise manipulation of geometric primitives and complex mathematical paths. At the core of vector drafting is the Bézier curve, manipulated via the Pen Tool to define anchor points and directional handles. Complex forms are rarely drawn freehand; instead, they are constructed through boolean operations—combining, subtracting, or intersecting overlapping shapes using tools like the Shape Builder or Pathfinder. This constructive methodology ensures geometric precision and perfectly smooth contours. In brand identity and logo design, these vector techniques are critical, as the resulting artwork must maintain absolute fidelity whether scaled down to a favicon or enlarged to a billboard.",
         lessonsCompleted: 0,
         totalLessons: 5,
         lessons: [
@@ -436,7 +436,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m4",
         title: "Module 4 · Adobe Photoshop Mastery",
-        description: "This concluding module immerses students in the expansive capabilities of Adobe Photoshop, the industry standard for raster graphic manipulation. The curriculum is meticulously structured around the paradigm of non-destructive editing. Students will gain profound expertise in layer management, complex masking techniques, and the utilization of adjustment layers for tonal and chromatic correction. Advanced instruction will cover sophisticated photo retouching, frequency separation, and complex compositing techniques, enabling the seamless integration of disparate photographic elements into cohesive visual narratives. The module concludes with the practical creation of optimized, high-fidelity assets for digital marketing and social media.",
+        description: "Raster image manipulation requires a pixel-level approach fundamentally different from vector drafting. Professional raster workflows are predicated on non-destructive editing, a paradigm wherein the original image data is never permanently altered. This is achieved through the use of Layers, which stack graphical elements independently, and Layer Masks, which utilize grayscale values to conceal or reveal portions of a layer without deleting pixels. Adjustment Layers apply tonal and chromatic corrections parametrically. Advanced compositing integrates disparate photographic elements by meticulously matching lighting, perspective, and atmospheric perspective, resulting in a cohesive, photorealistic digital synthesis.",
         lessonsCompleted: 0,
         totalLessons: 5,
         lessons: [
@@ -523,7 +523,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m1",
         title: "Module 1 · Foundation",
-        description: "This foundational module establishes the strategic framework necessary for orchestrating successful digital marketing campaigns. We will begin by tracing the historical evolution of marketing paradigms and examining the current landscape of digital channels. A critical focus is placed on the precise articulation of target demographics through the development of granular buyer personas and the psychological mapping of consumer pain points. Students will learn to architect the Customer Value Journey—a multi-stage funnel encompassing brand awareness, active engagement, strategic conversion, and long-term retention. The module concludes with a rigorous analytical focus on Key Performance Indicators (KPIs) and the mathematical calculation of Return on Investment (ROI).",
+        description: "Digital marketing represents a paradigm shift from traditional broadcast advertising to targeted, data-driven consumer engagement. The foundation of any strategic initiative is the precise delineation of the target audience via detailed Buyer Personas. Understanding the psychological pain points of these personas enables marketers to architect the Customer Value Journey, a strategic funnel that systematically transitions a prospect from initial brand awareness through consideration, conversion, and ultimately, brand advocacy. Unlike traditional media, digital channels offer granular measurability. Strategic success is evaluated through Key Performance Indicators (KPIs) such as Customer Acquisition Cost (CAC), Conversion Rate, and the overarching Return on Investment (ROI).",
         lessonsCompleted: 0,
         totalLessons: 4,
         lessons: [
@@ -536,7 +536,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m2",
         title: "Module 2 · SEO & Content Marketing",
-        description: "This module provides a deep, technical dive into Organic Search Engine Optimization (SEO) and the strategic deployment of content marketing. Students will explore the algorithmic mechanics of modern search engines (crawling, indexing, and ranking factors). The curriculum mandates a rigorous approach to keyword research, identifying high-intent, long-tail search queries to drive targeted traffic. Instruction covers both on-page architectural optimization (meta data, semantic HTML, site speed) and off-page authority building (strategic backlink acquisition). Concurrently, students will master the creation of high-value, intent-driven content designed to secure high search engine result page (SERP) positioning and facilitate user conversion.",
+        description: "Search Engine Optimization (SEO) is the technical and semantic methodology of increasing the quantity and quality of organic search traffic. Search engine algorithms utilize automated crawlers to index the web, ranking pages based on complex heuristics of relevance and authority. Relevance is established through On-Page SEO: the strategic inclusion of thoroughly researched keywords within semantic HTML tags, metadata, and high-value written content. Authority is primarily determined by Off-Page SEO, most notably the accumulation of quality backlinks from external domains, functioning as independent votes of confidence. Content marketing aligns with SEO by continuously generating educational or entertaining assets that naturally satisfy user search intent.",
         lessonsCompleted: 0,
         totalLessons: 4,
         lessons: [
@@ -549,7 +549,7 @@ export const courses: Record<string, CourseData> = {
       {
         id: "m3",
         title: "Module 3 · Paid Ads & Social Media",
-        description: "The final module equips students with the tactical skills required to execute high-impact paid advertising and organic social media strategies. Students will learn to construct comprehensive content calendars tailored to the specific algorithms and user demographics of various social platforms. The curriculum includes intensive, hands-on training within the Meta Business Manager, instructing students on the deployment of highly targeted Facebook and Instagram advertising campaigns. We will also explore the complexities of Google Ads, encompassing Search, Display, and Performance Max networks. Finally, the module covers the structural fundamentals of automated email marketing sequences, focusing on lead nurturing and maximizing customer lifetime value.",
+        description: "While organic strategies build long-term equity, Paid Advertising (PPC) and Social Media marketing provide immediate, targeted amplification. Programmatic advertising platforms, such as Meta Ads and Google Ads, operate on complex bidding algorithms. Google Search Ads capture high-intent users actively querying specific terms, whereas Meta Ads leverage vast psychographic and demographic databases for push-based discovery advertising. Success in paid channels requires rigorous A/B testing of ad creative and copywriting. Concurrently, Email Marketing remains a highly potent channel for lifecycle marketing, utilizing automated, trigger-based sequences to nurture leads, recover abandoned carts, and maximize Customer Lifetime Value (CLV).",
         lessonsCompleted: 0,
         totalLessons: 4,
         lessons: [
