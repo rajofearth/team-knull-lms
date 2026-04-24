@@ -25,23 +25,28 @@ const features = [
 
 export function FeaturesBar() {
   return (
-    <section className="border-y border-border bg-surface py-8">
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-8 px-6 sm:grid-cols-2 lg:grid-cols-4">
-        {features.map((f) => {
+    <section className="bg-surface-dim border-y border-border py-12 px-6 md:px-20 overflow-x-auto no-scrollbar">
+      <div className="mx-auto max-w-[1280px] flex items-center justify-between min-w-[1000px]">
+        {features.map((f, i) => {
           const Icon = f.icon;
           return (
-            <div key={f.title} className="flex items-start gap-3.5">
-              <div className="mt-0.5 shrink-0">
-                <Icon className="size-[22px] text-ink" strokeWidth={1.5} />
+            <div key={f.title} className="flex items-center gap-8 grow shrink basis-0">
+              <div className="flex items-start gap-5">
+                <div className="flex items-center justify-center rounded-xl bg-canvas shadow-subtle shrink-0 size-12">
+                  <Icon className="size-6 text-ink" strokeWidth={2} />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <h3 className="text-ink font-heading font-bold text-base m-0 leading-tight">
+                    {f.title}
+                  </h3>
+                  <p className="text-xs leading-relaxed text-text-description font-heading m-0 max-w-[180px]">
+                    {f.desc}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="mb-1 text-sm font-bold text-ink">
-                  {f.title}
-                </p>
-                <p className="text-[13px] leading-normal text-text-secondary">
-                  {f.desc}
-                </p>
-              </div>
+              {i < features.length - 1 && (
+                <div className="w-px h-16 bg-border shrink-0 ml-auto" />
+              )}
             </div>
           );
         })}

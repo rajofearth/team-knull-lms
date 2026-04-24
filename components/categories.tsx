@@ -4,7 +4,7 @@ import {
   Megaphone,
   Briefcase,
   Camera,
-  TrendingUp,
+  User,
   ArrowRight,
 } from "lucide-react";
 
@@ -12,52 +12,49 @@ const categories = [
   { id: "development", icon: Code2, label: "Development", count: 32 },
   { id: "design", icon: Paintbrush, label: "Design", count: 21 },
   { id: "marketing", icon: Megaphone, label: "Marketing", count: 18 },
-  { id: "business", icon: Briefcase, label: "Business", count: 16 },
+  { id: "business", icon: Briefcase, label: "Business", count: 15 },
   { id: "photography", icon: Camera, label: "Photography", count: 12 },
-  { id: "personal-growth", icon: TrendingUp, label: "Personal Growth", count: 14 },
+  { id: "personal-growth", icon: User, label: "Personal Growth", count: 14 },
 ];
 
 export function Categories() {
   return (
-    <section className="border-t border-border bg-canvas py-16">
-      <div className="mx-auto max-w-[1200px] px-6">
+    <section className="bg-canvas py-12 md:py-20 px-6 md:px-20 border-t border-border">
+      <div className="mx-auto max-w-[1280px]">
         {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-ink">
+        <div className="flex justify-between items-center mb-10">
+          <h2 className="text-ink font-heading font-bold text-[32px] leading-tight m-0">
             Browse by Categories
           </h2>
-          <a
-            href="#"
-            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-deep hover:opacity-80"
-          >
-            View All Categories
-            <ArrowRight className="size-3.5" strokeWidth={2.5} />
-          </a>
+          <div className="flex items-center gap-2 group cursor-pointer">
+            <span className="text-text-muted group-hover:text-ink font-heading font-semibold text-sm transition-colors">
+              View All Categories
+            </span>
+            <ArrowRight className="size-4 text-text-muted group-hover:text-ink transition-colors" strokeWidth={2} />
+          </div>
         </div>
 
-        {/* Category Cards */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+        {/* Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
-              <a
-                key={cat.id}
-                href="#"
-                id={`category-${cat.id}`}
-                className="group flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-canvas px-4 py-5 text-center transition-all duration-200 hover:border-ink hover:bg-surface"
+              <div 
+                key={cat.id} 
+                className="flex flex-col items-center justify-center p-8 rounded-2xl bg-surface-dim border border-transparent transition-all duration-300 hover:bg-canvas hover:border-border hover:shadow-card cursor-pointer group"
               >
-                <div className="flex size-10 items-center justify-center rounded-md border border-border-subtle bg-surface transition-colors group-hover:border-border">
-                  <Icon className="size-[18px] text-ink-secondary" strokeWidth={1.5} />
+                <div className="flex items-center justify-center rounded-xl bg-canvas shadow-subtle shrink-0 size-12 mb-4 group-hover:shadow-md transition-shadow">
+                  <Icon className="size-6 text-ink" strokeWidth={2} />
                 </div>
-                <div>
-                  <p className="mb-0.5 text-[13px] font-bold text-ink">
+                <div className="text-center">
+                  <h3 className="text-ink font-heading font-bold text-base m-0 leading-tight">
                     {cat.label}
-                  </p>
-                  <p className="text-[11px] text-text-muted">
+                  </h3>
+                  <p className="mt-1 text-text-muted font-heading text-xs m-0">
                     {cat.count} Courses
                   </p>
                 </div>
-              </a>
+              </div>
             );
           })}
         </div>
@@ -65,3 +62,4 @@ export function Categories() {
     </section>
   );
 }
+

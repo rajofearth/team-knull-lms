@@ -1,65 +1,59 @@
 "use client";
 
 import { useState } from "react";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { Star, Quote } from "lucide-react";
+import Image from "next/image";
 
 const testimonials = [
   [
     {
       id: "t1",
-      quote:
-        "Team Knull's LMS helped me go from beginner to freelance developer. The courses are practical and well-structured.",
+      quote: "Team Knull's LMS helped me go from beginner to freelance developer. The courses are practical and well-structured.",
       name: "Rohit Sharma",
       role: "Freelance Developer",
-      initials: "RS",
+      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/5GTC3F374F4BEQGPRE362DETJ5.jpg",
       stars: 5,
     },
     {
       id: "t2",
-      quote:
-        "The UI/UX Design course was a game changer for my career. The certificate helped me land a great job!",
+      quote: "The UI/UX Design course was a game changer for my career. The certificate helped me land a great job!",
       name: "Ananya Verma",
       role: "UI/UX Designer",
-      initials: "AV",
+      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/60HFB93Q7QA9YWHMTYQ521ZPQ5.jpg",
       stars: 5,
     },
     {
       id: "t3",
-      quote:
-        "I love how I can learn at my own pace and revisit lessons anytime. Highly recommend Team Knull!",
+      quote: "I love how I can learn at my own pace and revisit lessons anytime. Highly recommend Team Knull!",
       name: "Karan Mehta",
       role: "Digital Marketer",
-      initials: "KM",
+      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/2H99XH9HBYZWC3JMJ33G6YC1W0.jpg",
       stars: 5,
     },
   ],
   [
     {
       id: "t4",
-      quote:
-        "The instructors are top-notch and the content is always up to date. Best LMS platform I've used.",
+      quote: "The instructors are top-notch and the content is always up to date. Best LMS platform I've used.",
       name: "Priya Singh",
       role: "Product Manager",
-      initials: "PS",
+      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/5GTC3F374F4BEQGPRE362DETJ5.jpg",
       stars: 5,
     },
     {
       id: "t5",
-      quote:
-        "Earned my certificate in just 3 weeks. The structured curriculum made all the difference.",
+      quote: "Earned my certificate in just 3 weeks. The structured curriculum made all the difference.",
       name: "Amit Patel",
       role: "Software Engineer",
-      initials: "AP",
+      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/60HFB93Q7QA9YWHMTYQ521ZPQ5.jpg",
       stars: 5,
     },
     {
       id: "t6",
-      quote:
-        "Excellent platform with a clean interface. My team has been using it for internal training.",
+      quote: "Excellent platform with a clean interface. My team has been using it for internal training.",
       name: "Neha Gupta",
       role: "HR Manager",
-      initials: "NG",
+      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/2H99XH9HBYZWC3JMJ33G6YC1W0.jpg",
       stars: 5,
     },
   ],
@@ -70,82 +64,63 @@ export function Testimonials() {
   const current = testimonials[page];
 
   return (
-    <section className="border-t border-border bg-canvas py-[72px]">
-      <div className="mx-auto max-w-[1200px] px-6">
-        <h2 className="mb-12 text-center text-2xl font-bold text-ink">
+    <section className="bg-canvas py-12 md:py-20 px-6 md:px-20 border-t border-border">
+      <div className="mx-auto max-w-[1280px]">
+        <h2 className="text-center text-ink font-heading font-bold text-[32px] leading-tight mb-12">
           What Our Learners Say
         </h2>
 
-        {/* Cards */}
-        <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {current.map((t) => (
-            <Card
-              key={t.id}
-              className="rounded-2xl border-border bg-canvas p-6 shadow-subtle"
+            <div 
+              key={t.id} 
+              className="flex flex-col rounded-[20px] gap-6 bg-canvas border border-border p-8 shadow-subtle hover:shadow-card transition-shadow"
             >
-              {/* Quote mark */}
-              <div className="mb-3 font-serif text-[32px] leading-none text-border-dark">
-                &ldquo;&ldquo;
-              </div>
-              <p className="mb-5 text-sm leading-[1.65] text-text-secondary">
-                {t.quote}
+              <Quote size={32} className="text-text-muted opacity-10 shrink-0" fill="currentColor" />
+              <p className="text-sm leading-relaxed text-[#333333] font-heading m-0">
+                &quot;{t.quote}&quot;
               </p>
-              {/* Avatar & name */}
-              <div className="mb-2.5 flex items-center gap-2.5">
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-[11px] font-bold text-ink">
-                  {t.initials}
+              <div className="flex items-center gap-3">
+                <div className="size-12 rounded-full overflow-hidden bg-surface-dim shrink-0">
+                   <Image
+                    src={t.image}
+                    alt={t.name}
+                    width={48}
+                    height={48}
+                    className="object-cover size-full"
+                  />
                 </div>
                 <div>
-                  <p className="text-[13px] font-bold text-ink">
+                  <h4 className="text-ink font-heading font-bold text-sm m-0 leading-tight">
                     {t.name}
+                  </h4>
+                  <p className="mt-0.5 text-text-muted font-heading text-xs m-0">
+                    {t.role}
                   </p>
-                  <p className="text-[11px] text-text-muted">{t.role}</p>
                 </div>
               </div>
-              {/* Stars */}
-              <div className="flex gap-0.5">
+              <div className="flex gap-1 mt-auto">
                 {Array.from({ length: t.stars }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="size-3 fill-amber-500 text-amber-500"
-                    strokeWidth={0}
-                  />
+                  <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
                 ))}
               </div>
-            </Card>
+            </div>
           ))}
         </div>
 
         {/* Pagination Dots */}
-        <div className="flex items-center justify-center gap-2">
-          <button
-            aria-label="Previous"
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
-            className="flex cursor-pointer items-center disabled:cursor-not-allowed disabled:opacity-30"
-            disabled={page === 0}
-          >
-            <ChevronLeft className="size-4 text-ink" />
-          </button>
+        <div className="flex justify-center gap-2">
           {testimonials.map((_, i) => (
             <button
               key={i}
-              aria-label={`Page ${i + 1}`}
               onClick={() => setPage(i)}
-              className={`h-2 cursor-pointer rounded-full p-0 transition-all duration-200 ${
-                i === page ? "w-5 bg-ink" : "w-2 bg-border-dark"
+              className={`size-2 rounded-full transition-all duration-300 ${
+                i === page ? "bg-ink w-6" : "bg-border hover:bg-text-muted"
               }`}
+              aria-label={`Go to page ${i + 1}`}
             />
           ))}
-          <button
-            aria-label="Next"
-            onClick={() =>
-              setPage((p) => Math.min(testimonials.length - 1, p + 1))
-            }
-            className="flex cursor-pointer items-center disabled:cursor-not-allowed disabled:opacity-30"
-            disabled={page === testimonials.length - 1}
-          >
-            <ChevronRight className="size-4 text-ink" />
-          </button>
         </div>
       </div>
     </section>
