@@ -41,6 +41,7 @@ export interface Instructor {
   avatar: string;
   bio: string;
   stats: {
+    yearsExperience?: string;
     students: string;
     courses: number;
     rating: number;
@@ -51,6 +52,7 @@ export interface Instructor {
     thumbnail: string;
     price: number;
     rating: number;
+    studentsCount?: string;
   }[];
 }
 
@@ -58,6 +60,8 @@ export interface Overview {
   whatYouWillLearn: string[];
   requirements: string[];
   detailedDescription: string;
+  features?: { title: string; description: string; icon: string }[];
+  whoThisCourseIsFor?: { title: string; description: string; icon: string }[];
   syllabus: string[];
   applications: string[];
 }
@@ -185,52 +189,51 @@ export const courses: Record<string, CourseData> = {
     ],
     overview: {
       whatYouWillLearn: [
-        "Build 16 web development projects for your portfolio, ready to apply for junior developer jobs.",
-        "Learn the latest technologies, including JavaScript, React, Node and even Web3 development.",
-        "After the course you will be able to build ANY website you want.",
-        "Build fully-fledged websites and web apps for your startup or business.",
-        "Master frontend development with React.",
-        "Learn backend development with Node.js.",
+        "Build semantic HTML pages and understand web structure",
+        "Style websites with modern CSS, including Flexbox and Grid",
+        "Add interactivity with JavaScript and DOM manipulation",
+        "Create responsive designs for all device sizes",
+        "Work with forms, validations, and user input",
+        "Deploy your projects and build a developer portfolio",
       ],
       requirements: [
-        "No prior coding experience is required - we'll start from the absolute basics.",
-        "A computer (Windows, Mac, or Linux) with internet access.",
-        "All software used in this course is free to download and install.",
+        "No prior programming experience required",
+        "A computer with internet access",
+        "Basic computer skills",
+        "Enthusiasm to learn and build projects",
       ],
-      detailedDescription: "This is the most comprehensive web development course available online. We'll take you from absolute beginner to a job-ready fullstack developer. You'll learn HTML, CSS, JavaScript, React, Node.js, and much more. This course is taught by industry experts who have years of experience building real-world applications.",
-      syllabus: [
-        "Introduction to Web Development",
-        "HTML5 & Semantic Markup",
-        "CSS3 Fundamentals & Advanced Layouts",
-        "Modern JavaScript (ES6+)",
-        "React.js & Frontend Frameworks",
-        "Node.js & Backend Development",
-        "Database Integration with MongoDB",
-        "Deployment & DevOps Basics",
+      detailedDescription: "This comprehensive Web Development Bootcamp is designed to take you from a complete beginner to a confident web developer. You'll learn the core technologies of the web — HTML, CSS, and JavaScript — and build real-world projects that you can add to your portfolio.\n\nBy the end of this course, you'll be able to build responsive websites, create interactive web applications, and understand modern development tools and workflows.",
+      features: [
+        { title: "Hands-on Projects", description: "Build 5 real-world projects for your portfolio", icon: "briefcase" },
+        { title: "Beginner Friendly", description: "No prior coding experience required", icon: "users" },
+        { title: "Lifetime Access", description: "Learn at your own pace, anytime", icon: "clock" },
+        { title: "Certificate of Completion", description: "Earn a certificate to showcase your skills", icon: "award" },
       ],
-      applications: [
-        "E-commerce Platforms",
-        "Social Media Dashboards",
-        "Personal Portfolios",
-        "Corporate Websites",
-        "SaaS Applications",
+      whoThisCourseIsFor: [
+        { title: "Aspiring Developers", description: "Start your journey in web development", icon: "code" },
+        { title: "Career Changers", description: "Switch careers and build in-demand skills", icon: "refresh-cw" },
+        { title: "Students & Hobbyists", description: "Build projects and bring your ideas to life", icon: "laptop" },
       ],
+      syllabus: [],
+      applications: [],
     },
     instructors: [
       {
         id: "inst-1",
-        name: "Dr. Angela Yu",
-        role: "Lead Instructor",
+        name: "John Smith",
+        role: "Senior Web Developer & Instructor",
         avatar: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/93P39XQ7T5T6X7YR0XTTDXRA9J.jpg",
-        bio: "Angela is a developer and a teacher. She is the founder of the London App Brewery, London's leading programming bootcamp. She has helped hundreds of thousands of students learn to code and change their lives by becoming a developer.",
+        bio: "John is a passionate web developer and educator with over 8 years of experience building modern web applications. He has helped thousands of students learn coding and start their careers in tech.\n\nHis teaching style focuses on practical learning, real-world projects, and making complex topics simple and enjoyable.",
         stats: {
-          students: "1.2M+",
-          courses: 7,
+          yearsExperience: "8+",
+          students: "50,000+",
+          courses: 25,
           rating: 4.8,
         },
         coursesOnPlatform: [
-          { id: "ios-dev", title: "Complete iOS Development Bootcamp", thumbnail: "https://example.com/ios.jpg", price: 59, rating: 4.9 },
-          { id: "python-pro", title: "100 Days of Code: The Complete Python Pro Bootcamp", thumbnail: "https://example.com/python.jpg", price: 49, rating: 4.8 },
+          { id: "js-fundamentals", title: "JavaScript Fundamentals", thumbnail: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/57D02ZX8T4T6X7YR0XTTDXRA9J.jpg", price: 29, rating: 4.8, studentsCount: "12,430" },
+          { id: "react-guide", title: "React.js - Complete Guide", thumbnail: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/57D02ZX8T4T6X7YR0XTTDXRA9J.jpg", price: 49, rating: 4.7, studentsCount: "8,920" },
+          { id: "node-express", title: "Node.js & Express - Bootcamp", thumbnail: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/57D02ZX8T4T6X7YR0XTTDXRA9J.jpg", price: 39, rating: 4.8, studentsCount: "6,750" },
         ],
       },
       {

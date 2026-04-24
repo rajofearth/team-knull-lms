@@ -1,94 +1,102 @@
 "use client";
 
 import React from "react";
-import { CheckCircle2, BookOpen, ClipboardList, ListChecks, Briefcase } from "lucide-react";
+import { CheckCircle2, Briefcase, Users, Clock, Award, Code, RefreshCw, Laptop } from "lucide-react";
 import { Overview } from "@/lib/data/courses";
 
 interface CourseOverviewProps {
   overview: Overview;
 }
 
+const iconMap: Record<string, any> = {
+  briefcase: Briefcase,
+  users: Users,
+  clock: Clock,
+  award: Award,
+  code: Code,
+  "refresh-cw": RefreshCw,
+  laptop: Laptop,
+};
+
 export function CourseOverview({ overview }: CourseOverviewProps) {
   return (
-    <div className="flex flex-col gap-10 max-w-4xl">
-      {/* What you'll learn */}
-      <section>
-        <div className="flex items-center gap-3 mb-6">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-ink-deep/5 text-ink-deep">
-            <BookOpen className="w-5 h-5" />
-          </div>
-          <h2 className="text-xl font-heading font-bold text-ink">What you'll learn</h2>
+    <div className="flex flex-col gap-16 w-full max-w-[1280px]">
+      {/* About This Course */}
+      <section className="flex flex-col lg:flex-row gap-12 items-start">
+        <div className="flex flex-col gap-6 lg:w-[60%]">
+          <h2 className="text-2xl font-heading font-bold text-ink m-0">About This Course</h2>
+          <p className="text-sm text-text-description leading-relaxed font-sans m-0 whitespace-pre-line max-w-2xl">
+            {overview.detailedDescription}
+          </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-          {overview.whatYouWillLearn.map((item, index) => (
-            <div key={index} className="flex gap-3">
-              <CheckCircle2 className="w-5 h-5 text-success shrink-0 mt-0.5" />
-              <p className="text-sm text-text-secondary leading-relaxed font-sans">{item}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Syllabus */}
-      <section>
-        <div className="flex items-center gap-3 mb-6">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-ink-deep/5 text-ink-deep">
-            <ClipboardList className="w-5 h-5" />
-          </div>
-          <h2 className="text-xl font-heading font-bold text-ink">Course Syllabus</h2>
-        </div>
-        <div className="flex flex-col gap-3">
-          {overview.syllabus.map((item, index) => (
-            <div key={index} className="flex items-center gap-3 p-4 rounded-xl border border-border bg-canvas/50">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-ink/5 text-xs font-bold text-ink-secondary">
-                {index + 1}
+        
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10 lg:w-[40%] bg-muted/30 p-8 rounded-2xl border border-border/50">
+          {overview.features?.map((feature, index) => {
+            const Icon = iconMap[feature.icon] || Briefcase;
+            return (
+              <div key={index} className="flex gap-4">
+                <div className="size-10 shrink-0 rounded-xl bg-canvas border border-border flex items-center justify-center text-ink shadow-subtle">
+                  <Icon className="size-5" />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-sm font-sans font-bold text-ink m-0">{feature.title}</h3>
+                  <p className="text-xs text-text-muted font-sans m-0 leading-tight">{feature.description}</p>
+                </div>
               </div>
-              <p className="text-sm font-medium text-ink font-sans">{item}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* Requirements */}
-      <section>
-        <div className="flex items-center gap-3 mb-6">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-ink-deep/5 text-ink-deep">
-            <ListChecks className="w-5 h-5" />
+      {/* What You'll Learn & Requirements */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        {/* What You'll Learn */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-2xl font-heading font-bold text-ink m-0">What You'll Learn</h2>
+          <div className="flex flex-col gap-4">
+            {overview.whatYouWillLearn.map((item, index) => (
+              <div key={index} className="flex gap-3 items-start">
+                <CheckCircle2 className="size-5 text-success shrink-0 mt-0.5" />
+                <p className="text-sm text-text-description leading-relaxed font-sans m-0">{item}</p>
+              </div>
+            ))}
           </div>
-          <h2 className="text-xl font-heading font-bold text-ink">Requirements</h2>
-        </div>
-        <ul className="list-disc list-inside flex flex-col gap-3 ml-2">
-          {overview.requirements.map((item, index) => (
-            <li key={index} className="text-sm text-text-secondary leading-relaxed font-sans">
-              <span className="ml-2">{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+        </section>
 
-      {/* Applications */}
-      <section>
-        <div className="flex items-center gap-3 mb-6">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-ink-deep/5 text-ink-deep">
-            <Briefcase className="w-5 h-5" />
-          </div>
-          <h2 className="text-xl font-heading font-bold text-ink">Real-world Applications</h2>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          {overview.applications.map((item, index) => (
-            <div key={index} className="px-4 py-2 rounded-full bg-ink/5 border border-border text-sm font-medium text-ink-secondary font-sans">
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* Requirements */}
+        <section className="flex flex-col gap-6">
+          <h2 className="text-2xl font-heading font-bold text-ink m-0">Requirements</h2>
+          <ul className="flex flex-col gap-4 m-0 p-0 list-none">
+            {overview.requirements.map((item, index) => (
+              <li key={index} className="flex gap-3 items-center">
+                <div className="size-1.5 rounded-full bg-ink shrink-0" />
+                <span className="text-sm text-text-description font-sans">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
 
-      {/* Description */}
-      <section>
-        <h2 className="text-xl font-heading font-bold text-ink mb-4">Description</h2>
-        <p className="text-sm text-text-secondary leading-relaxed font-sans whitespace-pre-line">
-          {overview.detailedDescription}
-        </p>
+      {/* Who This Course Is For */}
+      <section className="flex flex-col gap-8">
+        <h2 className="text-2xl font-heading font-bold text-ink m-0">Who This Course Is For</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {overview.whoThisCourseIsFor?.map((item, index) => {
+            const Icon = iconMap[item.icon] || Code;
+            return (
+              <div key={index} className="flex flex-col gap-4 p-8 rounded-2xl border border-border bg-canvas hover:shadow-card transition-all group">
+                <div className="size-12 rounded-xl bg-muted flex items-center justify-center text-ink-secondary group-hover:bg-ink-deep group-hover:text-canvas transition-colors">
+                  <Icon className="size-6" />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-base font-sans font-bold text-ink m-0">{item.title}</h3>
+                  <p className="text-sm text-text-muted font-sans m-0 leading-relaxed">{item.description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
     </div>
   );

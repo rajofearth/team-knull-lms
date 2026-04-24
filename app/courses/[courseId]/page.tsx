@@ -148,13 +148,13 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
           )}
 
           {activeTab === "overview" && (
-            <div className="w-full flex justify-center">
+            <div className="w-full">
               <CourseOverview overview={courseData.overview} />
             </div>
           )}
 
           {activeTab === "instructor" && (
-            <div className="w-full flex justify-center">
+            <div className="w-full">
               <CourseInstructor instructors={courseData.instructors} />
             </div>
           )}
@@ -162,6 +162,12 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
           {activeTab === "reviews" && (
             <div className="w-full flex flex-col items-center justify-center py-20 text-text-muted font-sans italic">
               Reviews content coming soon...
+            </div>
+          )}
+
+          {activeTab === "qa" && (
+            <div className="w-full flex flex-col items-center justify-center py-20 text-text-muted font-sans italic">
+              Q&A content coming soon...
             </div>
           )}
         </div>

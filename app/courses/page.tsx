@@ -53,11 +53,11 @@ export default function CoursesPage() {
       else counts.durations["15+ Hours"]++;
 
       // Rating
-      const rating = Math.floor(course.rating);
+      const rating = course.rating;
       if (rating >= 5) counts.ratings[5]++;
-      else if (rating >= 4) counts.ratings[4]++;
-      else if (rating >= 3) counts.ratings[3]++;
-      else if (rating >= 2) counts.ratings[2]++;
+      if (rating >= 4) counts.ratings[4]++;
+      if (rating >= 3) counts.ratings[3]++;
+      if (rating >= 2) counts.ratings[2]++;
     });
 
     return counts;

@@ -12,7 +12,8 @@ export function CourseTabs({ activeTab, onTabChange }: CourseTabsProps) {
     { id: "overview", label: "Overview" },
     { id: "curriculum", label: "Curriculum" },
     { id: "instructor", label: "Instructor" },
-    { id: "reviews", label: "Reviews" },
+    { id: "reviews", label: "Reviews (892)" },
+    { id: "qa", label: "Q&A" },
   ];
 
   return (
