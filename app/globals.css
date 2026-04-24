@@ -15,7 +15,7 @@
   --color-background: var(--color-canvas);
   --color-foreground: var(--color-ink);
   
-  --color-card: var(--color-canvas);
+  --color-card: var(--color-surface);
   --color-card-foreground: var(--color-ink);
   
   --color-popover: var(--color-canvas);
@@ -43,7 +43,6 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
-  --radius-xl: 16px; /* Added for shadcn compatibility if it uses rounded-xl */
 
   /* Shadows */
   --shadow-subtle: 0px 2px 8px rgba(0, 0, 0, 0.04);

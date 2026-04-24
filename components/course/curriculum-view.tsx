@@ -1,4 +1,4 @@
-import { Play, Settings, Download, FileText, FileArchive } from "lucide-react";
+import { Play, Settings, Download, FileText, FileArchive, ArrowLeft, ArrowRight, ArrowDownToLine } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 
@@ -42,8 +42,8 @@ export function CurriculumView({ enrolled, isOverview }: CurriculumViewProps) {
             </div>
           ) : (
             <div className="flex flex-col gap-4">
-              <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
-                <AccordionItem value="item-1" className="mb-4 rounded-xl border border-border bg-background px-5">
+              <Accordion type="single" collapsible defaultValue="item-1" className="w-full rounded-lg border border-border bg-background shadow-none">
+                <AccordionItem value="item-1" className="px-5">
                   <AccordionTrigger className="py-4 text-sm font-bold text-foreground hover:no-underline">
                     <div className="flex flex-1 w-full items-center justify-between pr-2 gap-4">
                       <span className="text-left line-clamp-1">Module 1 - Getting Started</span>
@@ -61,7 +61,7 @@ export function CurriculumView({ enrolled, isOverview }: CurriculumViewProps) {
                       ].map((lesson, i) => (
                         <div key={i} className="flex cursor-pointer items-center justify-between transition-opacity hover:opacity-100 group">
                           <div className="flex items-center gap-3 overflow-hidden">
-                            <div className="flex shrink-0 size-4 items-center justify-center rounded-full border border-success bg-success/10 text-success">
+                            <div className="flex shrink-0 size-4 items-center justify-center rounded-full border border-success text-success">
                               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                             <span className={`text-xs truncate transition-colors ${lesson.active ? 'font-bold text-foreground' : 'font-medium text-muted-foreground group-hover:text-foreground'}`}>
@@ -81,10 +81,10 @@ export function CurriculumView({ enrolled, isOverview }: CurriculumViewProps) {
                   { mod: "Projects", num: "0 / 5" }, 
                   { mod: "Advanced Topics", num: "0 / 5" }
                 ].map((item, i) => (
-                  <AccordionItem key={i} value={`item-${i+2}`} className="mb-4 rounded-xl border border-border bg-background px-5">
+                  <AccordionItem key={i} value={`item-${i+2}`} className="px-5">
                     <AccordionTrigger className="py-4 text-sm font-bold text-foreground hover:no-underline">
                       <div className="flex flex-1 w-full items-center justify-between pr-2 gap-4">
-                        <span className="text-left line-clamp-1">Module {i+2} - {item.mod}</span>
+                        <span className="text-left">{item.mod}</span>
                         <span className="shrink-0 font-normal text-muted-foreground text-xs">{item.num}</span>
                       </div>
                     </AccordionTrigger>
@@ -101,23 +101,42 @@ export function CurriculumView({ enrolled, isOverview }: CurriculumViewProps) {
         {/* Sub-Right: Video Player */}
         <div>
           <div className="relative mb-8 flex aspect-video w-full flex-col overflow-hidden rounded-xl bg-foreground shadow-lg border border-border">
-            {/* Center Play Button Overlay */}
-            <div className="absolute inset-0 flex items-center justify-center bg-foreground/20 group cursor-pointer hover:bg-foreground/40 transition-colors z-10">
-              <div className="flex size-16 items-center justify-center rounded-full bg-background/90 text-foreground shadow-lg backdrop-blur-sm group-hover:scale-110 transition-transform">
-                <Play className="size-6 fill-foreground ml-1" />
+            <div className="relative flex-1 w-full h-full bg-[#1e1e1e] p-6 text-sm font-mono overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-10 bg-[#252526] flex items-center px-4 gap-2">
+                <div className="flex items-center gap-2 bg-[#1e1e1e] px-3 py-1.5 rounded-t text-xs text-[#9cdcfe]">
+                  <span className="text-[#569cd6]">#</span> index.html <span className="text-muted-foreground ml-2">x</span>
+                </div>
               </div>
-            </div>
-
-            {/* Video Placeholder Area */}
-            <div className="relative flex-1 w-full h-full">
-              {/* This space would normally contain the <video> element */}
+              <div className="mt-6 flex text-xs">
+                <div className="text-[#858585] text-right pr-4 select-none flex flex-col gap-1">
+                  1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16
+                </div>
+                <div className="text-[#d4d4d4] flex flex-col gap-1">
+                  <div><span className="text-[#808080]">&lt;!DOCTYPE html&gt;</span></div>
+                  <div><span className="text-[#569cd6]">&lt;html</span> <span className="text-[#9cdcfe]">lang</span>=<span className="text-[#ce9178]">"en"</span><span className="text-[#569cd6]">&gt;</span></div>
+                  <div>&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;head&gt;</span></div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;meta</span> <span className="text-[#9cdcfe]">charset</span>=<span className="text-[#ce9178]">"UTF-8"</span> <span className="text-[#569cd6]">/&gt;</span></div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;meta</span> <span className="text-[#9cdcfe]">name</span>=<span className="text-[#ce9178]">"viewport"</span> <span className="text-[#9cdcfe]">content</span>=<span className="text-[#ce9178]">"width=device-width, initial-scale=1.0"</span> <span className="text-[#569cd6]">/&gt;</span></div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;title&gt;</span>My Website<span className="text-[#569cd6]">&lt;/title&gt;</span></div>
+                  <div>&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;/head&gt;</span></div>
+                  <div>&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;body&gt;</span></div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;header&gt;</span></div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;h1&gt;</span>Welcome to Web Development<span className="text-[#569cd6]">&lt;/h1&gt;</span></div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;/header&gt;</span></div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;main&gt;</span></div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;p&gt;</span>Building awesome websites, one line of code at a time.<span className="text-[#569cd6]">&lt;/p&gt;</span></div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;/main&gt;</span></div>
+                  <div>&nbsp;&nbsp;<span className="text-[#569cd6]">&lt;/body&gt;</span></div>
+                  <div><span className="text-[#569cd6]">&lt;/html&gt;</span></div>
+                </div>
+              </div>
             </div>
 
             {/* Video Controls Footer */}
             <div className="relative z-20 flex items-center justify-between px-5 py-4 text-background border-t border-background/20">
               {/* Playback progress bar */}
               <div className="absolute top-0 left-0 w-full h-1 bg-background/20 -translate-y-full cursor-pointer hover:h-1.5 transition-all">
-                <div className="h-full w-[50%] bg-success" />
+                <div className="h-full w-[50%] bg-background" />
               </div>
 
               <div className="flex items-center gap-5">
@@ -142,13 +161,13 @@ export function CurriculumView({ enrolled, isOverview }: CurriculumViewProps) {
               <p className="mb-8 text-sm leading-relaxed text-muted-foreground">Learn about common HTML elements and how to structure a basic webpage.</p>
               
               <div className="flex items-center gap-4">
-                <Button variant="outline" className="h-11 rounded-lg px-5 text-sm font-semibold border-border bg-background">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2"><path d="m15 18-6-6 6-6"/></svg>
+                <Button variant="outline" className="h-11 rounded-md px-5 text-sm font-semibold border-border bg-background">
+                  <ArrowLeft className="mr-2 size-4" />
                   Previous Lesson
                 </Button>
-                <Button className="h-11 rounded-lg bg-foreground px-5 text-sm font-semibold text-background hover:bg-foreground/90">
+                <Button className="h-11 rounded-md bg-foreground px-5 text-sm font-semibold text-background hover:bg-foreground/90">
                   Next Lesson
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2"><path d="m9 18 6-6-6-6"/></svg>
+                  <ArrowRight className="ml-2 size-4" />
                 </Button>
               </div>
             </div>
@@ -197,7 +216,7 @@ export function CurriculumView({ enrolled, isOverview }: CurriculumViewProps) {
                       <p className="text-xs text-muted-foreground mt-0.5">{res.format}</p>
                     </div>
                   </div>
-                  <Download className="size-4 text-muted-foreground transition-colors group-hover:text-foreground" strokeWidth={2} />
+                  <ArrowDownToLine className="size-4 text-muted-foreground transition-colors group-hover:text-foreground" strokeWidth={2} />
                 </div>
               ))}
             </div>

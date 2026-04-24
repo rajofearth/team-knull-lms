@@ -87,7 +87,7 @@ export function Testimonials() {
               <div className="mb-3 font-serif text-[32px] leading-none text-border">
                 &ldquo;&ldquo;
               </div>
-              <p className="mb-5 text-sm leading-[1.65] text-[#374151]">
+              <p className="mb-5 text-sm leading-[1.65] text-muted-foreground">
                 {t.quote}
               </p>
               {/* Avatar & name */}

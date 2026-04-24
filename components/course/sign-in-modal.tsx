@@ -20,7 +20,7 @@ export function SignInModal({ open, onOpenChange }: SignInModalProps) {
         </DialogHeader>
         
         <div className="flex flex-col gap-3">
-          <Button className="h-auto rounded-md bg-[#0a0a0a] py-3 text-[13px] font-semibold text-white hover:bg-[#0a0a0a]/90">
+          <Button className="h-auto rounded-md bg-foreground py-3 text-[13px] font-semibold text-background hover:bg-foreground/90">
             Continue with Google
           </Button>
           <Button variant="outline" className="h-auto rounded-md border-border py-3 text-[13px] font-semibold">
@@ -40,7 +40,7 @@ export function SignInModal({ open, onOpenChange }: SignInModalProps) {
             placeholder="Enter your email"
             className="w-full rounded-md border border-border px-4 py-3 text-[13px] text-foreground outline-none transition-colors focus:border-foreground"
           />
-          <Button className="h-auto rounded-md bg-[#0a0a0a] py-3 text-[13px] font-semibold text-white hover:bg-[#0a0a0a]/90">
+          <Button className="h-auto rounded-md bg-foreground py-3 text-[13px] font-semibold text-background hover:bg-foreground/90">
             Continue with Email
           </Button>
         </div>

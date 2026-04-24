@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Search, ShoppingCart } from "lucide-react";
+import { Search, ShoppingCart, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Navbar() {
@@ -50,9 +50,12 @@ export function Navbar() {
           >
             <ShoppingCart className="size-[18px]" strokeWidth={1.75} />
           </Button>
-          <Button className="ml-2 h-auto rounded-md px-5 py-2.5 text-sm font-semibold">
-            Sign In
-          </Button>
+          <div className="ml-2 flex items-center gap-1.5 cursor-pointer hover:opacity-80 transition-opacity">
+            <div className="flex size-8 items-center justify-center rounded-full bg-foreground text-sm font-bold text-background">
+              R
+            </div>
+            <ChevronDown className="size-4 text-foreground" strokeWidth={2} />
+          </div>
         </div>
       </div>
     </header>

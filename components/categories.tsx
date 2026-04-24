@@ -46,7 +46,7 @@ export function Categories() {
                 id={`category-${cat.id}`}
                 className="group flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-background px-4 py-5 text-center transition-all duration-200 hover:border-foreground hover:bg-secondary"
               >
-                <div className="flex size-10 items-center justify-center rounded-md border border-border bg-[#f9f9f9] transition-colors group-hover:border-border">
+                <div className="flex size-10 items-center justify-center rounded-md border border-border bg-secondary transition-colors group-hover:border-border">
                   <Icon className="size-[18px] text-foreground" strokeWidth={1.5} />
                 </div>
                 <div>
