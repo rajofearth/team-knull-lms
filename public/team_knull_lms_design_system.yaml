@@ -1,0 +1,207 @@
+# TEAM KNULL LMS — DESIGN TOKENS (DESIGN.md → YAML)
+# This file encodes the visual system into machine-readable tokens
+# Goal: deterministic, minimal, Swiss-inspired UI generation
+
+meta:
+  project: team-knull-lms
+  version: 1.0.0
+  philosophy:
+    - clarity_over_decoration
+    - whitespace_as_structure
+    - hierarchy_over_color
+    - content_over_interface
+
+# ----------------------
+# COLOR SYSTEM
+# ----------------------
+color:
+  base:
+    canvas: "#FFFFFF"
+    surface: "#F5F5F5"
+    border: "#E5E5E5"
+    ink: "#0A0A0A"
+    text_secondary: "#6B7280"
+    success: "#16A34A"
+
+  usage:
+    background: base.canvas
+    card: base.surface
+    divider: base.border
+    primary_text: base.ink
+    secondary_text: base.text_secondary
+    primary_action: base.ink
+    success_state: base.success
+
+  rules:
+    - no_gradients
+    - no_unassigned_colors
+    - color_must_have_function
+
+# ----------------------
+# TYPOGRAPHY SYSTEM
+# ----------------------
+typography:
+  font_family:
+    primary: "system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+
+  scale:
+    hero:
+      size: 64px
+      weight: 800
+      line_height: 1.1
+    h1:
+      size: 40px
+      weight: 700
+    h2:
+      size: 28px
+      weight: 600
+    body:
+      size: 16px
+      weight: 400
+      line_height: 1.6
+    small:
+      size: 14px
+      weight: 400
+
+  rules:
+    - no_decorative_fonts
+    - no_excess_letter_spacing
+    - text_is_structural_not_expressive
+
+# ----------------------
+# SPACING SYSTEM
+# ----------------------
+spacing:
+  unit: 8
+  scale:
+    xs: 8
+    sm: 16
+    md: 24
+    lg: 40
+    xl: 64
+
+  rules:
+    - use_multiples_of_8
+    - whitespace_is_intentional
+    - avoid_dense_layouts
+
+# ----------------------
+# BORDER RADIUS
+# ----------------------
+radius:
+  sm: 6
+  md: 10
+  lg: 16
+
+# ----------------------
+# SHADOW SYSTEM
+# ----------------------
+shadow:
+  subtle: "0px 2px 8px rgba(0,0,0,0.04)"
+  none: "none"
+
+  rules:
+    - shadows_are_soft
+    - avoid_heavy_depth
+
+# ----------------------
+# COMPONENT TOKENS
+# ----------------------
+components:
+  button:
+    primary:
+      background: color.base.ink
+      text: color.base.canvas
+      radius: radius.md
+      padding: "12px 20px"
+    secondary:
+      background: color.base.surface
+      text: color.base.ink
+      border: color.base.border
+
+  card:
+    background: color.base.surface
+    border: color.base.border
+    radius: radius.lg
+    shadow: shadow.subtle
+    padding: spacing.md
+
+  input:
+    border: color.base.border
+    radius: radius.md
+    padding: "10px 14px"
+    focus:
+      border: color.base.ink
+
+  video_player:
+    background: "#000000"
+    radius: radius.lg
+
+# ----------------------
+# LAYOUT SYSTEM
+# ----------------------
+layout:
+  grid:
+    columns: 12
+    gutter: 24
+    max_width: 1200
+
+  structure:
+    learning_page:
+      left: "module_navigation"
+      center: "active_content"
+      right: "progress_and_resources"
+
+  whitespace:
+    section_gap: spacing.xl
+    element_gap: spacing.md
+
+# ----------------------
+# INTERACTION SYSTEM
+# ----------------------
+interaction:
+  transitions:
+    default: "all 0.2s ease"
+
+  hover:
+    button:
+      opacity: 0.9
+
+  rules:
+    - no_flashy_animation
+    - feedback_must_be_instant
+
+# ----------------------
+# CONTENT PRINCIPLES
+# ----------------------
+content:
+  tone:
+    - concise
+    - functional
+    - outcome_focused
+
+  rules:
+    - avoid_fluff
+    - show_results_not_promises
+
+# ----------------------
+# FORBIDDEN RULES
+# ----------------------
+forbidden:
+  - gradients
+  - bright_colors
+  - random_spacing
+  - heavy_shadows
+  - decorative_elements
+
+# ----------------------
+# SYSTEM INTENT
+# ----------------------
+intent:
+  goal: "reduce friction between user and learning"
+  flow:
+    - discover
+    - commit
+    - learn
+    - complete
+    - showcase
