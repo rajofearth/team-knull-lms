@@ -46,7 +46,7 @@ export default function CoursePage({ params }: { params: { courseId: string } })
             <div className="mt-3.5 mb-7 text-[16px] leading-[1.55] max-w-130 text-text-description font-sans mx-0">
               Learn HTML, CSS, JavaScript, and modern web development by building real-world projects.
             </div>
-            <div className="flex items-center mb-9 gap-4">
+            <div className="flex items-center mb-9 gap-4 w-[524px]">
               <div className="flex items-center gap-1.5">
                 <div className="inline-block text-ink-deep font-sans font-bold text-sm leading-none">
                   4.7
