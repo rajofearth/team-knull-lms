@@ -1,273 +1,95 @@
 import Image from "next/image";
 import { Play, CheckCircle2, Circle, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export function HeroSection() {
   return (
-    <section
-      style={{
-        backgroundColor: "#ffffff",
-        padding: "64px 0 72px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 24px",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gap: 24,
-          alignItems: "start",
-        }}
-      >
+    <section className="bg-background pt-16 pb-[72px]">
+      <div className="mx-auto max-w-[1200px] px-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
         {/* Left: Hero Text */}
-        <div style={{ paddingRight: 16 }}>
-          <p
-            style={{
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "#6b7280",
-              marginBottom: 16,
-            }}
-          >
+        <div className="pr-4">
+          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
             TEAM KNULL&apos;S LMS
           </p>
-          <h1
-            style={{
-              fontSize: 64,
-              fontWeight: 800,
-              lineHeight: 1.05,
-              color: "#0a0a0a",
-              letterSpacing: "-0.02em",
-              marginBottom: 20,
-            }}
-          >
+          <h1 className="mb-5 text-[64px] font-extrabold leading-[1.05] tracking-tight text-foreground">
             Learn.
             <br />
             Grow.
             <br />
             Get Certified.
           </h1>
-          <p
-            style={{
-              fontSize: 15,
-              lineHeight: 1.65,
-              color: "#6b7280",
-              marginBottom: 32,
-              maxWidth: 280,
-            }}
-          >
+          <p className="mb-8 max-w-[280px] text-[15px] leading-[1.65] text-muted-foreground">
             Explore premium courses, learn at your own pace, and earn
             certificates to showcase your skills.
           </p>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <a
-              href="#"
+          <div className="flex items-center gap-4">
+            <Button
               id="hero-explore-btn"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                backgroundColor: "#0a0a0a",
-                color: "#ffffff",
-                fontSize: 14,
-                fontWeight: 600,
-                padding: "12px 20px",
-                borderRadius: 10,
-                transition: "opacity 0.2s ease",
-              }}
+              className="h-auto rounded-md px-5 py-3 text-sm font-semibold"
             >
               Explore Courses
-              <ArrowRight size={16} strokeWidth={2} />
-            </a>
-            <a
-              href="#"
+              <ArrowRight className="ml-2 size-4" strokeWidth={2} />
+            </Button>
+            <Button
               id="hero-how-btn"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                fontSize: 14,
-                fontWeight: 500,
-                color: "#0a0a0a",
-              }}
+              variant="ghost"
+              className="h-auto px-2 py-2 text-sm font-medium text-foreground hover:bg-transparent hover:opacity-80"
             >
               How It Works
-              <span
-                style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: "50%",
-                  border: "1.5px solid #e5e5e5",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Play size={10} fill="#0a0a0a" color="#0a0a0a" />
+              <span className="ml-2 flex size-7 items-center justify-center rounded-full border-[1.5px] border-border">
+                <Play className="size-[10px] fill-foreground text-foreground" />
               </span>
-            </a>
+            </Button>
           </div>
         </div>
 
         {/* Center: My Learning Card */}
-        <div
-          style={{
-            backgroundColor: "#ffffff",
-            border: "1px solid #e5e5e5",
-            borderRadius: 16,
-            padding: 20,
-            boxShadow: "0px 2px 8px rgba(0,0,0,0.04)",
-          }}
-        >
-          <p
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: "#0a0a0a",
-              marginBottom: 14,
-            }}
-          >
+        <Card className="rounded-2xl border-border p-5 shadow-subtle">
+          <p className="mb-3.5 text-[13px] font-semibold text-foreground">
             My Learning
           </p>
 
           {/* Active Course */}
-          <div
-            style={{
-              backgroundColor: "#f5f5f5",
-              borderRadius: 10,
-              padding: 14,
-              marginBottom: 14,
-            }}
-          >
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 5,
-                backgroundColor: "#e0f2fe",
-                color: "#0369a1",
-                fontSize: 10,
-                fontWeight: 600,
-                padding: "3px 8px",
-                borderRadius: 20,
-                marginBottom: 8,
-              }}
+          <div className="mb-3.5 rounded-md bg-secondary p-3.5">
+            <Badge
+              variant="secondary"
+              className="mb-2 gap-1.5 rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-semibold text-sky-700 hover:bg-sky-100"
             >
-              <span
-                style={{
-                  width: 5,
-                  height: 5,
-                  borderRadius: "50%",
-                  backgroundColor: "#0369a1",
-                  display: "inline-block",
-                }}
-              />
+              <span className="size-1.5 rounded-full bg-sky-700" />
               In Progress
-            </div>
+            </Badge>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr auto",
-                gap: 12,
-                alignItems: "start",
-              }}
-            >
+            <div className="grid grid-cols-[1fr_auto] items-start gap-3">
               <div>
-                <p
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "#0a0a0a",
-                    lineHeight: 1.3,
-                    marginBottom: 10,
-                  }}
-                >
+                <p className="mb-2.5 text-sm font-bold leading-[1.3] text-foreground">
                   UI/UX Design
                   <br />
                   Fundamentals
                 </p>
                 {/* Progress bar */}
-                <div
-                  style={{
-                    height: 3,
-                    backgroundColor: "#e5e5e5",
-                    borderRadius: 10,
-                    marginBottom: 6,
-                    overflow: "hidden",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "65%",
-                      backgroundColor: "#0a0a0a",
-                      borderRadius: 10,
-                    }}
-                  />
+                <div className="mb-1.5 h-[3px] overflow-hidden rounded-md bg-border">
+                  <div className="h-full w-[65%] rounded-md bg-foreground" />
                 </div>
-                <p style={{ fontSize: 10, color: "#6b7280", marginBottom: 10 }}>
+                <p className="mb-2.5 text-[10px] text-muted-foreground">
                   65% Complete
                 </p>
-                <button
-                  style={{
-                    backgroundColor: "#0a0a0a",
-                    color: "#ffffff",
-                    fontSize: 11,
-                    fontWeight: 600,
-                    padding: "8px 14px",
-                    borderRadius: 8,
-                    border: "none",
-                    cursor: "pointer",
-                    width: "100%",
-                  }}
-                >
+                <Button className="h-auto w-full rounded-lg px-3.5 py-2 text-[11px] font-semibold">
                   Continue Learning
-                </button>
+                </Button>
               </div>
-              <div
-                style={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: 10,
-                  overflow: "hidden",
-                  position: "relative",
-                  flexShrink: 0,
-                  backgroundColor: "#e5e5e5",
-                }}
-              >
+              <div className="relative size-20 shrink-0 overflow-hidden rounded-md bg-border">
                 <Image
                   src="/hero_chair.png"
                   alt="UI/UX Design Fundamentals"
                   fill
                   sizes="80px"
-                  style={{ objectFit: "cover" }}
+                  className="object-cover"
                 />
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "rgba(0,0,0,0.25)",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 26,
-                      height: 26,
-                      borderRadius: "50%",
-                      backgroundColor: "rgba(255,255,255,0.9)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Play size={10} fill="#0a0a0a" color="#0a0a0a" />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/25">
+                  <div className="flex size-[26px] items-center justify-center rounded-full bg-white/90">
+                    <Play className="size-[10px] fill-foreground text-foreground" />
                   </div>
                 </div>
               </div>
@@ -275,7 +97,7 @@ export function HeroSection() {
           </div>
 
           {/* Lesson List */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          <div className="flex flex-col">
             {[
               { num: "01", title: "Introduction to UI/UX", done: true },
               { num: "02", title: "Design Principles", done: true },
@@ -283,82 +105,48 @@ export function HeroSection() {
             ].map((lesson, i) => (
               <div
                 key={i}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "10px 0",
-                  borderBottom: i < 2 ? "1px solid #f0f0f0" : "none",
-                }}
+                className={`flex items-center justify-between py-2.5 ${
+                  i < 2 ? "border-b border-border/60" : ""
+                }`}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span
-                    style={{
-                      fontSize: 11,
-                      color: "#6b7280",
-                      fontWeight: 500,
-                      minWidth: 18,
-                    }}
-                  >
+                <div className="flex items-center gap-2.5">
+                  <span className="min-w-[18px] text-[11px] font-medium text-muted-foreground">
                     {lesson.num}
                   </span>
-                  <span
-                    style={{
-                      fontSize: 12,
-                      color: "#0a0a0a",
-                      fontWeight: 500,
-                    }}
-                  >
+                  <span className="text-xs font-medium text-foreground">
                     {lesson.title}
                   </span>
                 </div>
                 {lesson.done ? (
                   <CheckCircle2
-                    size={16}
-                    fill="#0a0a0a"
-                    color="#0a0a0a"
+                    className="size-4 fill-foreground text-background"
                     strokeWidth={2}
                   />
                 ) : (
-                  <Circle size={16} color="#d1d5db" strokeWidth={1.5} />
+                  <Circle className="size-4 text-muted-foreground" strokeWidth={1.5} />
                 )}
               </div>
             ))}
           </div>
-        </div>
+        </Card>
 
         {/* Right: Progress + Certificate */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <div className="flex flex-col gap-4">
           {/* My Progress Card */}
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e5e5e5",
-              borderRadius: 16,
-              padding: 20,
-              boxShadow: "0px 2px 8px rgba(0,0,0,0.04)",
-            }}
-          >
-            <p
-              style={{
-                fontSize: 13,
-                fontWeight: 600,
-                color: "#0a0a0a",
-                marginBottom: 14,
-              }}
-            >
+          <Card className="rounded-2xl border-border p-5 shadow-subtle">
+            <p className="mb-3.5 text-[13px] font-semibold text-foreground">
               My Progress
             </p>
-            <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+            <div className="flex items-center gap-5">
               {/* Circular progress */}
-              <div style={{ position: "relative", flexShrink: 0 }}>
+              <div className="relative shrink-0">
                 <svg width="80" height="80" viewBox="0 0 80 80">
                   <circle
                     cx="40"
                     cy="40"
                     r="32"
                     fill="none"
-                    stroke="#f0f0f0"
+                    className="stroke-border"
                     strokeWidth="6"
                   />
                   <circle
@@ -366,7 +154,7 @@ export function HeroSection() {
                     cy="40"
                     r="32"
                     fill="none"
-                    stroke="#0a0a0a"
+                    className="stroke-foreground"
                     strokeWidth="6"
                     strokeDasharray="201"
                     strokeDashoffset="60"
@@ -374,41 +162,18 @@ export function HeroSection() {
                     transform="rotate(-90 40 40)"
                   />
                 </svg>
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: 22,
-                      fontWeight: 800,
-                      color: "#0a0a0a",
-                      lineHeight: 1,
-                    }}
-                  >
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-[22px] font-extrabold leading-none text-foreground">
                     12
                   </span>
-                  <span style={{ fontSize: 8, color: "#6b7280", fontWeight: 500 }}>
+                  <span className="text-[8px] font-medium text-muted-foreground">
                     Courses Enrolled
                   </span>
                 </div>
               </div>
 
               {/* Stats */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                  flex: 1,
-                }}
-              >
+              <div className="flex flex-1 flex-col gap-2">
                 {[
                   { label: "Completed", val: 5 },
                   { label: "In Progress", val: 7 },
@@ -416,108 +181,48 @@ export function HeroSection() {
                 ].map((s) => (
                   <div
                     key={s.label}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
+                    className="flex items-center justify-between"
                   >
-                    <span style={{ fontSize: 12, color: "#6b7280" }}>
+                    <span className="text-xs text-muted-foreground">
                       {s.label}
                     </span>
-                    <span
-                      style={{
-                        fontSize: 13,
-                        fontWeight: 700,
-                        color: "#0a0a0a",
-                      }}
-                    >
+                    <span className="text-[13px] font-bold text-foreground">
                       {s.val}
                     </span>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
+          </Card>
 
           {/* Latest Certificate */}
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e5e5e5",
-              borderRadius: 16,
-              padding: 20,
-              boxShadow: "0px 2px 8px rgba(0,0,0,0.04)",
-            }}
-          >
-            <p
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                color: "#6b7280",
-                marginBottom: 12,
-                textTransform: "uppercase",
-                letterSpacing: "0.06em",
-              }}
-            >
+          <Card className="rounded-2xl border-border p-5 shadow-subtle">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
               Latest Certificate
             </p>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 12,
-              }}
-            >
+            <div className="flex items-center justify-between gap-3">
               <div>
-                <p
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 700,
-                    color: "#0a0a0a",
-                    lineHeight: 1.35,
-                    marginBottom: 8,
-                  }}
-                >
+                <p className="mb-2 text-[13px] font-bold leading-[1.35] text-foreground">
                   UI/UX Design
                   <br />
                   Fundamentals
                 </p>
                 <a
                   href="#"
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 600,
-                    color: "#0a0a0a",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 4,
-                  }}
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-foreground hover:opacity-80"
                 >
                   View Certificate
-                  <ArrowRight size={12} strokeWidth={2.5} />
+                  <ArrowRight className="size-3" strokeWidth={2.5} />
                 </a>
               </div>
               {/* Certificate Badge */}
-              <div
-                style={{
-                  width: 52,
-                  height: 52,
-                  backgroundColor: "#0a0a0a",
-                  borderRadius: 10,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
+              <div className="flex size-[52px] shrink-0 items-center justify-center rounded-md bg-foreground text-background">
                 <svg
                   width="24"
                   height="24"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke="white"
+                  stroke="currentColor"
                   strokeWidth="1.5"
                 >
                   <circle cx="12" cy="8" r="5" />
@@ -525,7 +230,7 @@ export function HeroSection() {
                 </svg>
               </div>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </section>

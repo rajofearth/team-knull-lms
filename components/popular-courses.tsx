@@ -1,7 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import { Star, ArrowRight, Clock, BarChart2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const courses = [
   {
@@ -56,220 +55,85 @@ const courses = [
 
 export function PopularCourses() {
   return (
-    <section style={{ padding: "64px 0" }}>
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 24px",
-        }}
-      >
+    <section className="py-16">
+      <div className="mx-auto max-w-[1200px] px-6">
         {/* Section Header */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 32,
-          }}
-        >
-          <h2
-            style={{
-              fontSize: 24,
-              fontWeight: 700,
-              color: "#0a0a0a",
-            }}
-          >
+        <div className="mb-8 flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-foreground">
             Popular Courses
           </h2>
           <a
             href="#"
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: "#0a0a0a",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-            }}
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground hover:opacity-80"
           >
             View All Courses
-            <ArrowRight size={14} strokeWidth={2.5} />
+            <ArrowRight className="size-3.5" strokeWidth={2.5} />
           </a>
         </div>
 
         {/* Course Cards */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 20,
-          }}
-        >
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {courses.map((course) => (
             <a
               key={course.id}
               href="#"
               id={`course-${course.id}`}
-              style={{
-                backgroundColor: "#ffffff",
-                border: "1px solid #e5e5e5",
-                borderRadius: 16,
-                overflow: "hidden",
-                boxShadow: "0px 2px 8px rgba(0,0,0,0.04)",
-                transition: "box-shadow 0.2s ease, transform 0.2s ease",
-                display: "block",
-                cursor: "pointer",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  "0px 8px 24px rgba(0,0,0,0.10)";
-                (e.currentTarget as HTMLElement).style.transform =
-                  "translateY(-2px)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  "0px 2px 8px rgba(0,0,0,0.04)";
-                (e.currentTarget as HTMLElement).style.transform =
-                  "translateY(0)";
-              }}
+              className="group block overflow-hidden rounded-2xl border border-border bg-background shadow-subtle transition-all duration-200 hover:translate-y-[-2px] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.10)]"
             >
               {/* Thumbnail */}
-              <div
-                style={{
-                  position: "relative",
-                  height: 160,
-                  backgroundColor: "#f5f5f5",
-                }}
-              >
+              <div className="relative h-40 bg-secondary">
                 <Image
                   src={course.image}
                   alt={course.title}
                   fill
                   sizes="(max-width: 1200px) 25vw, 300px"
-                  style={{ objectFit: "cover" }}
+                  className="object-cover"
                 />
                 {/* Badge */}
-                <span
-                  style={{
-                    position: "absolute",
-                    top: 10,
-                    left: 10,
-                    backgroundColor: "#ffffff",
-                    color: "#0a0a0a",
-                    fontSize: 10,
-                    fontWeight: 600,
-                    padding: "3px 8px",
-                    borderRadius: 6,
-                    border: "1px solid #e5e5e5",
-                  }}
+                <Badge
+                  variant="outline"
+                  className="absolute left-2.5 top-2.5 bg-background px-2 py-0.5 text-[10px] font-semibold text-foreground hover:bg-background"
                 >
                   {course.badge}
-                </span>
+                </Badge>
               </div>
 
               {/* Content */}
-              <div style={{ padding: "14px 16px 16px" }}>
+              <div className="p-4 pt-3.5">
                 {/* Rating */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 4,
-                    marginBottom: 6,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 700,
-                      color: "#0a0a0a",
-                    }}
-                  >
+                <div className="mb-1.5 flex items-center gap-1">
+                  <span className="text-xs font-bold text-foreground">
                     {course.rating}
                   </span>
                   <Star
-                    size={11}
-                    fill="#f59e0b"
-                    color="#f59e0b"
+                    className="size-[11px] fill-amber-500 text-amber-500"
                     strokeWidth={0}
                   />
-                  <span style={{ fontSize: 11, color: "#6b7280" }}>
+                  <span className="text-[11px] text-muted-foreground">
                     ({course.reviews})
                   </span>
                 </div>
 
-                <h3
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "#0a0a0a",
-                    lineHeight: 1.35,
-                    marginBottom: 6,
-                  }}
-                >
+                <h3 className="mb-1.5 text-sm font-bold leading-[1.35] text-foreground">
                   {course.title}
                 </h3>
-                <p
-                  style={{
-                    fontSize: 12,
-                    color: "#6b7280",
-                    lineHeight: 1.5,
-                    marginBottom: 12,
-                  }}
-                >
+                <p className="mb-3 text-xs leading-normal text-muted-foreground">
                   {course.desc}
                 </p>
 
                 {/* Meta */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    borderTop: "1px solid #f0f0f0",
-                    paddingTop: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: 10,
-                        color: "#6b7280",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 3,
-                      }}
-                    >
-                      <BarChart2 size={10} strokeWidth={2} />
+                <div className="flex items-center justify-between border-t border-border/60 pt-2.5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                      <BarChart2 className="size-2.5" strokeWidth={2} />
                       {course.level}
                     </span>
-                    <span
-                      style={{
-                        fontSize: 10,
-                        color: "#6b7280",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 3,
-                      }}
-                    >
-                      <Clock size={10} strokeWidth={2} />
+                    <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                      <Clock className="size-2.5" strokeWidth={2} />
                       {course.hours}h
                     </span>
                   </div>
-                  <span
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 800,
-                      color: "#0a0a0a",
-                    }}
-                  >
+                  <span className="text-[15px] font-extrabold text-foreground">
                     ${course.price}
                   </span>
                 </div>

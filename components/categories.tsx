@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Code2,
   Paintbrush,
@@ -21,61 +19,24 @@ const categories = [
 
 export function Categories() {
   return (
-    <section
-      style={{
-        padding: "64px 0",
-        borderTop: "1px solid #e5e5e5",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 24px",
-        }}
-      >
+    <section className="border-t border-border py-16">
+      <div className="mx-auto max-w-[1200px] px-6">
         {/* Header */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 32,
-          }}
-        >
-          <h2
-            style={{
-              fontSize: 24,
-              fontWeight: 700,
-              color: "#0a0a0a",
-            }}
-          >
+        <div className="mb-8 flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-foreground">
             Browse by Categories
           </h2>
           <a
             href="#"
-            style={{
-              fontSize: 13,
-              fontWeight: 600,
-              color: "#0a0a0a",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-            }}
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-foreground hover:opacity-80"
           >
             View All Categories
-            <ArrowRight size={14} strokeWidth={2.5} />
+            <ArrowRight className="size-3.5" strokeWidth={2.5} />
           </a>
         </div>
 
         {/* Category Cards */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(6, 1fr)",
-            gap: 16,
-          }}
-        >
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
@@ -83,56 +44,16 @@ export function Categories() {
                 key={cat.id}
                 href="#"
                 id={`category-${cat.id}`}
-                style={{
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #e5e5e5",
-                  borderRadius: 16,
-                  padding: "20px 16px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 10,
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  textAlign: "center",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor =
-                    "#f5f5f5";
-                  (e.currentTarget as HTMLElement).style.borderColor = "#0a0a0a";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor =
-                    "#ffffff";
-                  (e.currentTarget as HTMLElement).style.borderColor = "#e5e5e5";
-                }}
+                className="group flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-background px-4 py-5 text-center transition-all duration-200 hover:border-foreground hover:bg-secondary"
               >
-                <div
-                  style={{
-                    width: 40,
-                    height: 40,
-                    border: "1px solid #e5e5e5",
-                    borderRadius: 10,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "#f9f9f9",
-                  }}
-                >
-                  <Icon size={18} strokeWidth={1.5} color="#0a0a0a" />
+                <div className="flex size-10 items-center justify-center rounded-md border border-border bg-[#f9f9f9] transition-colors group-hover:border-border">
+                  <Icon className="size-[18px] text-foreground" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p
-                    style={{
-                      fontSize: 13,
-                      fontWeight: 700,
-                      color: "#0a0a0a",
-                      marginBottom: 2,
-                    }}
-                  >
+                  <p className="mb-0.5 text-[13px] font-bold text-foreground">
                     {cat.label}
                   </p>
-                  <p style={{ fontSize: 11, color: "#6b7280" }}>
+                  <p className="text-[11px] text-muted-foreground">
                     {cat.count} Courses
                   </p>
                 </div>

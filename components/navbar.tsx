@@ -1,36 +1,13 @@
-"use client";
-
 import Image from "next/image";
 import { Search, ShoppingCart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function Navbar() {
   return (
-    <header
-      style={{
-        borderBottom: "1px solid #e5e5e5",
-        backgroundColor: "#ffffff",
-        position: "sticky",
-        top: 0,
-        zIndex: 50,
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 24px",
-          height: 64,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 32,
-        }}
-      >
+    <header className="sticky top-0 z-50 border-b border-border bg-background">
+      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-8 px-6">
         {/* Logo */}
-        <a
-          href="/"
-          style={{ display: "flex", alignItems: "center", flexShrink: 0 }}
-        >
+        <a href="/" className="flex shrink-0 items-center">
           <Image
             src="/teamknull-logo.svg"
             alt="Team Knull"
@@ -41,32 +18,13 @@ export function Navbar() {
         </a>
 
         {/* Nav Links */}
-        <nav
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 32,
-            flex: 1,
-          }}
-        >
+        <nav className="flex flex-1 items-center gap-8">
           {["Courses", "Categories", "My Learning", "Certifications", "About"].map(
             (item) => (
               <a
                 key={item}
                 href="#"
-                style={{
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: "#0a0a0a",
-                  transition: "color 0.2s ease",
-                  whiteSpace: "nowrap",
-                }}
-                onMouseEnter={(e) =>
-                  ((e.target as HTMLElement).style.color = "#6b7280")
-                }
-                onMouseLeave={(e) =>
-                  ((e.target as HTMLElement).style.color = "#0a0a0a")
-                }
+                className="whitespace-nowrap text-sm font-medium text-foreground transition-colors hover:text-muted-foreground"
               >
                 {item}
               </a>
@@ -75,62 +33,28 @@ export function Navbar() {
         </nav>
 
         {/* Actions */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-            flexShrink: 0,
-          }}
-        >
-          <button
+        <div className="flex shrink-0 items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-8 text-foreground hover:bg-transparent hover:opacity-70"
             aria-label="Search"
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: "#0a0a0a",
-              display: "flex",
-              alignItems: "center",
-              padding: 4,
-              transition: "opacity 0.2s",
-            }}
           >
-            <Search size={18} strokeWidth={1.75} />
-          </button>
-          <button
+            <Search className="size-[18px]" strokeWidth={1.75} />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-8 text-foreground hover:bg-transparent hover:opacity-70"
             aria-label="Cart"
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: "#0a0a0a",
-              display: "flex",
-              alignItems: "center",
-              padding: 4,
-              transition: "opacity 0.2s",
-            }}
           >
-            <ShoppingCart size={18} strokeWidth={1.75} />
-          </button>
-          <a
-            href="#"
-            style={{
-              backgroundColor: "#0a0a0a",
-              color: "#ffffff",
-              fontSize: 14,
-              fontWeight: 600,
-              padding: "10px 20px",
-              borderRadius: 10,
-              transition: "opacity 0.2s ease",
-              display: "inline-block",
-            }}
-          >
+            <ShoppingCart className="size-[18px]" strokeWidth={1.75} />
+          </Button>
+          <Button className="ml-2 h-auto rounded-md px-5 py-2.5 text-sm font-semibold">
             Sign In
-          </a>
+          </Button>
         </div>
       </div>
     </header>
   );
 }
-

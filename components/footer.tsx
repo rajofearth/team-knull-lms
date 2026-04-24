@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 function XIcon() {
   return (
@@ -41,31 +42,12 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer
-      style={{
-        backgroundColor: "#ffffff",
-        borderTop: "1px solid #e5e5e5",
-        padding: "48px 0 0",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 24px",
-        }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.5fr 1fr 1fr 1fr 1.4fr",
-            gap: 40,
-            marginBottom: 48,
-          }}
-        >
+    <footer className="border-t border-border bg-background pt-12">
+      <div className="mx-auto max-w-[1200px] px-6">
+        <div className="mb-12 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.4fr]">
           {/* Brand */}
           <div>
-            <a href="/" style={{ display: "inline-block", marginBottom: 14 }}>
+            <a href="/" className="mb-3.5 inline-block">
               <Image
                 src="/teamknull-logo.svg"
                 alt="Team Knull"
@@ -73,19 +55,11 @@ export function Footer() {
                 height={24}
               />
             </a>
-            <p
-              style={{
-                fontSize: 13,
-                color: "#6b7280",
-                lineHeight: 1.65,
-                marginBottom: 20,
-                maxWidth: 200,
-              }}
-            >
+            <p className="mb-5 max-w-[200px] text-[13px] leading-[1.65] text-muted-foreground">
               Empowering learners worldwide with high-quality education and
               practical skills for a better future.
             </p>
-            <div style={{ display: "flex", gap: 12 }}>
+            <div className="flex gap-3">
               {[
                 { Component: XIcon, label: "Twitter", id: "footer-twitter" },
                 { Component: LinkedinIcon, label: "LinkedIn", id: "footer-linkedin" },
@@ -97,15 +71,7 @@ export function Footer() {
                   href="#"
                   id={id}
                   aria-label={label}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#6b7280",
-                    transition: "color 0.2s",
-                  }}
+                  className="flex size-[30px] items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <Component />
                 </a>
@@ -116,26 +82,15 @@ export function Footer() {
           {/* Link Columns */}
           {Object.entries(footerLinks).map(([heading, links]) => (
             <div key={heading}>
-              <p
-                style={{
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: "#0a0a0a",
-                  marginBottom: 16,
-                }}
-              >
+              <p className="mb-4 text-[13px] font-bold text-foreground">
                 {heading}
               </p>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+              <ul className="flex flex-col gap-2.5">
                 {links.map((link) => (
                   <li key={link}>
                     <a
                       href="#"
-                      style={{
-                        fontSize: 13,
-                        color: "#6b7280",
-                        transition: "color 0.2s",
-                      }}
+                      className="text-[13px] text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {link}
                     </a>
@@ -147,89 +102,37 @@ export function Footer() {
 
           {/* Newsletter */}
           <div>
-            <p
-              style={{
-                fontSize: 13,
-                fontWeight: 700,
-                color: "#0a0a0a",
-                marginBottom: 8,
-              }}
-            >
+            <p className="mb-2 text-[13px] font-bold text-foreground">
               Stay Updated
             </p>
-            <p
-              style={{
-                fontSize: 12,
-                color: "#6b7280",
-                marginBottom: 14,
-                lineHeight: 1.5,
-              }}
-            >
+            <p className="mb-3.5 text-xs leading-normal text-muted-foreground">
               Subscribe to our newsletter for the latest courses and offers.
             </p>
-            <div style={{ display: "flex", gap: 0 }}>
+            <div className="flex">
               <input
                 id="newsletter-email"
                 type="email"
                 placeholder="Enter your email"
-                style={{
-                  flex: 1,
-                  border: "1px solid #e5e5e5",
-                  borderRight: "none",
-                  borderRadius: "10px 0 0 10px",
-                  padding: "10px 12px",
-                  fontSize: 12,
-                  color: "#0a0a0a",
-                  backgroundColor: "#ffffff",
-                  outline: "none",
-                  minWidth: 0,
-                }}
+                className="min-w-0 flex-1 rounded-l-md border border-r-0 border-border bg-background px-3 py-2.5 text-xs text-foreground outline-none transition-colors focus:border-foreground"
               />
-              <button
+              <Button
                 id="newsletter-subscribe-btn"
-                style={{
-                  backgroundColor: "#0a0a0a",
-                  color: "#ffffff",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  padding: "10px 14px",
-                  borderRadius: "0 10px 10px 0",
-                  border: "none",
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  transition: "opacity 0.2s",
-                }}
+                className="h-auto rounded-l-none rounded-r-md px-3.5 py-2.5 text-xs font-semibold"
               >
                 Subscribe
-              </button>
+              </Button>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div
-          style={{
-            borderTop: "1px solid #e5e5e5",
-            padding: "20px 0",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <p style={{ fontSize: 12, color: "#6b7280" }}>
+        <div className="flex items-center justify-between border-t border-border py-5">
+          <p className="text-xs text-muted-foreground">
             © 2024 Team Knull. All rights reserved.
           </p>
-          <p
-            style={{
-              fontSize: 12,
-              color: "#6b7280",
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-            }}
-          >
+          <p className="flex items-center gap-1 text-xs text-muted-foreground">
             Made with{" "}
-            <Heart size={12} fill="#ef4444" color="#ef4444" strokeWidth={0} />{" "}
+            <Heart className="size-3 fill-destructive text-destructive" strokeWidth={0} />{" "}
             by Team Knull
           </p>
         </div>

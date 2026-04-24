@@ -25,56 +25,20 @@ const features = [
 
 export function FeaturesBar() {
   return (
-    <section
-      style={{
-        backgroundColor: "#f5f5f5",
-        borderTop: "1px solid #e5e5e5",
-        borderBottom: "1px solid #e5e5e5",
-        padding: "32px 0",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 24px",
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: 32,
-        }}
-      >
+    <section className="border-y border-border bg-secondary py-8">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-8 px-6 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((f) => {
           const Icon = f.icon;
           return (
-            <div
-              key={f.title}
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 14,
-              }}
-            >
-              <div style={{ flexShrink: 0, marginTop: 2 }}>
-                <Icon size={22} strokeWidth={1.5} color="#0a0a0a" />
+            <div key={f.title} className="flex items-start gap-3.5">
+              <div className="mt-0.5 shrink-0">
+                <Icon className="size-[22px] text-foreground" strokeWidth={1.5} />
               </div>
               <div>
-                <p
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "#0a0a0a",
-                    marginBottom: 4,
-                  }}
-                >
+                <p className="mb-1 text-sm font-bold text-foreground">
                   {f.title}
                 </p>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#6b7280",
-                    lineHeight: 1.5,
-                  }}
-                >
+                <p className="text-[13px] leading-normal text-muted-foreground">
                   {f.desc}
                 </p>
               </div>

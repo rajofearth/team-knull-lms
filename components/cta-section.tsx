@@ -1,86 +1,34 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function CTASection() {
   return (
-    <section style={{ padding: "0 0 64px" }}>
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 24px",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "#f5f5f5",
-            borderRadius: 16,
-            padding: "56px 64px",
-            display: "grid",
-            gridTemplateColumns: "1fr auto",
-            gap: 40,
-            alignItems: "center",
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          <div>
-            <h2
-              style={{
-                fontSize: 32,
-                fontWeight: 800,
-                color: "#0a0a0a",
-                lineHeight: 1.2,
-                marginBottom: 12,
-                letterSpacing: "-0.01em",
-              }}
-            >
+    <section className="pb-16">
+      <div className="mx-auto max-w-[1200px] px-6">
+        <div className="relative flex flex-col-reverse items-center justify-between gap-10 overflow-hidden rounded-2xl bg-secondary px-8 py-10 md:flex-row md:px-16 md:py-14">
+          <div className="text-center md:text-left">
+            <h2 className="mb-3 text-[32px] font-extrabold leading-[1.2] tracking-tight text-foreground">
               Ready to start your learning journey?
             </h2>
-            <p
-              style={{
-                fontSize: 15,
-                color: "#6b7280",
-                marginBottom: 28,
-                lineHeight: 1.6,
-              }}
-            >
+            <p className="mb-7 text-[15px] leading-[1.6] text-muted-foreground">
               Join thousands of learners and unlock your potential.
             </p>
-            <a
-              href="#"
+            <Button
               id="cta-explore-btn"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                backgroundColor: "#0a0a0a",
-                color: "#ffffff",
-                fontSize: 14,
-                fontWeight: 600,
-                padding: "12px 24px",
-                borderRadius: 10,
-                transition: "opacity 0.2s ease",
-              }}
+              className="h-auto rounded-md px-6 py-3 text-sm font-semibold"
             >
               Explore Courses
-              <ArrowRight size={16} strokeWidth={2} />
-            </a>
+              <ArrowRight className="ml-2 size-4" strokeWidth={2} />
+            </Button>
           </div>
-          <div
-            style={{
-              width: 220,
-              height: 200,
-              position: "relative",
-              flexShrink: 0,
-            }}
-          >
+          <div className="relative h-[200px] w-[220px] shrink-0">
             <Image
               src="/cta_plant.png"
               alt="Start your learning journey"
               fill
               sizes="220px"
-              style={{ objectFit: "contain" }}
+              className="object-contain"
             />
           </div>
         </div>
