@@ -25,20 +25,25 @@ const features = [
 
 export function FeaturesBar() {
   return (
-    <section className="border-y border-border bg-surface py-8">
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-8 px-6 sm:grid-cols-2 lg:grid-cols-4">
-        {features.map((f) => {
+    <section className="border-y border-border bg-secondary/50 py-6">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-0 px-6 sm:grid-cols-2 lg:grid-cols-4">
+        {features.map((f, index) => {
           const Icon = f.icon;
           return (
-            <div key={f.title} className="flex items-start gap-3.5">
+            <div
+              key={f.title}
+              className={`flex items-start gap-3.5 py-3 lg:px-6 ${
+                index < features.length - 1 ? "lg:border-r lg:border-border" : ""
+              }`}
+            >
               <div className="mt-0.5 shrink-0">
-                <Icon className="size-[22px] text-ink" strokeWidth={1.5} />
+                <Icon className="size-[20px] text-foreground" strokeWidth={1.6} />
               </div>
               <div>
-                <p className="mb-1 text-sm font-bold text-ink">
+                <p className="mb-1 text-[16px] font-semibold text-foreground">
                   {f.title}
                 </p>
-                <p className="text-[13px] leading-normal text-text-secondary">
+                <p className="text-[12px] leading-[1.45] text-muted-foreground">
                   {f.desc}
                 </p>
               </div>
