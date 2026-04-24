@@ -76,7 +76,7 @@ export function PopularCourses() {
           {courses.map((course) => (
             <a
               key={course.id}
-              href="#"
+              href={`/courses/${course.id}`}
               id={`course-${course.id}`}
               className="group block overflow-hidden rounded-2xl border border-border bg-background shadow-subtle transition-all duration-200 hover:translate-y-[-2px] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.10)]"
             >

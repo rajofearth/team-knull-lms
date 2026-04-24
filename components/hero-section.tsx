@@ -75,8 +75,8 @@ export function HeroSection() {
                 <p className="mb-2.5 text-[10px] text-muted-foreground">
                   65% Complete
                 </p>
-                <Button className="h-auto w-full rounded-lg px-3.5 py-2 text-[11px] font-semibold">
-                  Continue Learning
+                <Button className="h-auto w-full rounded-lg px-3.5 py-2 text-[11px] font-semibold" asChild>
+                  <a href="/courses/uiux-design?enrolled=true">Continue Learning</a>
                 </Button>
               </div>
               <div className="relative size-20 shrink-0 overflow-hidden rounded-md bg-border">
@@ -208,7 +208,7 @@ export function HeroSection() {
                   Fundamentals
                 </p>
                 <a
-                  href="#"
+                  href="/courses/uiux-design?enrolled=true"
                   className="inline-flex items-center gap-1 text-xs font-semibold text-foreground hover:opacity-80"
                 >
                   View Certificate
