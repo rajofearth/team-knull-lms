@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
 import { CourseHeader } from "@/components/course/course-header";
 import { CourseProgressCard } from "@/components/course/course-progress-card";
 import { CourseTabs } from "@/components/course/course-tabs";
@@ -10,11 +9,41 @@ import { CurriculumSidebar } from "@/components/course/curriculum-sidebar";
 import { VideoPlayer } from "@/components/course/video-player";
 import { ResourcesCard } from "@/components/course/resources-card";
 import { courses } from "@/lib/data/courses";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function CoursePage({ params }: { params: Promise<{ courseId: string }> }) {
   const resolvedParams = React.use(params);
-  const courseId = resolvedParams.courseId === "web-dev-bootcamp" ? "web-dev-bootcamp" : "web-dev-bootcamp";
-  const courseData = courses[courseId];
+  const courseId = resolvedParams.courseId;
+  const courseData = courses[courseId] || courses["web-dev-bootcamp"];
+
+  const [activeLessonId, setActiveLessonId] = useState<string>("l5");
+
+  const allLessons = useMemo(() => {
+    return courseData.modules.flatMap(m => m.lessons);
+  }, [courseData]);
+
+  const activeLesson = useMemo(() => {
+    return allLessons.find(l => l.id === activeLessonId) || allLessons[0];
+  }, [allLessons, activeLessonId]);
+
+  const activeModule = useMemo(() => {
+    return courseData.modules.find(m => m.lessons.some(l => l.id === activeLessonId));
+  }, [courseData, activeLessonId]);
+
+  const handleNextLesson = () => {
+    const currentIndex = allLessons.findIndex(l => l.id === activeLessonId);
+    if (currentIndex < allLessons.length - 1) {
+      setActiveLessonId(allLessons[currentIndex + 1].id);
+    }
+  };
+
+  const handlePrevLesson = () => {
+    const currentIndex = allLessons.findIndex(l => l.id === activeLessonId);
+    if (currentIndex > 0) {
+      setActiveLessonId(allLessons[currentIndex - 1].id);
+    }
+  };
 
   if (!courseData) return <div>Course not found</div>;
 
@@ -22,23 +51,28 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
     <main className="min-h-screen bg-white overflow-x-hidden">
       <div className="mx-auto max-w-[1440px] flex flex-col bg-white antialiased text-xs/4">
         <Navbar />
-        
         {/* Breadcrumbs */}
         <div className="flex items-center pt-6 gap-2 px-20">
-          <div className="inline-block text-text-muted font-sans text-[13px] leading-none">
+          <Link href="/" className="inline-block text-text-muted font-sans text-[13px] leading-none hover:text-ink transition-colors">
             Home
-          </div>
+          </Link>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="stroke-ink-deep" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <Link href="/courses" className="inline-block text-text-muted font-sans text-[13px] leading-none hover:text-ink transition-colors">
+            Courses
+          </Link>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="stroke-ink-deep" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <div className="inline-block text-text-muted font-sans text-[13px] leading-none">
-            Courses
+            {courseData.title}
           </div>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="stroke-ink-deep" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <div className="inline-block text-ink-secondary font-sans text-[13px] leading-none">
-            {courseData.title}
+            {activeLesson.title}
           </div>
         </div>
 
@@ -50,41 +84,59 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
         <CourseTabs activeTab="curriculum" />
 
         {/* Content Area */}
-        <div className="flex w-full py-10 px-20 gap-10 bg-surface">
-          <CurriculumSidebar modules={courseData.modules} />
+        <div className="flex w-full py-8 px-20 gap-10 bg-surface">
+          <CurriculumSidebar 
+            modules={courseData.modules} 
+            activeLessonId={activeLessonId}
+            onLessonSelect={(lesson) => setActiveLessonId(lesson.id)}
+          />
 
           {/* Video and Lesson Content */}
           <div className="grow shrink basis-[0%] flex flex-col gap-8">
             <VideoPlayer />
-            
+
             <div className="">
-              <h2 className="tracking-tight text-ink font-heading font-bold m-0 text-[26px] leading-8">
-                5. HTML Elements and Structure
-              </h2>
+              <div className="tracking-[-0.01em] text-ink font-heading font-bold m-0 text-[26px] leading-8">
+                {activeLesson.title}
+              </div>
               <div className="mt-2.5 mb-0 text-[14px] leading-[1.65] max-w-160 text-text-secondary font-sans mx-0">
-                Learn about common HTML elements and how to structure a basic webpage.
+                {activeLesson.description || "Learn more about this topic in the video lecture above."}
               </div>
             </div>
 
             <div className="flex justify-between mt-2">
-              <div className="flex items-center rounded-lg py-3 px-6 gap-2.5 border-[1.5px] border-solid border-border-alt cursor-pointer hover:bg-surface">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="stroke-ink-deep" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
+              <button 
+                className={cn(
+                  "flex items-center rounded-lg py-3 px-6 gap-2.5 border-[1.5px] border-solid border-border-alt transition-colors",
+                  activeLessonId === allLessons[0].id ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-surface"
+                )}
+                onClick={handlePrevLesson}
+                disabled={activeLessonId === allLessons[0].id}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="stroke-ink" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
                   <line x1="19" y1="12" x2="5" y2="12" />
                   <polyline points="12 19 5 12 12 5" />
                 </svg>
                 <div className="inline-block text-ink-secondary font-sans font-bold text-[13px] leading-none">
-                   Previous Lesson
+                  Previous Lesson
                 </div>
-              </div>
-              <div className="flex items-center rounded-lg py-3 px-6 gap-2.5 bg-ink-deep cursor-pointer hover:opacity-90">
+              </button>
+              <button 
+                className={cn(
+                  "flex items-center rounded-lg py-3 px-6 gap-2.5 bg-ink transition-opacity",
+                  activeLessonId === allLessons[allLessons.length - 1].id ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:opacity-90"
+                )}
+                onClick={handleNextLesson}
+                disabled={activeLessonId === allLessons[allLessons.length - 1].id}
+              >
                 <div className="inline-block text-canvas font-sans font-bold text-[13px] leading-none">
-                  Next Lesson 
+                  Next Lesson
                 </div>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
                 </svg>
-              </div>
+              </button>
             </div>
           </div>
 
@@ -92,8 +144,6 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
             <ResourcesCard resources={courseData.resources} />
           </div>
         </div>
-        
-        <Footer />
       </div>
     </main>
   );

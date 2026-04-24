@@ -6,20 +6,23 @@ export interface Lesson {
   duration: string;
   isCompleted: boolean;
   isActive?: boolean;
-}
-
-export interface Module {
-  id: string;
-  title: string;
-  lessonsCompleted: number;
-  totalLessons: number;
-  lessons: Lesson[];
+  videoUrl?: string;
+  description?: string;
 }
 
 export interface Resource {
   title: string;
   type: string;
   icon: "file" | "folder";
+  url: string;
+}
+
+export interface Module {
+  id: string;
+  title: string;
+  lessons: Lesson[];
+  totalLessons: number;
+  lessonsCompleted: number;
 }
 
 export interface CourseData {
@@ -50,13 +53,13 @@ export const courses: Record<string, CourseData> = {
   "web-dev-bootcamp": {
     id: "web-dev-bootcamp",
     title: "Web Development Bootcamp",
-    description: "Learn HTML, CSS, JavaScript, and modern web development by building real-world projects.",
+    description: "Learn HTML, CSS, JavaScript, and modern web development by building real-world projects. From zero to job-ready.",
     rating: 4.7,
     reviewsCount: 892,
     studentsCount: "12,430",
     level: "Beginner to Advanced",
     duration: "25 Hours",
-    thumbnail: "https://app.paper.design/file-assets/01KPZPYK5DC63WHG4PEM01K24R/01KPZQXET8N4BBMV3ST7JMF0X5.png",
+    thumbnail: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/01KPZQXET8N4BBMV3ST7JMF0X5.png",
     badge: "Bestseller",
     progress: {
       percentage: 65,
@@ -67,6 +70,11 @@ export const courses: Record<string, CourseData> = {
       quizScore: 82,
       certificateAvailable: true,
     },
+    resources: [
+      { title: "HTML Cheatsheet", type: "PDF", icon: "file", url: "#" },
+      { title: "CSS Starter Pack", type: "ZIP", icon: "folder", url: "#" },
+      { title: "JS Reference Guide", type: "PDF", icon: "file", url: "#" },
+    ],
     modules: [
       {
         id: "m1",
@@ -74,11 +82,11 @@ export const courses: Record<string, CourseData> = {
         lessonsCompleted: 5,
         totalLessons: 5,
         lessons: [
-          { id: "l1", title: "1. Introduction to Web Development", duration: "04:32", isCompleted: true },
-          { id: "l2", title: "2. How the Web Works", duration: "06:18", isCompleted: true },
-          { id: "l3", title: "3. Setting Up Your Environment", duration: "05:45", isCompleted: true },
-          { id: "l4", title: "4. HTML Basics", duration: "08:23", isCompleted: true },
-          { id: "l5", title: "5. HTML Elements and Structure", duration: "10:15", isCompleted: true, isActive: true },
+          { id: "l1", title: "1. Introduction to Web Development", duration: "04:32", isCompleted: true, videoUrl: "https://example.com/v1", description: "Learn what web development is and the roles of HTML, CSS, and JS." },
+          { id: "l2", title: "2. How the Web Works", duration: "06:18", isCompleted: true, videoUrl: "https://example.com/v2", description: "Understand DNS, servers, and how browsers render pages." },
+          { id: "l3", title: "3. Setting Up Your Environment", duration: "05:45", isCompleted: true, videoUrl: "https://example.com/v3", description: "Install VS Code and essential extensions." },
+          { id: "l4", title: "4. HTML Basics", duration: "08:23", isCompleted: true, videoUrl: "https://example.com/v4", description: "Learn the core structure of an HTML document." },
+          { id: "l5", title: "5. HTML Elements and Structure", duration: "10:15", isCompleted: true, isActive: true, videoUrl: "https://example.com/v5", description: "Deep dive into semantic HTML elements like header, main, and footer." },
         ],
       },
       {
@@ -86,20 +94,30 @@ export const courses: Record<string, CourseData> = {
         title: "Module 2 · CSS Fundamentals",
         lessonsCompleted: 0,
         totalLessons: 6,
-        lessons: [],
+        lessons: [
+          { id: "l6", title: "6. Introduction to CSS", duration: "07:45", isCompleted: false },
+          { id: "l7", title: "7. CSS Selectors and Properties", duration: "12:20", isCompleted: false },
+          { id: "l8", title: "8. The Box Model", duration: "09:15", isCompleted: false },
+          { id: "l9", title: "9. Flexbox Layouts", duration: "15:30", isCompleted: false },
+          { id: "l10", title: "10. Grid Systems", duration: "14:10", isCompleted: false },
+          { id: "l11", title: "11. Responsive Design", duration: "11:50", isCompleted: false },
+        ],
       },
       {
         id: "m3",
         title: "Module 3 · JavaScript Basics",
         lessonsCompleted: 0,
         totalLessons: 7,
-        lessons: [],
+        lessons: [
+          { id: "l12", title: "12. JS Syntax and Variables", duration: "08:10", isCompleted: false },
+          { id: "l13", title: "13. Data Types and Operators", duration: "10:30", isCompleted: false },
+          { id: "l14", title: "14. Functions and Scope", duration: "13:45", isCompleted: false },
+          { id: "l15", title: "15. Conditionals and Loops", duration: "11:20", isCompleted: false },
+          { id: "l16", title: "16. Arrays and Objects", duration: "14:50", isCompleted: false },
+          { id: "l17", title: "17. DOM Manipulation", duration: "16:15", isCompleted: false },
+          { id: "l18", title: "18. Event Listeners", duration: "12:40", isCompleted: false },
+        ],
       },
-    ],
-    resources: [
-      { title: "Cheatsheet", type: "PDF", icon: "file" },
-      { title: "Starter Files", type: "ZIP", icon: "folder" },
-      { title: "Notes", type: "PDF", icon: "file" },
     ],
   },
 };
