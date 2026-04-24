@@ -36,11 +36,11 @@ export function CurriculumSidebar({ modules, activeLessonId, onLessonSelect }: C
               )}
               onClick={() => toggleModule(module.id)}
             >
-              <div className="inline-block text-ink font-sans font-bold text-[13px] leading-none">
+              <div className="inline-block text-ink font-sans font-bold text-sm">
                 {module.title}
               </div>
               <div className="flex items-center gap-2.5">
-                <div className="inline-block text-text-dim font-sans font-semibold text-xs leading-none">
+                <div className="inline-block text-text-dim font-sans font-semibold text-xs">
                   {module.lessonsCompleted} / {module.totalLessons}
                 </div>
                 {isExpanded ? (
@@ -60,7 +60,7 @@ export function CurriculumSidebar({ modules, activeLessonId, onLessonSelect }: C
                     <div 
                       key={lesson.id} 
                       className={cn(
-                        "flex items-center justify-between py-3.75 px-5 border-b border-b-solid border-surface-dim cursor-pointer hover:bg-surface group",
+                        "flex items-center justify-between py-4 px-5 border-b border-solid border-surface-dim cursor-pointer hover:bg-surface group",
                         isActive && "bg-surface"
                       )}
                       onClick={() => onLessonSelect?.(lesson)}
@@ -72,14 +72,14 @@ export function CurriculumSidebar({ modules, activeLessonId, onLessonSelect }: C
                           <div className="size-4 rounded-full border-2 border-border-dark shrink-0" />
                         )}
                         <div className={cn(
-                          "inline-block font-sans text-[13px] leading-none group-hover:text-ink transition-colors",
+                          "inline-block font-sans text-sm group-hover:text-ink transition-colors",
                           isActive ? "text-ink font-bold" : "text-text-secondary font-medium"
                         )}>
                           {lesson.title}
                         </div>
                       </div>
                       <div className={cn(
-                        "inline-block font-sans shrink-0 text-xs leading-none",
+                        "inline-block font-sans shrink-0 text-xs",
                         isActive ? "text-text-muted font-semibold" : "text-text-dim"
                       )}>
                         {lesson.duration}

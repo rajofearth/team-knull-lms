@@ -8,7 +8,7 @@ export function CTASection() {
       <div className="mx-auto max-w-[1280px]">
         <div className="relative flex flex-col md:flex-row items-center justify-between gap-10 overflow-hidden rounded-[32px] bg-surface-dim p-10 md:p-20 border border-border">
           <div className="max-w-[500px] text-center md:text-left z-10">
-            <h2 className="text-ink font-heading font-extrabold text-[40px] md:text-[48px] leading-[1.1] m-0 mb-6">
+            <h2 className="text-ink font-heading font-extrabold text-4xl md:text-5xl leading-tight m-0 mb-6">
               Ready to start your learning journey?
             </h2>
             <p className="text-lg leading-relaxed text-text-description font-heading m-0 mb-10">

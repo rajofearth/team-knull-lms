@@ -30,12 +30,13 @@ export interface CourseData {
   title: string;
   description: string;
   rating: number;
-  reviewsCount: number;
+  reviewsCount: number | string;
   studentsCount: string;
   level: string;
   duration: string;
   thumbnail: string;
   badge?: string;
+  price: number;
   progress: {
     percentage: number;
     lessonsCompleted: number;
@@ -50,8 +51,8 @@ export interface CourseData {
 }
 
 export const courses: Record<string, CourseData> = {
-  "web-dev-bootcamp": {
-    id: "web-dev-bootcamp",
+  "web-dev": {
+    id: "web-dev",
     title: "Web Development Bootcamp",
     description: "Learn HTML, CSS, JavaScript, and modern web development by building real-world projects. From zero to job-ready.",
     rating: 4.7,
@@ -59,8 +60,9 @@ export const courses: Record<string, CourseData> = {
     studentsCount: "12,430",
     level: "Beginner to Advanced",
     duration: "25 Hours",
-    thumbnail: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/01KPZQXET8N4BBMV3ST7JMF0X5.png",
-    badge: "Bestseller",
+    thumbnail: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/57D02ZX8T4T6X7YR0XTTDXRA9J.jpg",
+    badge: "New",
+    price: 59,
     progress: {
       percentage: 65,
       lessonsCompleted: 18,
@@ -120,4 +122,117 @@ export const courses: Record<string, CourseData> = {
       },
     ],
   },
+  "uiux-design": {
+    id: "uiux-design",
+    title: "UI/UX Design Fundamentals",
+    description: "Learn the basics of UI/UX design and create beautiful user interfaces with Figma and design principles.",
+    rating: 4.8,
+    reviewsCount: "1.2k",
+    studentsCount: "8,540",
+    level: "Beginner",
+    duration: "12 Hours",
+    thumbnail: "/course_uiux.png",
+    badge: "Bestseller",
+    price: 49,
+    progress: {
+      percentage: 0,
+      lessonsCompleted: 0,
+      totalLessons: 15,
+      projectsCompleted: 0,
+      totalProjects: 3,
+      quizScore: 0,
+      certificateAvailable: true,
+    },
+    resources: [
+      { title: "Design Principles PDF", type: "PDF", icon: "file", url: "#" },
+      { title: "Figma UI Kit", type: "ZIP", icon: "folder", url: "#" },
+    ],
+    modules: [
+      {
+        id: "m1",
+        title: "Module 1 · Intro to Design",
+        lessonsCompleted: 0,
+        totalLessons: 5,
+        lessons: [
+          { id: "l1", title: "1. What is UI vs UX?", duration: "05:30", isCompleted: false },
+          { id: "l2", title: "2. The Design Process", duration: "08:15", isCompleted: false },
+          { id: "l3", title: "3. Design Thinking", duration: "10:45", isCompleted: false },
+        ],
+      },
+    ],
+  },
+  "graphics-design": {
+    id: "graphics-design",
+    title: "Graphics Design Masterclass",
+    description: "Design stunning visuals and brand identities like a pro using Photoshop, Illustrator and more.",
+    rating: 4.9,
+    reviewsCount: "1.1k",
+    studentsCount: "5,210",
+    level: "All Levels",
+    duration: "18 Hours",
+    thumbnail: "/course_graphics.png",
+    badge: "Popular",
+    price: 49,
+    progress: {
+      percentage: 0,
+      lessonsCompleted: 0,
+      totalLessons: 20,
+      projectsCompleted: 0,
+      totalProjects: 4,
+      quizScore: 0,
+      certificateAvailable: true,
+    },
+    resources: [
+      { title: "Branding Guide", type: "PDF", icon: "file", url: "#" },
+      { title: "Icon Pack", type: "ZIP", icon: "folder", url: "#" },
+    ],
+    modules: [
+      {
+        id: "m1",
+        title: "Module 1 · Design Basics",
+        lessonsCompleted: 0,
+        totalLessons: 5,
+        lessons: [
+          { id: "l1", title: "1. Introduction to Graphics Design", duration: "06:20", isCompleted: false },
+        ],
+      },
+    ],
+  },
+  "digital-marketing": {
+    id: "digital-marketing",
+    title: "Digital Marketing Strategy",
+    description: "Master digital marketing and grow any business online with SEO, Social Media, and Ads.",
+    rating: 4.8,
+    reviewsCount: 743,
+    studentsCount: "10,120",
+    level: "Beginner",
+    duration: "10 Hours",
+    thumbnail: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/711RZMR1A20C05JSNQGKYSNPWR.jpg",
+    badge: "New",
+    price: 39,
+    progress: {
+      percentage: 0,
+      lessonsCompleted: 0,
+      totalLessons: 12,
+      projectsCompleted: 0,
+      totalProjects: 2,
+      quizScore: 0,
+      certificateAvailable: true,
+    },
+    resources: [
+      { title: "Marketing Plan Template", type: "PDF", icon: "file", url: "#" },
+    ],
+    modules: [
+      {
+        id: "m1",
+        title: "Module 1 · Foundation",
+        lessonsCompleted: 0,
+        totalLessons: 4,
+        lessons: [
+          { id: "l1", title: "1. Digital Marketing Overview", duration: "07:10", isCompleted: false },
+        ],
+      },
+    ],
+  },
 };
+

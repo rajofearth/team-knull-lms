@@ -23,7 +23,7 @@ export function Categories() {
       <div className="mx-auto max-w-[1280px]">
         {/* Header */}
         <div className="flex justify-between items-center mb-10">
-          <h2 className="text-ink font-heading font-bold text-[32px] leading-tight m-0">
+          <h2 className="text-ink font-heading font-bold text-3xl leading-tight m-0">
             Browse by Categories
           </h2>
           <div className="flex items-center gap-2 group cursor-pointer">

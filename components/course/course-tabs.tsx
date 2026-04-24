@@ -12,8 +12,7 @@ export function CourseTabs({ activeTab }: CourseTabsProps) {
     { id: "overview", label: "Overview" },
     { id: "curriculum", label: "Curriculum" },
     { id: "instructor", label: "Instructor" },
-    { id: "reviews", label: "Reviews (892)" },
-    { id: "qa", label: "Q&A" },
+    { id: "reviews", label: "Reviews" },
   ];
 
   return (
@@ -37,3 +36,4 @@ export function CourseTabs({ activeTab }: CourseTabsProps) {
     </div>
   );
 }
+

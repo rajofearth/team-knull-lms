@@ -11,10 +11,10 @@ export function HeroSection() {
           <div className="tracking-[1px] uppercase inline-block text-text-muted font-heading font-semibold text-sm">
             Team Knull&apos;s LMS
           </div>
-          <h1 className="text-[52px] md:text-[72px] leading-[1.05] text-ink font-heading font-extrabold whitespace-pre-wrap m-0">
+          <h1 className="text-5xl md:text-7xl leading-tight text-ink font-heading font-extrabold whitespace-pre-wrap m-0">
             Learn. Grow.<br />Get Certified.
           </h1>
-          <p className="text-lg md:text-[18px] leading-[1.6] text-text-description font-heading">
+          <p className="text-lg leading-relaxed text-text-description font-heading">
             Explore premium courses, learn at your own pace, and earn certificates to showcase your skills.
           </p>
           <div className="flex flex-wrap gap-4 mt-2">
@@ -40,22 +40,22 @@ export function HeroSection() {
             </div>
             <div className="flex gap-5">
               <div className="grow shrink basis-[0%] flex flex-col gap-3">
-                <div className="w-fit inline-block rounded-sm py-1 px-2 bg-blue-50/50">
-                  <div className="inline-block text-blue-600 font-heading font-bold text-[10px]">
+                <div className="w-fit inline-block rounded-sm py-1 px-2 bg-surface">
+                  <div className="inline-block text-ink-deep font-heading font-bold text-[10px]">
                     In-Progress
                   </div>
                 </div>
-                <div className="text-[18px] leading-[1.3] text-ink font-heading font-bold whitespace-pre-wrap m-0">
+                <div className="text-lg leading-snug text-ink font-heading font-bold whitespace-pre-wrap m-0">
                   UI/UX Design<br />Fundamentals
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1.5">
                   <div className="flex justify-between">
                     <div className="inline-block text-text-muted font-heading text-[10px]">
                       65% Complete
                     </div>
                   </div>
-                  <div className="w-full h-1.5 relative rounded-[3px] bg-surface-dim shrink-0 overflow-hidden">
-                    <div className="absolute left-0 top-0 h-full w-[65%] rounded-[3px] bg-ink-deep" />
+                  <div className="w-full h-1.5 relative rounded-full bg-surface-dim shrink-0 overflow-hidden">
+                    <div className="absolute left-0 top-0 h-full w-[65%] rounded-full bg-ink-deep" />
                   </div>
                 </div>
                 <Button size="sm" className="w-fit rounded-md py-2 px-4 bg-ink-deep text-canvas hover:opacity-90 font-heading font-semibold text-xs">
@@ -106,7 +106,7 @@ export function HeroSection() {
               My Progress
             </div>
             <div className="flex flex-col items-center gap-4">
-              <div className="w-24 h-24 flex items-center justify-center relative rounded-full border-[10px] border-surface-dim shrink-0">
+              <div className="w-24 h-24 flex items-center justify-center relative rounded-full border-10 border-surface-dim shrink-0">
                 <div className="flex flex-col items-center">
                   <div className="inline-block text-ink font-heading font-extrabold text-2xl">
                     12
@@ -115,7 +115,7 @@ export function HeroSection() {
                     Courses Enrolled
                   </div>
                 </div>
-                <div className="absolute -top-[10px] -left-[10px] -right-[10px] -bottom-[10px] rounded-full border-[10px] border-ink-deep border-b-transparent border-r-transparent -rotate-45" />
+                <div className="absolute top-[-10px] left-[-10px] right-[-10px] bottom-[-10px] rounded-full border-10 border-ink-deep border-b-transparent border-r-transparent -rotate-45" />
               </div>
               <div className="w-full flex flex-col gap-2">
                 {[

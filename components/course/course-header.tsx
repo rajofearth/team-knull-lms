@@ -7,7 +7,7 @@ interface CourseHeaderProps {
     title: string;
     description: string;
     rating: number;
-    reviewsCount: number;
+    reviewsCount: number | string;
     studentsCount: string;
     level: string;
     duration: string;
@@ -34,13 +34,13 @@ export function CourseHeader({ course }: CourseHeaderProps) {
       </div>
       
       <div className="grow shrink basis-[0%] flex flex-col">
-        <h1 className="text-[38px] tracking-[-0.01em] leading-[round(up,120%,1px)] text-ink font-heading font-bold m-0">
+        <h1 className="text-4xl tracking-tight leading-tight text-ink font-heading font-bold m-0">
           {course.title}
         </h1>
-        <div className="mt-3.5 mb-7 text-[16px] leading-[round(up,155%,1px)] max-w-130 text-text-description font-sans mx-0">
+        <div className="mt-4 mb-8 text-base leading-relaxed max-w-xl text-text-description font-sans mx-0">
           {course.description}
         </div>
-        <div className="flex items-center mb-9 gap-4 w-131">
+        <div className="flex items-center mb-9 gap-4">
           <div className="flex items-center gap-1.5">
             <div className="inline-block text-ink font-sans font-bold text-sm leading-[18px]">
               {course.rating}
@@ -52,19 +52,19 @@ export function CourseHeader({ course }: CourseHeaderProps) {
               ({course.reviewsCount})
             </div>
           </div>
-          <div className="text-text-dim font-sans text-sm leading-[18px]">•</div>
-          <div className="text-text-secondary font-sans text-sm leading-[18px]">{course.studentsCount} Students</div>
-          <div className="text-text-dim font-sans text-sm leading-[18px]">•</div>
-          <div className="text-text-secondary font-sans text-sm leading-[18px]">{course.level}</div>
-          <div className="text-text-dim font-sans text-sm leading-[18px]">•</div>
-          <div className="text-text-secondary font-sans text-sm leading-[18px]">{course.duration}</div>
+          <div className="text-text-dim font-sans text-sm">•</div>
+          <div className="text-text-secondary font-sans text-sm">{course.studentsCount} Students</div>
+          <div className="text-text-dim font-sans text-sm">•</div>
+          <div className="text-text-secondary font-sans text-sm">{course.level}</div>
+          <div className="text-text-dim font-sans text-sm">•</div>
+          <div className="text-text-secondary font-sans text-sm">{course.duration}</div>
         </div>
         
         <div className="flex gap-4">
-          <Button className="rounded-lg py-3.5 px-8 h-auto bg-ink text-canvas cursor-pointer hover:opacity-90 font-sans font-bold text-sm leading-[18px] tracking-[0.01em]">
+          <Button className="rounded-lg py-3.5 px-8 h-auto bg-ink text-canvas cursor-pointer hover:opacity-90 font-sans font-bold text-sm tracking-wide">
             Continue Learning
           </Button>
-          <Button variant="outline" className="flex items-center rounded-lg py-3.5 px-8 h-auto gap-2.5 bg-canvas border-[1.5px] border-solid border-border-alt cursor-pointer hover:bg-surface font-sans font-bold text-sm leading-[18px] text-ink">
+          <Button variant="outline" className="flex items-center rounded-lg py-3.5 px-8 h-auto gap-2.5 bg-canvas border-[1.5px] border-solid border-border-alt cursor-pointer hover:bg-surface font-sans font-bold text-sm text-ink">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="stroke-ink" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
               <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
             </svg>

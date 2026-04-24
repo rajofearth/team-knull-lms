@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 export default function CoursePage({ params }: { params: Promise<{ courseId: string }> }) {
   const resolvedParams = React.use(params);
   const courseId = resolvedParams.courseId;
-  const courseData = courses[courseId] || courses["web-dev-bootcamp"];
+  const courseData = courses[courseId] || courses["web-dev"];
 
   const [activeLessonId, setActiveLessonId] = useState<string>("l5");
 
@@ -48,30 +48,30 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
   if (!courseData) return <div>Course not found</div>;
 
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
-      <div className="mx-auto max-w-[1440px] flex flex-col bg-white antialiased text-xs/4">
+    <main className="min-h-screen bg-canvas overflow-x-hidden">
+      <div className="mx-auto max-w-[1440px] flex flex-col bg-canvas antialiased text-sm">
         <Navbar />
         {/* Breadcrumbs */}
         <div className="flex items-center pt-6 gap-2 px-20">
-          <Link href="/" className="inline-block text-text-muted font-sans text-[13px] leading-none hover:text-ink transition-colors">
+          <Link href="/" className="inline-block text-text-muted font-sans text-sm leading-none hover:text-ink transition-colors">
             Home
           </Link>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="stroke-ink-deep" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <Link href="/courses" className="inline-block text-text-muted font-sans text-[13px] leading-none hover:text-ink transition-colors">
+          <Link href="/courses" className="inline-block text-text-muted font-sans text-sm leading-none hover:text-ink transition-colors">
             Courses
           </Link>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="stroke-ink-deep" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <div className="inline-block text-text-muted font-sans text-[13px] leading-none">
+          <div className="inline-block text-text-muted font-sans text-sm leading-none">
             {courseData.title}
           </div>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="stroke-ink-deep" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>
             <polyline points="9 18 15 12 9 6" />
           </svg>
-          <div className="inline-block text-ink-secondary font-sans text-[13px] leading-none">
+          <div className="inline-block text-ink-secondary font-sans text-sm leading-none">
             {activeLesson.title}
           </div>
         </div>
@@ -96,10 +96,10 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
             <VideoPlayer />
 
             <div className="">
-              <div className="tracking-[-0.01em] text-ink font-heading font-bold m-0 text-[26px] leading-8">
+              <div className="tracking-tight text-ink font-heading font-bold m-0 text-2xl leading-8">
                 {activeLesson.title}
               </div>
-              <div className="mt-2.5 mb-0 text-[14px] leading-[1.65] max-w-160 text-text-secondary font-sans mx-0">
+              <div className="mt-2.5 mb-0 text-sm leading-relaxed max-w-2xl text-text-secondary font-sans mx-0">
                 {activeLesson.description || "Learn more about this topic in the video lecture above."}
               </div>
             </div>
@@ -117,7 +117,7 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
                   <line x1="19" y1="12" x2="5" y2="12" />
                   <polyline points="12 19 5 12 12 5" />
                 </svg>
-                <div className="inline-block text-ink-secondary font-sans font-bold text-[13px] leading-none">
+                <div className="inline-block text-ink-secondary font-sans font-bold text-sm leading-none">
                   Previous Lesson
                 </div>
               </button>
@@ -129,7 +129,7 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
                 onClick={handleNextLesson}
                 disabled={activeLessonId === allLessons[allLessons.length - 1].id}
               >
-                <div className="inline-block text-canvas font-sans font-bold text-[13px] leading-none">
+                <div className="inline-block text-canvas font-sans font-bold text-sm leading-none">
                   Next Lesson
                 </div>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: '0' }}>

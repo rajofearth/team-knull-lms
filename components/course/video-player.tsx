@@ -16,7 +16,7 @@ export function VideoPlayer() {
           </div>
           <div className="flex items-center mb-[-10px] py-1.5 px-3 gap-2 bg-video-border border-b border-video-header rounded-t-sm">
             <FileCode className="size-3 text-video-accent" />
-            <span className="text-text-dim font-sans text-[11px]">index.html</span>
+            <span className="text-text-description font-sans text-xs">index.html</span>
             <X className="size-2.5 text-text-secondary cursor-pointer hover:text-canvas" />
           </div>
         </div>
@@ -24,7 +24,7 @@ export function VideoPlayer() {
       </div>
 
       {/* Code Content */}
-      <div className="p-6 font-mono text-[13px] leading-relaxed text-video-text opacity-90 overflow-hidden">
+      <div className="p-6 font-mono text-sm leading-relaxed text-video-text opacity-90 overflow-hidden">
         <div className="flex gap-4">
           <span className="text-text-secondary text-right w-6 select-none pr-2">1</span>
           <span><span className="text-code-tag">&lt;!DOCTYPE</span> <span className="text-code-attr">html</span>&gt;</span>
@@ -101,12 +101,12 @@ export function VideoPlayer() {
             <div className="absolute left-[45%] top-1/2 -translate-y-1/2 size-3 rounded-full bg-canvas shadow-lg cursor-pointer" />
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-canvas font-sans font-medium text-[13px] opacity-90">
+            <span className="text-canvas font-sans font-medium text-sm opacity-90">
               05:12 / 10:15
             </span>
             <div className="flex items-center gap-4.5">
               <Volume2 className="size-[22px] text-canvas cursor-pointer hover:opacity-80" />
-              <span className="text-canvas font-sans font-bold text-[13px] cursor-pointer hover:opacity-80">1x</span>
+              <span className="text-canvas font-sans font-bold text-sm cursor-pointer hover:opacity-80">1x</span>
               <Settings className="size-[22px] text-canvas cursor-pointer hover:opacity-80" />
               <Maximize className="size-[22px] text-canvas cursor-pointer hover:opacity-80" />
             </div>

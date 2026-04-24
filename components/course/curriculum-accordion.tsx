@@ -36,11 +36,11 @@ export function CurriculumAccordion({ modules }: CurriculumAccordionProps) {
         <AccordionItem 
           key={module.id} 
           value={module.id}
-          className="rounded-xl overflow-hidden bg-white border border-border shadow-subtle data-[state=open]:shadow-md transition-shadow"
+          className="rounded-xl overflow-hidden bg-canvas border border-border shadow-subtle data-[state=open]:shadow-md transition-shadow"
         >
-          <AccordionTrigger hideIcon className="flex justify-between items-center py-4.5 px-5 bg-white hover:no-underline group">
+          <AccordionTrigger hideIcon className="flex justify-between items-center py-4.5 px-5 bg-canvas hover:no-underline group">
             <div className="flex justify-between items-center w-full pr-4">
-              <span className="text-ink font-sans font-bold text-[13px]">
+              <span className="text-ink font-sans font-bold text-sm">
                 {module.title}
               </span>
               <div className="flex items-center gap-2.5">
@@ -68,7 +68,7 @@ export function CurriculumAccordion({ modules }: CurriculumAccordionProps) {
                       <div className="size-4 rounded-full border-2 border-border-dark" />
                     )}
                     <span className={cn(
-                      "font-sans text-[13px]",
+                      "font-sans text-sm",
                       lesson.isActive ? "text-ink font-bold" : "text-text-secondary font-medium"
                     )}>
                       {lesson.title}

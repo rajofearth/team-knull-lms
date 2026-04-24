@@ -33,10 +33,10 @@ export function ResourcesCard({ resources }: ResourcesCardProps) {
                 )}
               </div>
               <div>
-                <div className="text-ink-secondary font-sans font-bold text-[13px] leading-none">
+                <div className="text-ink-secondary font-sans font-bold text-sm">
                   {resource.title}
                 </div>
-                <div className="text-text-muted font-sans font-medium text-[11px] leading-none mt-1">
+                <div className="text-text-muted font-sans font-medium text-xs mt-1">
                   {resource.type}
                 </div>
               </div>

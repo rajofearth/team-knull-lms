@@ -62,6 +62,16 @@
   --color-video-text: oklch(0.85 0 0);
   --color-video-accent: oklch(0.6 0.2 30);
 
+  /* Window Controls */
+  --color-window-close: oklch(0.65 0.25 25);
+  --color-window-minimize: oklch(0.85 0.2 85);
+  --color-window-maximize: oklch(0.75 0.2 145);
+
+  /* Code Syntax */
+  --color-code-tag: oklch(0.75 0.15 250);
+  --color-code-attr: oklch(0.85 0.1 200);
+  --color-code-string: oklch(0.75 0.15 45);
+
   /* Charts */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);

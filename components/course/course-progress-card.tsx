@@ -71,32 +71,32 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
   return (
     <div className="w-82.5 shrink-0 rounded-xl bg-canvas border-[1.5px] border-solid border-border p-7">
       <div className="flex justify-between items-baseline mb-3">
-        <div className="tracking-[0.02em] inline-block text-ink font-sans font-extrabold text-[13px] leading-[16px]">
+        <div className="tracking-wide inline-block text-ink font-sans font-extrabold text-sm">
           Your Progress
         </div>
-        <div className="inline-block text-text-muted font-sans font-semibold text-[11px] leading-[14px]">
+        <div className="inline-block text-text-muted font-sans font-semibold text-xs">
           {progress.percentage}% Complete
         </div>
       </div>
       
-      <div className="w-full h-1.25 mb-8 relative rounded-[10px] overflow-clip bg-surface-dim">
+      <div className="w-full h-1.5 mb-8 relative rounded-full overflow-hidden bg-surface-dim">
         <div 
-          className="h-full rounded-[10px] bg-ink transition-all duration-500" 
+          className="h-full rounded-full bg-ink transition-all duration-500" 
           style={{ width: `${progress.percentage}%` }} 
         />
       </div>
 
-      <div className="flex flex-col gap-4.5">
+      <div className="flex flex-col gap-5">
         {stats.map((stat, index) => (
           <div key={index} className="flex justify-between items-center">
             <div className="flex items-center gap-3.5">
-              <stat.icon className="size-[18px] text-ink" />
-              <div className="inline-block text-text-description font-sans font-medium text-[13px] leading-[16px]">
+              <stat.icon className="size-4 text-ink" />
+              <div className="inline-block text-text-description font-sans font-medium text-sm">
                 {stat.label}
               </div>
             </div>
             <div className={cn(
-              "inline-block font-sans font-semibold text-[13px] leading-[16px]",
+              "inline-block font-sans font-semibold text-sm",
               stat.color || "text-ink"
             )}>
               {stat.value}

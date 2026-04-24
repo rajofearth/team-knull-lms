@@ -66,7 +66,7 @@ export function Testimonials() {
   return (
     <section className="bg-canvas py-12 md:py-20 px-6 md:px-20 border-t border-border">
       <div className="mx-auto max-w-[1280px]">
-        <h2 className="text-center text-ink font-heading font-bold text-[32px] leading-tight mb-12">
+        <h2 className="text-center text-ink font-heading font-bold text-3xl leading-tight mb-12">
           What Our Learners Say
         </h2>
 
@@ -78,7 +78,7 @@ export function Testimonials() {
               className="flex flex-col rounded-[20px] gap-6 bg-canvas border border-border p-8 shadow-subtle hover:shadow-card transition-shadow"
             >
               <Quote size={32} className="text-text-muted opacity-10 shrink-0" fill="currentColor" />
-              <p className="text-sm leading-relaxed text-[#333333] font-heading m-0">
+              <p className="text-sm leading-relaxed text-text-description font-heading m-0">
                 &quot;{t.quote}&quot;
               </p>
               <div className="flex items-center gap-3">
