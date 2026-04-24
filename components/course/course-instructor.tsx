@@ -1,106 +1,128 @@
 "use client";
 
-import { Star, Users, Globe } from "lucide-react";
+import React from "react";
+import { Star, Users, Folder, Globe} from "lucide-react";
 import { Instructor } from "@/lib/data/courses";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { GithubLight } from "../ui/svgs/githubLight";
 import { X } from "../ui/svgs/x";
+import { GithubLight } from "../ui/svgs/githubLight";
 import { Linkedin } from "../ui/svgs/linkedin";
+
 interface CourseInstructorProps {
   instructors: Instructor[];
 }
 
 export function CourseInstructor({ instructors }: CourseInstructorProps) {
-  // Assuming we show the primary instructor
   const instructor = instructors[0];
   if (!instructor) return null;
 
   return (
-    <div className="flex flex-col gap-16 w-full max-w-[1280px]">
-      <div className="flex flex-col lg:flex-row gap-16 items-start">
-        {/* Left: Instructor Profile */}
-        <div className="flex flex-col gap-8 lg:w-[40%]">
-          <h2 className="text-2xl font-heading font-bold text-ink m-0">Your Instructor</h2>
+    <div className="[font-synthesis:none] flex flex-col w-full antialiased text-xs/4">
+      <div className="flex mt-0 items-start gap-10">
+        {/* Instructor Sidebar */}
+        <div className="w-100 flex flex-col rounded-xl gap-8 bg-canvas border border-solid border-border shrink-0 p-10">
+          <div className="flex flex-col items-center gap-4">
+            <div className="self-start text-ink font-heading font-bold text-xl/6 m-0">
+              Your Instructor
+            </div>
+            <div className="rounded-full overflow-hidden bg-muted shrink-0 size-40 border-4 border-muted">
+              <img 
+                src={instructor.avatar} 
+                alt={instructor.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="text-center">
+              <div className="text-[#111827] font-sans font-bold text-2xl/7.5">
+                {instructor.name}
+              </div>
+              <div className="mt-1 text-text-muted font-sans text-base/5">
+                {instructor.role}
+              </div>
+            </div>
+          </div>
           
-          <div className="flex flex-col items-center p-10 rounded-2xl border border-border bg-canvas shadow-subtle">
-            <Avatar className="size-32 rounded-full border-4 border-muted overflow-hidden">
-              <AvatarImage src={instructor.avatar} alt={instructor.name} className="object-cover" />
-              <AvatarFallback className="text-2xl font-bold bg-muted text-text-muted">
-                {instructor.name.split(" ").map(n => n[0]).join("")}
-              </AvatarFallback>
-            </Avatar>
-            
-            <div className="flex flex-col items-center gap-2 mt-6">
-              <h3 className="text-xl font-heading font-bold text-ink m-0">{instructor.name}</h3>
-              <p className="text-sm text-text-muted font-sans m-0">{instructor.role}</p>
-            </div>
-
-            <div className="flex items-center gap-6 mt-6 pt-6 border-t border-border w-full justify-center">
-              <div className="flex items-center gap-2 text-text-description">
-                <Star className="size-4 fill-amber-400 text-amber-400" />
-                <span className="text-xs font-sans font-bold">{instructor.stats.yearsExperience} Years Experience</span>
-              </div>
-              <div className="flex items-center gap-2 text-text-description">
-                <Users className="size-4" />
-                <span className="size-4 inline-flex items-center justify-center text-[10px] font-bold leading-none" />
-                <span className="text-xs font-sans font-bold">{instructor.stats.students} Students</span>
+          <div className="flex justify-center gap-6">
+            <div className="flex items-center gap-2">
+              <Folder className="size-4 text-ink" />
+              <div className="inline-block text-text-description font-sans text-sm/4.5">
+                {instructor.stats.yearsExperience} Years Experience
               </div>
             </div>
-
-            <p className="text-sm text-text-description leading-relaxed font-sans mt-6 text-center whitespace-pre-line">
-              {instructor.bio}
-            </p>
-
-            <div className="flex flex-col gap-4 mt-8 w-full">
-              <h4 className="text-xs font-bold text-ink uppercase tracking-wider">Connect</h4>
-              <div className="flex gap-3">
-                {[Globe, Linkedin, GithubLight, X].map((Icon, i) => (
-                  <button key={i} className="size-10 rounded-lg border border-border flex items-center justify-center text-text-muted hover:bg-muted hover:text-ink transition-all cursor-pointer">
-                    <Icon className="size-5" />
-                  </button>
-                ))}
+            <div className="flex items-center gap-2">
+              <Users className="size-4 text-ink" />
+              <div className="inline-block text-text-description font-sans text-sm/4.5">
+                {instructor.stats.students.toLocaleString()}+ Students
               </div>
+            </div>
+          </div>
+          
+          <div className="text-[15px] leading-relaxed text-text-description font-sans m-0">
+            {instructor.bio}
+          </div>
+          
+          <div className="flex flex-col gap-4">
+            <div className="text-ink font-sans font-semibold text-base/5">
+              Connect
+            </div>
+            <div className="flex gap-3">
+              {[Globe, Linkedin, GithubLight, X].map((Icon, i) => (
+                <button key={i} className="flex items-center justify-center rounded-lg border border-solid border-border shrink-0 size-10 hover:bg-muted transition-colors cursor-pointer text-ink">
+                  <Icon className="size-5" />
+                </button>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Right: Statistics and Top Courses */}
-        <div className="flex flex-col gap-12 lg:w-[60%]">
-          {/* Instructor Statistics */}
+        {/* Main Content Area */}
+        <div className="grow shrink basis-[0%] flex flex-col rounded-xl gap-8 bg-canvas border border-solid border-border p-10">
           <div className="flex flex-col gap-6">
-            <h2 className="text-2xl font-heading font-bold text-ink m-0">Instructor Statistics</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="text-ink font-heading font-bold text-xl/6 m-0">
+              Instructor Statistics
+            </div>
+            <div className="flex gap-4">
               {[
                 { label: "Years Experience", value: instructor.stats.yearsExperience },
-                { label: "Students Taught", value: instructor.stats.students },
+                { label: "Students Taught", value: instructor.stats.students.toLocaleString() },
                 { label: "Courses Created", value: instructor.stats.courses },
                 { label: "Average Rating", value: instructor.stats.rating },
               ].map((stat, i) => (
-                <div key={i} className="flex flex-col items-center justify-center p-6 rounded-2xl border border-border bg-muted/20 gap-2">
-                  <span className="text-2xl font-heading font-bold text-ink">{stat.value}</span>
-                  <span className="text-[11px] text-text-muted font-sans uppercase font-bold tracking-tight text-center">{stat.label}</span>
+                <div key={i} className="grow shrink basis-[0%] flex flex-col items-center rounded-xl border border-solid border-border p-6 bg-muted/20">
+                  <div className="text-ink font-sans font-bold text-[32px]/10">
+                    {stat.value}{stat.label.includes("Students") ? "+" : ""}
+                  </div>
+                  <div className="mt-2 text-text-muted font-sans text-sm/4.5 text-center">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Top Courses */}
-          <div className="flex flex-col gap-6">
-            <h2 className="text-2xl font-heading font-bold text-ink m-0">Top Courses by {instructor.name}</h2>
+          <div className="flex flex-col pt-8 gap-6 border-t border-solid border-border">
+            <div className="text-ink font-heading font-bold text-xl/6 m-0">
+              Top Courses by {instructor.name}
+            </div>
             <div className="flex flex-col gap-4">
               {instructor.coursesOnPlatform.map((course) => (
-                <div key={course.id} className="flex items-center gap-5 p-4 rounded-2xl border border-border bg-canvas hover:shadow-card transition-all cursor-pointer group">
-                  <div className="size-20 rounded-xl overflow-hidden bg-muted shrink-0">
+                <div key={course.id} className="flex items-center transition-all rounded-xl gap-4 p-3 hover:bg-muted/30 cursor-pointer group">
+                  <div className="w-20 h-15 rounded-lg overflow-hidden bg-muted shrink-0">
                     <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <div className="flex flex-col gap-1 grow">
-                    <h4 className="text-base font-sans font-bold text-ink group-hover:text-ink-deep transition-colors">{course.title}</h4>
-                    <p className="text-xs text-text-muted font-sans">{course.studentsCount} students</p>
+                  <div className="grow shrink basis-[0%]">
+                    <div className="text-ink font-sans font-semibold text-base/5 group-hover:text-ink-deep transition-colors">
+                      {course.title}
+                    </div>
+                    <div className="mt-1 text-text-muted font-sans text-sm/4.5">
+                      {course.studentsCount.toLocaleString()} students
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 shrink-0">
+                  <div className="flex items-center gap-1">
                     <Star className="size-4 fill-amber-400 text-amber-400" />
-                    <span className="text-sm font-sans font-bold text-ink">{course.rating}</span>
+                    <div className="inline-block text-ink font-sans font-semibold text-sm/4.5">
+                      {course.rating}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -110,10 +132,14 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
       </div>
 
       {/* Have Questions? CTA */}
-      <div className="flex items-center justify-between p-8 rounded-2xl bg-muted/30 border border-border">
-        <div className="flex flex-col gap-1">
-          <h3 className="text-lg font-heading font-bold text-ink m-0">Have Questions?</h3>
-          <p className="text-sm text-text-description font-sans m-0">Ask your questions in the Q&A section and get help from the instructor and community.</p>
+      <div className="mt-10 flex justify-between items-center rounded-xl py-8 px-10 bg-muted/30 border border-solid border-border">
+        <div className="flex flex-col gap-2">
+          <div className="text-ink font-heading font-bold text-xl/6 m-0">
+            Have Questions?
+          </div>
+          <div className="text-text-muted font-sans text-[15px]/4.5 m-0">
+            Ask your questions in the Q&A section and get help from the instructor and community.
+          </div>
         </div>
         <Button className="rounded-lg py-3 px-8 bg-ink text-canvas font-bold text-sm hover:opacity-90 transition-opacity">
           Go to Q&A

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CheckCircle2, Briefcase, Users, Clock, Award, Code, RefreshCw, Laptop } from "lucide-react";
+import { CheckCircle2, Briefcase, Users, Clock, Award, Code, Laptop } from "lucide-react";
 import { Overview } from "@/lib/data/courses";
 
 interface CourseOverviewProps {
@@ -14,90 +14,111 @@ const iconMap: Record<string, any> = {
   clock: Clock,
   award: Award,
   code: Code,
-  "refresh-cw": RefreshCw,
   laptop: Laptop,
 };
 
 export function CourseOverview({ overview }: CourseOverviewProps) {
   return (
-    <div className="flex flex-col gap-16 w-full max-w-[1280px]">
-      {/* About This Course */}
-      <section className="flex flex-col lg:flex-row gap-12 items-start">
-        <div className="flex flex-col gap-6 lg:w-[60%]">
-          <h2 className="text-2xl font-heading font-bold text-ink m-0">About This Course</h2>
-          <p className="text-sm text-text-description leading-relaxed font-sans m-0 whitespace-pre-line max-w-2xl">
-            {overview.detailedDescription}
-          </p>
+    <div className="[font-synthesis:none] flex flex-col w-full antialiased text-xs/4">
+      {/* About This Course Section */}
+      <div className="flex mt-0 rounded-xl gap-10 border border-solid border-border p-10 bg-canvas">
+        <div className="grow shrink basis-[0%] flex flex-col gap-6">
+          <div className="text-ink font-heading font-bold text-2xl/7.5 m-0">
+            About This Course
+          </div>
+          <div className="flex flex-col gap-4">
+            <div className="text-[16px] leading-relaxed text-text-description font-sans m-0 whitespace-pre-line">
+              {overview.detailedDescription}
+            </div>
+          </div>
         </div>
         
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10 lg:w-[40%] bg-muted/30 p-8 rounded-2xl border border-border/50">
+        {/* Features Sidebar */}
+        <div className="w-95 flex flex-col rounded-xl gap-6 bg-canvas border border-solid border-border shrink-0 p-6">
           {overview.features?.map((feature, index) => {
             const Icon = iconMap[feature.icon] || Briefcase;
             return (
-              <div key={index} className="flex gap-4">
-                <div className="size-10 shrink-0 rounded-xl bg-canvas border border-border flex items-center justify-center text-ink shadow-subtle">
-                  <Icon className="size-5" />
+              <div key={index} className="flex items-start gap-4">
+                <div className="flex items-center justify-center rounded-lg bg-muted shrink-0 size-10 border border-border">
+                  <Icon className="size-5 text-ink" />
                 </div>
-                <div className="flex flex-col gap-1">
-                  <h3 className="text-sm font-sans font-bold text-ink m-0">{feature.title}</h3>
-                  <p className="text-xs text-text-muted font-sans m-0 leading-tight">{feature.description}</p>
+                <div className="">
+                  <div className="text-ink font-sans font-semibold text-base/5">
+                    {feature.title}
+                  </div>
+                  <div className="mt-1 text-text-muted font-sans text-sm/4.5">
+                    {feature.description}
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
-      </section>
+      </div>
 
-      {/* What You'll Learn & Requirements */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        {/* What You'll Learn */}
-        <section className="flex flex-col gap-6">
-          <h2 className="text-2xl font-heading font-bold text-ink m-0">What You'll Learn</h2>
+      {/* What You'll Learn & Requirements Grid */}
+      <div className="flex mt-10 gap-10">
+        <div className="grow shrink basis-[0%] rounded-xl bg-canvas border border-solid border-border p-10">
+          <div className="mt-0 mb-6 text-ink font-heading font-bold text-xl/6 mx-0">
+            What You'll Learn
+          </div>
           <div className="flex flex-col gap-4">
             {overview.whatYouWillLearn.map((item, index) => (
-              <div key={index} className="flex gap-3 items-start">
-                <CheckCircle2 className="size-5 text-success shrink-0 mt-0.5" />
-                <p className="text-sm text-text-description leading-relaxed font-sans m-0">{item}</p>
+              <div key={index} className="flex items-center gap-3">
+                <CheckCircle2 className="size-5 text-success shrink-0" />
+                <div className="inline-block text-text-description font-sans text-base/5">
+                  {item}
+                </div>
               </div>
             ))}
           </div>
-        </section>
+        </div>
 
-        {/* Requirements */}
-        <section className="flex flex-col gap-6">
-          <h2 className="text-2xl font-heading font-bold text-ink m-0">Requirements</h2>
-          <ul className="flex flex-col gap-4 m-0 p-0 list-none">
+        <div className="w-95 rounded-xl bg-canvas border border-solid border-border shrink-0 p-10">
+          <div className="mt-0 mb-6 text-ink font-heading font-bold text-xl/6 mx-0">
+            Requirements
+          </div>
+          <div className="flex flex-col gap-4 m-0">
             {overview.requirements.map((item, index) => (
-              <li key={index} className="flex gap-3 items-center">
-                <div className="size-1.5 rounded-full bg-ink shrink-0" />
-                <span className="text-sm text-text-description font-sans">{item}</span>
-              </li>
+              <div key={index} className="flex gap-3">
+                <div className="inline-block text-text-muted font-sans text-base/5">
+                  •
+                </div>
+                <div className="inline-block text-text-description font-sans text-base/5">
+                  {item}
+                </div>
+              </div>
             ))}
-          </ul>
-        </section>
+          </div>
+        </div>
       </div>
 
       {/* Who This Course Is For */}
-      <section className="flex flex-col gap-8">
-        <h2 className="text-2xl font-heading font-bold text-ink m-0">Who This Course Is For</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="flex flex-col mt-10 rounded-xl gap-6 border border-solid border-border p-10 bg-canvas">
+        <div className="text-ink font-heading font-bold text-xl/6 m-0">
+          Who This Course Is For
+        </div>
+        <div className="flex gap-6">
           {overview.whoThisCourseIsFor?.map((item, index) => {
             const Icon = iconMap[item.icon] || Code;
             return (
-              <div key={index} className="flex flex-col gap-4 p-8 rounded-2xl border border-border bg-canvas hover:shadow-card transition-all group">
-                <div className="size-12 rounded-xl bg-muted flex items-center justify-center text-ink-secondary group-hover:bg-ink-deep group-hover:text-canvas transition-colors">
-                  <Icon className="size-6" />
+              <div key={index} className="grow shrink basis-[0%] flex flex-col rounded-xl gap-4 bg-canvas border border-solid border-border p-8 hover:shadow-card transition-all group">
+                <div className="flex items-center justify-center rounded-xl bg-muted shrink-0 size-12 group-hover:bg-ink group-hover:text-canvas transition-colors">
+                  <Icon className="size-6 text-ink group-hover:text-canvas" />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-base font-sans font-bold text-ink m-0">{item.title}</h3>
-                  <p className="text-sm text-text-muted font-sans m-0 leading-relaxed">{item.description}</p>
+                <div className="">
+                  <div className="text-ink font-sans font-semibold text-lg/5.5">
+                    {item.title}
+                  </div>
+                  <div className="text-[15px] mt-2 leading-relaxed text-text-muted font-sans">
+                    {item.description}
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
-      </section>
+      </div>
     </div>
   );
 }
