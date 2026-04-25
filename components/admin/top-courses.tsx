@@ -1,6 +1,6 @@
+import { MoreHorizontal, Star } from "lucide-react";
 import Image from "next/image";
-import { Star, MoreHorizontal } from "lucide-react";
-import type { TopCourse } from "@/lib/data/admin";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   DropdownMenu,
@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+import type { TopCourse } from "@/lib/data/admin";
 
 interface TopCoursesProps {
   courses: TopCourse[];
@@ -20,10 +20,16 @@ export function TopCourses({ courses }: TopCoursesProps) {
       <CardContent className="flex flex-col gap-5 p-5">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h3 className="font-heading font-semibold text-lg text-foreground">Top Courses</h3>
+          <h3 className="font-heading font-semibold text-lg text-foreground">
+            Top Courses
+          </h3>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="h-8 w-8 rounded-md border-border bg-white hover:bg-muted text-muted-foreground transition-colors shadow-none">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 rounded-md border-border bg-white hover:bg-muted text-muted-foreground transition-colors shadow-none"
+              >
                 <MoreHorizontal className="size-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -61,7 +67,9 @@ export function TopCourses({ courses }: TopCoursesProps) {
                 </div>
               </div>
               <div className="flex items-center gap-1 shrink-0">
-                <span className="text-sm font-sans font-semibold text-foreground">{course.rating}</span>
+                <span className="text-sm font-sans font-semibold text-foreground">
+                  {course.rating}
+                </span>
                 <Star className="size-3 fill-foreground text-foreground" />
               </div>
             </div>

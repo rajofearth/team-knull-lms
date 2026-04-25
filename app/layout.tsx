@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
-import { TooltipProvider } from "@/components/ui/tooltip"
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,12 +33,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
+    >
       <body className="min-h-full antialiased font-sans">
-        <TooltipProvider>
-        {children}
-        </TooltipProvider>
-        </body>
+        <TooltipProvider>{children}</TooltipProvider>
+      </body>
     </html>
   );
 }

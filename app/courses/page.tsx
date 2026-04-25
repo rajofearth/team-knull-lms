@@ -1,14 +1,21 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Search, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { CourseFilters } from "@/components/course-filters";
-import { CourseCard } from "@/components/course-card";
-import { courses } from "@/lib/data/courses";
+import { ChevronDown, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import Link from "next/link";
+import { useMemo, useState } from "react";
+import { CourseCard } from "@/components/course-card";
+import { CourseFilters } from "@/components/course-filters";
+import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { courses } from "@/lib/data/courses";
 import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 6;
@@ -30,13 +37,19 @@ export default function CoursesPage() {
 
   const filterCounts = useMemo(() => {
     const counts = {
-      levels: { Beginner: 0, Intermediate: 0, Advanced: 0 } as Record<string, number>,
+      levels: { Beginner: 0, Intermediate: 0, Advanced: 0 } as Record<
+        string,
+        number
+      >,
       price: { free: 0, paid: 0 },
-      durations: { "0-5 Hours": 0, "5-15 Hours": 0, "15+ Hours": 0 } as Record<string, number>,
-      ratings: { 5: 0, 4: 0, 3: 0, 2: 0 } as Record<number, number>
+      durations: { "0-5 Hours": 0, "5-15 Hours": 0, "15+ Hours": 0 } as Record<
+        string,
+        number
+      >,
+      ratings: { 5: 0, 4: 0, 3: 0, 2: 0 } as Record<number, number>,
     };
 
-    allCourses.forEach(course => {
+    allCourses.forEach((course) => {
       // Levels
       if (course.level in counts.levels) {
         counts.levels[course.level]++;
@@ -64,16 +77,19 @@ export default function CoursesPage() {
   }, [allCourses]);
 
   const filteredCourses = useMemo(() => {
-    let result = allCourses.filter((course) => {
+    const result = allCourses.filter((course) => {
       // Search Filter
-      const matchesSearch = 
+      const matchesSearch =
         course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         course.description.toLowerCase().includes(searchQuery.toLowerCase());
-      
+
       if (!matchesSearch) return false;
 
       // Level Filter
-      if (activeFilters.levels.length > 0 && !activeFilters.levels.includes(course.level)) {
+      if (
+        activeFilters.levels.length > 0 &&
+        !activeFilters.levels.includes(course.level)
+      ) {
         return false;
       }
 
@@ -85,9 +101,10 @@ export default function CoursesPage() {
       if (activeFilters.durations.length > 0) {
         // Simplified duration check for demo
         const courseDurationHours = parseInt(course.duration);
-        const matchesDuration = activeFilters.durations.some(d => {
+        const matchesDuration = activeFilters.durations.some((d) => {
           if (d === "0-5 Hours") return courseDurationHours <= 5;
-          if (d === "5-15 Hours") return courseDurationHours > 5 && courseDurationHours <= 15;
+          if (d === "5-15 Hours")
+            return courseDurationHours > 5 && courseDurationHours <= 15;
           if (d === "15+ Hours") return courseDurationHours > 15;
           return false;
         });
@@ -96,7 +113,9 @@ export default function CoursesPage() {
 
       // Rating Filter
       if (activeFilters.ratings.length > 0) {
-        const matchesRating = activeFilters.ratings.some(r => Math.floor(course.rating) >= r);
+        const matchesRating = activeFilters.ratings.some(
+          (r) => Math.floor(course.rating) >= r,
+        );
         if (!matchesRating) return false;
       }
 
@@ -118,7 +137,7 @@ export default function CoursesPage() {
   const totalPages = Math.ceil(filteredCourses.length / ITEMS_PER_PAGE);
   const currentCourses = filteredCourses.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   const handleFilterChange = (type: string, value: any) => {
@@ -169,15 +188,16 @@ export default function CoursesPage() {
               All Courses
             </h1>
             <p className="text-base leading-relaxed text-text-description font-sans m-0">
-              Explore our comprehensive library of courses and start learning new skills today.
+              Explore our comprehensive library of courses and start learning
+              new skills today.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
             <div className="flex items-center w-full sm:w-80 rounded-lg py-3 px-4 gap-3 bg-canvas border border-border shrink-0 focus-within:ring-2 focus-within:ring-ink/20 transition-all">
               <Search className="size-5 text-text-muted" />
-              <input 
-                type="text" 
-                placeholder="Search courses..." 
+              <input
+                type="text"
+                placeholder="Search courses..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="bg-transparent border-none outline-none text-ink font-sans text-sm w-full placeholder:text-text-muted"
@@ -195,8 +215,13 @@ export default function CoursesPage() {
               </div>
               {/* Simple Sort Dropdown */}
               <div className="absolute top-full left-0 w-full bg-canvas border border-border rounded-lg mt-1 hidden group-hover:block z-10 shadow-float overflow-hidden">
-                {["Most Popular", "Newest", "Price: Low to High", "Price: High to Low"].map((option) => (
-                  <div 
+                {[
+                  "Most Popular",
+                  "Newest",
+                  "Price: Low to High",
+                  "Price: High to Low",
+                ].map((option) => (
+                  <div
                     key={option}
                     onClick={() => setSortBy(option)}
                     className="p-3 hover:bg-muted cursor-pointer text-sm font-sans text-ink"
@@ -212,7 +237,7 @@ export default function CoursesPage() {
         {/* Main Content */}
         <section className="flex flex-col lg:flex-row w-full px-6 md:px-20 gap-10 pb-20">
           {/* Sidebar */}
-          <CourseFilters 
+          <CourseFilters
             activeFilters={activeFilters}
             filterCounts={filterCounts}
             onFilterChange={handleFilterChange}
@@ -223,10 +248,17 @@ export default function CoursesPage() {
           <div className="flex flex-col grow">
             <div className="mb-6 flex justify-between items-center">
               <span className="text-text-muted font-sans text-sm">
-                Showing {Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, filteredCourses.length)}-{Math.min(currentPage * ITEMS_PER_PAGE, filteredCourses.length)} of {filteredCourses.length} courses
+                Showing{" "}
+                {Math.min(
+                  (currentPage - 1) * ITEMS_PER_PAGE + 1,
+                  filteredCourses.length,
+                )}
+                -
+                {Math.min(currentPage * ITEMS_PER_PAGE, filteredCourses.length)}{" "}
+                of {filteredCourses.length} courses
               </span>
             </div>
-            
+
             {currentCourses.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {currentCourses.map((course) => (
@@ -238,11 +270,14 @@ export default function CoursesPage() {
                 <div className="size-16 rounded-full bg-muted flex items-center justify-center">
                   <Search className="size-8 text-text-muted" />
                 </div>
-                <h3 className="text-xl font-heading font-bold text-ink">No courses found</h3>
+                <h3 className="text-xl font-heading font-bold text-ink">
+                  No courses found
+                </h3>
                 <p className="text-text-description font-sans max-w-xs">
-                  We couldn't find any courses matching your current filters. Try clearing them to see more options.
+                  We couldn't find any courses matching your current filters.
+                  Try clearing them to see more options.
                 </p>
-                <button 
+                <button
                   onClick={handleClearFilters}
                   className="mt-2 text-ink-deep font-semibold hover:underline"
                 >
@@ -254,36 +289,38 @@ export default function CoursesPage() {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2 mt-12">
-                 <button 
+                <button
                   disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                  className="size-9 rounded-md border border-border flex items-center justify-center text-text-muted hover:bg-muted transition-colors cursor-pointer group disabled:opacity-30 disabled:cursor-not-allowed" 
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="size-9 rounded-md border border-border flex items-center justify-center text-text-muted hover:bg-muted transition-colors cursor-pointer group disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Previous page"
                 >
-                    <ChevronLeft className="size-4 group-hover:text-ink transition-colors" />
-                 </button>
-                 {[...Array(totalPages)].map((_, i) => (
-                   <button 
+                  <ChevronLeft className="size-4 group-hover:text-ink transition-colors" />
+                </button>
+                {[...Array(totalPages)].map((_, i) => (
+                  <button
                     key={i}
                     onClick={() => setCurrentPage(i + 1)}
                     className={cn(
                       "size-9 rounded-md font-semibold text-sm flex items-center justify-center cursor-pointer transition-colors",
-                      currentPage === i + 1 
-                        ? "bg-ink text-canvas" 
-                        : "border border-border text-text-description hover:bg-muted"
+                      currentPage === i + 1
+                        ? "bg-ink text-canvas"
+                        : "border border-border text-text-description hover:bg-muted",
                     )}
                   >
-                      {i + 1}
-                   </button>
-                 ))}
-                 <button 
+                    {i + 1}
+                  </button>
+                ))}
+                <button
                   disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                  className="size-9 rounded-md border border-border flex items-center justify-center text-text-muted hover:bg-muted transition-colors cursor-pointer group disabled:opacity-30 disabled:cursor-not-allowed" 
+                  onClick={() =>
+                    setCurrentPage((p) => Math.min(totalPages, p + 1))
+                  }
+                  className="size-9 rounded-md border border-border flex items-center justify-center text-text-muted hover:bg-muted transition-colors cursor-pointer group disabled:opacity-30 disabled:cursor-not-allowed"
                   aria-label="Next page"
                 >
-                    <ChevronRight className="size-4 group-hover:text-ink transition-colors" />
-                 </button>
+                  <ChevronRight className="size-4 group-hover:text-ink transition-colors" />
+                </button>
               </div>
             )}
           </div>

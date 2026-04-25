@@ -1,5 +1,5 @@
+import { ArrowRight, Award, CheckCircle2, Play } from "lucide-react";
 import Image from "next/image";
-import { Play, CheckCircle2, ArrowRight, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
@@ -12,18 +12,24 @@ export function HeroSection() {
             Team Knull&apos;s LMS
           </div>
           <h1 className="text-5xl md:text-7xl leading-tight text-ink font-heading font-extrabold whitespace-pre-wrap m-0">
-            Learn. Grow.<br />Get Certified.
+            Learn. Grow.
+            <br />
+            Get Certified.
           </h1>
           <p className="text-lg leading-relaxed text-text-description font-heading">
-            Explore premium courses, learn at your own pace, and earn certificates to showcase your skills.
+            Explore premium courses, learn at your own pace, and earn
+            certificates to showcase your skills.
           </p>
           <div className="flex flex-wrap gap-4 mt-2">
             <Button className="h-auto rounded-lg py-4 px-8 gap-2 bg-ink-deep text-canvas hover:opacity-90 font-heading font-semibold text-base transition-all active:scale-95">
-              Explore Courses 
+              Explore Courses
               <ArrowRight className="size-5" strokeWidth={2} />
             </Button>
-            <Button variant="outline" className="h-auto rounded-lg py-4 px-8 gap-2 bg-canvas border-border text-ink hover:bg-surface font-heading font-semibold text-base transition-all active:scale-95">
-              How It Works 
+            <Button
+              variant="outline"
+              className="h-auto rounded-lg py-4 px-8 gap-2 bg-canvas border-border text-ink hover:bg-surface font-heading font-semibold text-base transition-all active:scale-95"
+            >
+              How It Works
               <Play className="size-5 fill-ink" strokeWidth={2} />
             </Button>
           </div>
@@ -46,7 +52,9 @@ export function HeroSection() {
                   </div>
                 </div>
                 <div className="text-lg leading-snug text-ink font-heading font-bold whitespace-pre-wrap m-0">
-                  UI/UX Design<br />Fundamentals
+                  UI/UX Design
+                  <br />
+                  Fundamentals
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <div className="flex justify-between">
@@ -58,12 +66,15 @@ export function HeroSection() {
                     <div className="absolute left-0 top-0 h-full w-[65%] rounded-full bg-ink-deep" />
                   </div>
                 </div>
-                <Button size="sm" className="w-fit rounded-md py-2 px-4 bg-ink-deep text-canvas hover:opacity-90 font-heading font-semibold text-xs">
+                <Button
+                  size="sm"
+                  className="w-fit rounded-md py-2 px-4 bg-ink-deep text-canvas hover:opacity-90 font-heading font-semibold text-xs"
+                >
                   Continue Learning
                 </Button>
               </div>
               <div className="w-[140px] h-[140px] relative flex items-center justify-center rounded-xl overflow-clip bg-surface-dim shrink-0">
-                 <Image
+                <Image
                   src="/hero_chair.png"
                   alt="UI/UX Design Fundamentals"
                   fill
@@ -71,7 +82,7 @@ export function HeroSection() {
                   className="object-cover opacity-80"
                 />
                 <div className="absolute flex items-center justify-center rounded-full bg-canvas shadow-subtle size-10">
-                   <Play className="size-5 fill-ink" strokeWidth={2} />
+                  <Play className="size-5 fill-ink" strokeWidth={2} />
                 </div>
               </div>
             </div>
@@ -79,19 +90,32 @@ export function HeroSection() {
               {[
                 { id: "01", title: "Introduction to UI/UX", done: true },
                 { id: "02", title: "Design Principles", done: true },
-                { id: "03", title: "Wireframing Basics", done: false, active: true },
+                {
+                  id: "03",
+                  title: "Wireframing Basics",
+                  done: false,
+                  active: true,
+                },
               ].map((lesson) => (
-                <div key={lesson.id} className="flex items-center justify-between">
+                <div
+                  key={lesson.id}
+                  className="flex items-center justify-between"
+                >
                   <div className="flex items-center gap-3">
                     <div className="w-4 inline-block text-text-muted font-heading shrink-0 text-xs">
                       {lesson.id}
                     </div>
-                    <div className={`inline-block text-ink font-heading text-xs ${lesson.active ? 'font-semibold' : ''}`}>
+                    <div
+                      className={`inline-block text-ink font-heading text-xs ${lesson.active ? "font-semibold" : ""}`}
+                    >
                       {lesson.title}
                     </div>
                   </div>
                   {lesson.done ? (
-                    <CheckCircle2 className="size-4 text-success" strokeWidth={3} />
+                    <CheckCircle2
+                      className="size-4 text-success"
+                      strokeWidth={3}
+                    />
                   ) : (
                     <div className="rounded-full border-2 border-border shrink-0 size-3.5" />
                   )}
@@ -123,7 +147,10 @@ export function HeroSection() {
                   { label: "In Progress", val: 7 },
                   { label: "Certificates", val: 3 },
                 ].map((stat) => (
-                  <div key={stat.label} className="flex justify-between items-center">
+                  <div
+                    key={stat.label}
+                    className="flex justify-between items-center"
+                  >
                     <div className="inline-block text-text-muted font-heading text-[10px]">
                       {stat.label}
                     </div>
@@ -144,13 +171,18 @@ export function HeroSection() {
             <div className="flex items-center gap-4">
               <div className="grow shrink basis-[0%] flex flex-col gap-2">
                 <div className="text-xs leading-tight inline-block text-ink font-heading font-bold whitespace-pre-wrap">
-                  UI/UX Design<br />Fundamentals
+                  UI/UX Design
+                  <br />
+                  Fundamentals
                 </div>
                 <div className="flex items-center gap-1 group cursor-pointer">
                   <div className="inline-block text-text-muted font-heading font-semibold text-[10px] group-hover:text-ink transition-colors">
                     View Certificate
                   </div>
-                  <ArrowRight className="size-3 text-text-muted group-hover:text-ink transition-colors" strokeWidth={2.5} />
+                  <ArrowRight
+                    className="size-3 text-text-muted group-hover:text-ink transition-colors"
+                    strokeWidth={2.5}
+                  />
                 </div>
               </div>
               <div className="w-[60px] h-[80px] flex items-center justify-center rounded-lg bg-ink-deep shrink-0 shadow-float">

@@ -1,9 +1,9 @@
 "use client";
 
-import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { ChevronDown, Star } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface CourseFiltersProps {
   activeFilters: {
@@ -22,9 +22,16 @@ interface CourseFiltersProps {
   onClearFilters: () => void;
 }
 
-export function CourseFilters({ activeFilters, filterCounts, onFilterChange, onClearFilters }: CourseFiltersProps) {
-  
-  const toggleArrayFilter = (type: "levels" | "durations" | "ratings", value: string | number) => {
+export function CourseFilters({
+  activeFilters,
+  filterCounts,
+  onFilterChange,
+  onClearFilters,
+}: CourseFiltersProps) {
+  const toggleArrayFilter = (
+    type: "levels" | "durations" | "ratings",
+    value: string | number,
+  ) => {
     // Fix: Cast to any[] to avoid union array issues, then re-cast for type safety
     const current = activeFilters[type] as any[];
     const updated = current.includes(value)
@@ -38,7 +45,7 @@ export function CourseFilters({ activeFilters, filterCounts, onFilterChange, onC
       {/* Filters Header */}
       <div className="flex justify-between items-center pb-4 border-b border-border">
         <h2 className="text-ink font-heading font-semibold text-lg">Filters</h2>
-        <button 
+        <button
           onClick={onClearFilters}
           className="text-text-muted hover:text-ink font-sans text-sm transition-colors cursor-pointer"
         >
@@ -50,7 +57,9 @@ export function CourseFilters({ activeFilters, filterCounts, onFilterChange, onC
       <div className="flex flex-col gap-3">
         <h3 className="text-ink font-sans font-semibold text-sm">Categories</h3>
         <div className="flex items-center justify-between rounded-md py-2.5 px-3.5 bg-muted/50 border border-border group cursor-pointer hover:bg-muted transition-colors">
-          <span className="text-text-description font-sans text-sm">All Categories</span>
+          <span className="text-text-description font-sans text-sm">
+            All Categories
+          </span>
           <ChevronDown className="size-4 text-text-muted group-hover:text-ink transition-colors" />
         </div>
       </div>
@@ -61,15 +70,20 @@ export function CourseFilters({ activeFilters, filterCounts, onFilterChange, onC
         <div className="flex flex-col gap-3">
           {["Beginner", "Intermediate", "Advanced"].map((level) => (
             <div key={level} className="flex items-center gap-3">
-              <Checkbox 
-                id={`level-${level}`} 
+              <Checkbox
+                id={`level-${level}`}
                 checked={activeFilters.levels.includes(level)}
                 onCheckedChange={() => toggleArrayFilter("levels", level)}
               />
-              <Label htmlFor={`level-${level}`} className="text-text-description font-sans text-sm cursor-pointer grow">
+              <Label
+                htmlFor={`level-${level}`}
+                className="text-text-description font-sans text-sm cursor-pointer grow"
+              >
                 {level}
               </Label>
-              <span className="text-text-muted font-sans text-sm">({filterCounts.levels[level] || 0})</span>
+              <span className="text-text-muted font-sans text-sm">
+                ({filterCounts.levels[level] || 0})
+              </span>
             </div>
           ))}
         </div>
@@ -78,30 +92,43 @@ export function CourseFilters({ activeFilters, filterCounts, onFilterChange, onC
       {/* Price */}
       <div className="flex flex-col gap-4">
         <h3 className="text-ink font-sans font-semibold text-sm">Price</h3>
-        <RadioGroup 
-          value={activeFilters.price} 
+        <RadioGroup
+          value={activeFilters.price}
           onValueChange={(val) => onFilterChange("price", val)}
           className="flex flex-col gap-3"
         >
           <div className="flex items-center gap-3">
             <RadioGroupItem value="all" id="price-all" />
-            <Label htmlFor="price-all" className="text-ink font-medium font-sans text-sm cursor-pointer">
+            <Label
+              htmlFor="price-all"
+              className="text-ink font-medium font-sans text-sm cursor-pointer"
+            >
               All Courses
             </Label>
           </div>
           <div className="flex items-center gap-3">
             <RadioGroupItem value="free" id="price-free" />
-            <Label htmlFor="price-free" className="text-text-description font-sans text-sm cursor-pointer grow">
+            <Label
+              htmlFor="price-free"
+              className="text-text-description font-sans text-sm cursor-pointer grow"
+            >
               Free Courses
             </Label>
-            <span className="text-text-muted font-sans text-sm">({filterCounts.price.free})</span>
+            <span className="text-text-muted font-sans text-sm">
+              ({filterCounts.price.free})
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <RadioGroupItem value="paid" id="price-paid" />
-            <Label htmlFor="price-paid" className="text-text-description font-sans text-sm cursor-pointer grow">
+            <Label
+              htmlFor="price-paid"
+              className="text-text-description font-sans text-sm cursor-pointer grow"
+            >
               Paid Courses
             </Label>
-            <span className="text-text-muted font-sans text-sm">({filterCounts.price.paid})</span>
+            <span className="text-text-muted font-sans text-sm">
+              ({filterCounts.price.paid})
+            </span>
           </div>
         </RadioGroup>
       </div>
@@ -112,15 +139,20 @@ export function CourseFilters({ activeFilters, filterCounts, onFilterChange, onC
         <div className="flex flex-col gap-3">
           {["0-5 Hours", "5-15 Hours", "15+ Hours"].map((duration) => (
             <div key={duration} className="flex items-center gap-3">
-              <Checkbox 
-                id={`duration-${duration}`} 
+              <Checkbox
+                id={`duration-${duration}`}
                 checked={activeFilters.durations.includes(duration)}
                 onCheckedChange={() => toggleArrayFilter("durations", duration)}
               />
-              <Label htmlFor={`duration-${duration}`} className="text-text-description font-sans text-sm cursor-pointer grow">
+              <Label
+                htmlFor={`duration-${duration}`}
+                className="text-text-description font-sans text-sm cursor-pointer grow"
+              >
                 {duration}
               </Label>
-              <span className="text-text-muted font-sans text-sm">({filterCounts.durations[duration] || 0})</span>
+              <span className="text-text-muted font-sans text-sm">
+                ({filterCounts.durations[duration] || 0})
+              </span>
             </div>
           ))}
         </div>
@@ -132,8 +164,8 @@ export function CourseFilters({ activeFilters, filterCounts, onFilterChange, onC
         <div className="flex flex-col gap-3">
           {[5, 4, 3, 2].map((rating) => (
             <div key={rating} className="flex items-center gap-3">
-              <Checkbox 
-                id={`rating-${rating}`} 
+              <Checkbox
+                id={`rating-${rating}`}
                 checked={activeFilters.ratings.includes(rating)}
                 onCheckedChange={() => toggleArrayFilter("ratings", rating)}
               />
@@ -142,7 +174,11 @@ export function CourseFilters({ activeFilters, filterCounts, onFilterChange, onC
                   <Star
                     key={i}
                     size={14}
-                    className={i < rating ? "fill-amber-400 text-amber-400" : "fill-border text-border"}
+                    className={
+                      i < rating
+                        ? "fill-amber-400 text-amber-400"
+                        : "fill-border text-border"
+                    }
                   />
                 ))}
               </div>
@@ -155,7 +191,7 @@ export function CourseFilters({ activeFilters, filterCounts, onFilterChange, onC
       </div>
 
       {/* Apply Button */}
-      <button 
+      <button
         onClick={onClearFilters}
         className="flex items-center justify-center w-full rounded-lg bg-canvas border border-border py-3 hover:bg-muted transition-colors font-sans font-semibold text-sm text-ink cursor-pointer"
       >

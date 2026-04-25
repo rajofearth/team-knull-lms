@@ -1,19 +1,18 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { addDays, format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { type DateRange } from "react-day-picker"
-
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import { Field, FieldLabel } from "@/components/ui/field"
+import { addDays, format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import * as React from "react";
+import type { DateRange } from "react-day-picker";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Field, FieldLabel } from "@/components/ui/field";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 export function DatePickerWithRange({
   className,
@@ -21,7 +20,7 @@ export function DatePickerWithRange({
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2024, 4, 1), // May 1, 2024
     to: new Date(2024, 4, 31), // May 31, 2024
-  })
+  });
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -32,7 +31,7 @@ export function DatePickerWithRange({
             variant="outline"
             className={cn(
               "flex items-center gap-2.5 rounded-md py-2.5 px-4 bg-white border border-border hover:bg-muted transition-colors h-[35px] font-sans font-medium text-foreground/80",
-              !date && "text-muted-foreground"
+              !date && "text-muted-foreground",
             )}
           >
             <CalendarIcon className="size-[18px] text-muted-foreground shrink-0" />
@@ -61,5 +60,5 @@ export function DatePickerWithRange({
         </PopoverContent>
       </Popover>
     </div>
-  )
+  );
 }

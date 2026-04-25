@@ -1,12 +1,12 @@
 "use client";
 
+import { Folder, Globe, Star, Users } from "lucide-react";
 import React from "react";
-import { Star, Users, Folder, Globe} from "lucide-react";
-import { Instructor } from "@/lib/data/courses";
 import { Button } from "@/components/ui/button";
-import { X } from "../ui/svgs/x";
+import type { Instructor } from "@/lib/data/courses";
 import { GithubLight } from "../ui/svgs/githubLight";
 import { Linkedin } from "../ui/svgs/linkedin";
+import { X } from "../ui/svgs/x";
 
 interface CourseInstructorProps {
   instructors: Instructor[];
@@ -26,8 +26,8 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
               Your Instructor
             </div>
             <div className="rounded-full overflow-hidden bg-muted shrink-0 size-40 border-4 border-muted">
-              <img 
-                src={instructor.avatar} 
+              <img
+                src={instructor.avatar}
                 alt={instructor.name}
                 className="w-full h-full object-cover"
               />
@@ -41,7 +41,7 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
               </div>
             </div>
           </div>
-          
+
           <div className="flex justify-center gap-6">
             <div className="flex items-center gap-2">
               <Folder className="size-4 text-ink" />
@@ -56,18 +56,21 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
               </div>
             </div>
           </div>
-          
+
           <div className="text-[15px] leading-relaxed text-text-description font-sans m-0">
             {instructor.bio}
           </div>
-          
+
           <div className="flex flex-col gap-4">
             <div className="text-ink font-sans font-semibold text-base/5">
               Connect
             </div>
             <div className="flex gap-3">
               {[Globe, Linkedin, GithubLight, X].map((Icon, i) => (
-                <button key={i} className="flex items-center justify-center rounded-lg border border-solid border-border shrink-0 size-10 hover:bg-muted transition-colors cursor-pointer text-ink">
+                <button
+                  key={i}
+                  className="flex items-center justify-center rounded-lg border border-solid border-border shrink-0 size-10 hover:bg-muted transition-colors cursor-pointer text-ink"
+                >
                   <Icon className="size-5" />
                 </button>
               ))}
@@ -83,14 +86,24 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
             </div>
             <div className="flex gap-4">
               {[
-                { label: "Years Experience", value: instructor.stats.yearsExperience },
-                { label: "Students Taught", value: instructor.stats.students.toLocaleString() },
+                {
+                  label: "Years Experience",
+                  value: instructor.stats.yearsExperience,
+                },
+                {
+                  label: "Students Taught",
+                  value: instructor.stats.students.toLocaleString(),
+                },
                 { label: "Courses Created", value: instructor.stats.courses },
                 { label: "Average Rating", value: instructor.stats.rating },
               ].map((stat, i) => (
-                <div key={i} className="grow shrink basis-[0%] flex flex-col items-center rounded-xl border border-solid border-border p-6 bg-muted/20">
+                <div
+                  key={i}
+                  className="grow shrink basis-[0%] flex flex-col items-center rounded-xl border border-solid border-border p-6 bg-muted/20"
+                >
                   <div className="text-ink font-sans font-bold text-[32px]/10">
-                    {stat.value}{stat.label.includes("Students") ? "+" : ""}
+                    {stat.value}
+                    {stat.label.includes("Students") ? "+" : ""}
                   </div>
                   <div className="mt-2 text-text-muted font-sans text-sm/4.5 text-center">
                     {stat.label}
@@ -106,9 +119,16 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
             </div>
             <div className="flex flex-col gap-4">
               {instructor.coursesOnPlatform.map((course) => (
-                <div key={course.id} className="flex items-center transition-all rounded-xl gap-4 p-3 hover:bg-muted/30 cursor-pointer group">
+                <div
+                  key={course.id}
+                  className="flex items-center transition-all rounded-xl gap-4 p-3 hover:bg-muted/30 cursor-pointer group"
+                >
                   <div className="w-20 h-15 rounded-lg overflow-hidden bg-muted shrink-0">
-                    <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img
+                      src={course.thumbnail}
+                      alt={course.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
                   <div className="grow shrink basis-[0%]">
                     <div className="text-ink font-sans font-semibold text-base/5 group-hover:text-ink-deep transition-colors">
@@ -138,7 +158,8 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
             Have Questions?
           </div>
           <div className="text-text-muted font-sans text-[15px]/4.5 m-0">
-            Ask your questions in the Q&A section and get help from the instructor and community.
+            Ask your questions in the Q&A section and get help from the
+            instructor and community.
           </div>
         </div>
         <Button className="rounded-lg py-3 px-8 bg-ink text-canvas font-bold text-sm hover:opacity-90 transition-opacity">

@@ -1,18 +1,13 @@
 "use client";
 
+import { ChevronLeft, ChevronRight, DollarSign, Info } from "lucide-react";
 import * as React from "react";
-import { 
-  ChevronRight, 
-  ChevronLeft,
-  Info,
-  DollarSign
-} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -31,7 +26,6 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
     <div className="flex w-full max-w-6xl pt-6 gap-10 antialiased text-sm pb-24">
       {/* Main Content Area */}
       <div className="flex grow shrink basis-0 rounded-lg gap-8 bg-white border border-border p-6 h-fit">
-        
         {/* Left Column: Pricing & Model */}
         <div className="flex flex-col grow shrink basis-0 gap-6">
           <div className="flex flex-col gap-2">
@@ -47,13 +41,16 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
             <Label className="text-ink-deep font-sans font-medium text-sm">
               Pricing Model
             </Label>
-            
+
             <RadioGroup defaultValue="one-time" className="flex flex-col gap-4">
               {/* Free */}
               <div className="flex items-start gap-3">
                 <RadioGroupItem value="free" id="free" className="mt-0.5" />
                 <div className="flex flex-col gap-0.5">
-                  <Label htmlFor="free" className="text-ink-deep font-sans font-medium text-sm cursor-pointer">
+                  <Label
+                    htmlFor="free"
+                    className="text-ink-deep font-sans font-medium text-sm cursor-pointer"
+                  >
                     Free
                   </Label>
                   <span className="text-text-secondary font-sans text-xs">
@@ -64,9 +61,16 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
 
               {/* One-time Payment */}
               <div className="flex items-start gap-3">
-                <RadioGroupItem value="one-time" id="one-time" className="mt-0.5" />
+                <RadioGroupItem
+                  value="one-time"
+                  id="one-time"
+                  className="mt-0.5"
+                />
                 <div className="flex flex-col gap-0.5">
-                  <Label htmlFor="one-time" className="text-ink-deep font-sans font-semibold text-sm cursor-pointer">
+                  <Label
+                    htmlFor="one-time"
+                    className="text-ink-deep font-sans font-semibold text-sm cursor-pointer"
+                  >
                     One-time Payment
                   </Label>
                   <span className="text-text-secondary font-sans text-xs">
@@ -77,9 +81,16 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
 
               {/* Subscription */}
               <div className="flex items-start gap-3">
-                <RadioGroupItem value="subscription" id="subscription" className="mt-0.5" />
+                <RadioGroupItem
+                  value="subscription"
+                  id="subscription"
+                  className="mt-0.5"
+                />
                 <div className="flex flex-col gap-0.5">
-                  <Label htmlFor="subscription" className="text-ink-deep font-sans font-medium text-sm cursor-pointer">
+                  <Label
+                    htmlFor="subscription"
+                    className="text-ink-deep font-sans font-medium text-sm cursor-pointer"
+                  >
                     Subscription
                   </Label>
                   <span className="text-text-secondary font-sans text-xs">
@@ -90,9 +101,16 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
 
               {/* Multiple Tiers */}
               <div className="flex items-start gap-3">
-                <RadioGroupItem value="multiple" id="multiple" className="mt-0.5" />
+                <RadioGroupItem
+                  value="multiple"
+                  id="multiple"
+                  className="mt-0.5"
+                />
                 <div className="flex flex-col gap-0.5">
-                  <Label htmlFor="multiple" className="text-ink-deep font-sans font-medium text-sm cursor-pointer">
+                  <Label
+                    htmlFor="multiple"
+                    className="text-ink-deep font-sans font-medium text-sm cursor-pointer"
+                  >
                     Multiple Tiers
                   </Label>
                   <span className="text-text-secondary font-sans text-xs">
@@ -107,11 +125,14 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
             <Label className="text-ink-deep font-sans font-medium text-sm">
               Enrollment Options
             </Label>
-            
+
             <div className="flex items-start gap-3">
               <Checkbox id="approval" className="mt-0.5" />
               <div className="flex flex-col gap-0.5">
-                <Label htmlFor="approval" className="text-ink-deep font-sans font-medium text-sm cursor-pointer">
+                <Label
+                  htmlFor="approval"
+                  className="text-ink-deep font-sans font-medium text-sm cursor-pointer"
+                >
                   Require enrollment approval
                 </Label>
                 <span className="text-text-secondary font-sans text-xs">
@@ -123,7 +144,10 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
             <div className="flex items-start gap-3">
               <Checkbox id="dates" className="mt-0.5" />
               <div className="flex flex-col gap-0.5">
-                <Label htmlFor="dates" className="text-ink-deep font-sans font-medium text-sm cursor-pointer">
+                <Label
+                  htmlFor="dates"
+                  className="text-ink-deep font-sans font-medium text-sm cursor-pointer"
+                >
                   Set enrollment start and end date
                 </Label>
                 <span className="text-text-secondary font-sans text-xs">
@@ -141,10 +165,12 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
               Price *
             </Label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-deep font-sans text-base/5">$</span>
-              <Input 
-                defaultValue="59.00" 
-                className="pl-7 h-10 rounded-md border-border bg-white text-base/5 font-sans focus-visible:ring-0 focus-visible:border-ink-deep" 
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-deep font-sans text-base/5">
+                $
+              </span>
+              <Input
+                defaultValue="59.00"
+                className="pl-7 h-10 rounded-md border-border bg-white text-base/5 font-sans focus-visible:ring-0 focus-visible:border-ink-deep"
               />
             </div>
             <span className="text-text-secondary font-sans text-xs">
@@ -157,10 +183,12 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
               Compare At Price (Optional)
             </Label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-deep font-sans text-base/5">$</span>
-              <Input 
-                defaultValue="89.00" 
-                className="pl-7 h-10 rounded-md border-border bg-white text-base/5 font-sans focus-visible:ring-0 focus-visible:border-ink-deep" 
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-deep font-sans text-base/5">
+                $
+              </span>
+              <Input
+                defaultValue="89.00"
+                className="pl-7 h-10 rounded-md border-border bg-white text-base/5 font-sans focus-visible:ring-0 focus-visible:border-ink-deep"
               />
             </div>
             <span className="text-text-secondary font-sans text-xs">
@@ -173,9 +201,9 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
               <Label className="text-ink-deep font-sans font-medium text-sm">
                 Discount (Optional)
               </Label>
-              <Input 
-                defaultValue="20" 
-                className="h-10 rounded-md border-border bg-white text-base/5 font-sans focus-visible:ring-0 focus-visible:border-ink-deep" 
+              <Input
+                defaultValue="20"
+                className="h-10 rounded-md border-border bg-white text-base/5 font-sans focus-visible:ring-0 focus-visible:border-ink-deep"
               />
             </div>
             <Select defaultValue="percentage">
@@ -202,17 +230,29 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
           </div>
           <div className="flex flex-col gap-3">
             <div className="flex justify-between items-center">
-              <span className="text-text-secondary font-sans text-sm">Price</span>
-              <span className="text-ink-deep font-sans font-semibold text-sm">$59.00</span>
+              <span className="text-text-secondary font-sans text-sm">
+                Price
+              </span>
+              <span className="text-ink-deep font-sans font-semibold text-sm">
+                $59.00
+              </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-text-secondary font-sans text-sm">Discount</span>
-              <span className="text-green-600 font-sans font-semibold text-sm">- $30.00</span>
+              <span className="text-text-secondary font-sans text-sm">
+                Discount
+              </span>
+              <span className="text-green-600 font-sans font-semibold text-sm">
+                - $30.00
+              </span>
             </div>
             <div className="h-px bg-surface-dim shrink-0" />
             <div className="flex justify-between items-center">
-              <span className="text-ink-deep font-sans font-semibold text-sm">Students Pay</span>
-              <span className="text-ink-deep font-sans font-bold text-sm">$29.00</span>
+              <span className="text-ink-deep font-sans font-semibold text-sm">
+                Students Pay
+              </span>
+              <span className="text-ink-deep font-sans font-bold text-sm">
+                $29.00
+              </span>
             </div>
           </div>
         </Card>
@@ -220,7 +260,9 @@ export function PricingTab({ setActiveTab }: PricingTabProps) {
         <Card className="bg-[#F8FAFF] border-[#E0E7FF] shadow-none rounded-lg p-5 flex flex-col gap-3">
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center rounded-full border-[1.5px] border-primary shrink-0 size-5">
-              <span className="text-primary font-heading font-bold text-xs/4">i</span>
+              <span className="text-primary font-heading font-bold text-xs/4">
+                i
+              </span>
             </div>
             <h4 className="text-ink-deep font-heading font-semibold text-[15px]/4.5 m-0">
               Pricing Tips

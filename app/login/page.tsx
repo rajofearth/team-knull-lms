@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { GithubLight } from "@/components/ui/svgs/githubLight";
 import { Google } from "@/components/ui/svgs/google";
-import Image from "next/image";
 
 export default function LoginPage() {
   return (
@@ -16,7 +16,12 @@ export default function LoginPage() {
       <div className="w-full max-w-md z-10">
         <div className="flex flex-col items-center text-center mb-10">
           <Link href="/" className="flex items-center gap-2.5 mb-8 group">
-            <Image src="/teamknull-logo.svg" alt="Logo" width={240} height={240} />
+            <Image
+              src="/teamknull-logo.svg"
+              alt="Logo"
+              width={240}
+              height={240}
+            />
           </Link>
 
           <h1 className="text-3xl font-heading font-bold text-ink tracking-tight mb-3">
@@ -29,31 +34,40 @@ export default function LoginPage() {
 
         <div className="bg-canvas border border-border p-8 rounded-3xl shadow-card backdrop-blur-sm">
           <div className="flex flex-col gap-4">
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               className="h-14 w-full rounded-2xl border-border bg-canvas hover:bg-surface hover:border-ink/10 transition-all gap-3"
             >
               <Google className="size-5 text-ink" />
-              <span className="font-sans font-bold text-ink">Continue with Google</span>
+              <span className="font-sans font-bold text-ink">
+                Continue with Google
+              </span>
             </Button>
 
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               className="h-14 w-full rounded-2xl border-border bg-canvas hover:bg-surface hover:border-ink/10 transition-all gap-3"
             >
               <GithubLight className="size-5 text-ink" />
-              <span className="font-sans font-bold text-ink">Continue with GitHub</span>
+              <span className="font-sans font-bold text-ink">
+                Continue with GitHub
+              </span>
             </Button>
           </div>
 
           <div className="mt-8 pt-8 border-t border-border flex flex-col gap-4">
             <p className="text-xs text-center text-text-muted font-sans leading-relaxed">
               By continuing, you agree to Team Knull's{" "}
-              <Link href="#" className="text-ink font-semibold hover:underline">Terms of Service</Link>{" "}
+              <Link href="#" className="text-ink font-semibold hover:underline">
+                Terms of Service
+              </Link>{" "}
               and{" "}
-              <Link href="#" className="text-ink font-semibold hover:underline">Privacy Policy</Link>.
+              <Link href="#" className="text-ink font-semibold hover:underline">
+                Privacy Policy
+              </Link>
+              .
             </p>
           </div>
         </div>

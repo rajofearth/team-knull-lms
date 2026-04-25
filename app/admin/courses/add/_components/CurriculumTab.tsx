@@ -1,31 +1,37 @@
 "use client";
 
-import * as React from "react";
-import Image from "next/image";
-import { 
-  Plus, 
-  GripVertical, 
-  Video, 
-  FileText, 
-  PlayCircle, 
-  Link as LinkIcon, 
-  Edit2, 
-  Trash2, 
+import {
+  CheckCircle2,
   ChevronRight,
   ChevronUp,
+  Circle,
+  Edit2,
   FileCode,
-  CheckCircle2,
-  Circle
+  FileText,
+  GripVertical,
+  Link as LinkIcon,
+  PlayCircle,
+  Plus,
+  Trash2,
+  Video,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import Image from "next/image";
+import * as React from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -81,7 +87,8 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
               Curriculum
             </h2>
             <p className="text-text-secondary font-sans m-0 text-xs">
-              Build your course by organizing modules, lessons, videos and resources.
+              Build your course by organizing modules, lessons, videos and
+              resources.
             </p>
           </div>
           <div className="flex gap-3">
@@ -98,7 +105,11 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
           </div>
         </div>
 
-        <Accordion type="multiple" defaultValue={["module-1"]} className="flex flex-col gap-4">
+        <Accordion
+          type="multiple"
+          defaultValue={["module-1"]}
+          className="flex flex-col gap-4"
+        >
           {[1, 2, 3, 4, 5].map((moduleIndex) => (
             <AccordionItem
               key={moduleIndex}
@@ -109,9 +120,17 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
                 <div className="flex items-center gap-3">
                   <GripVertical className="size-4 text-text-muted cursor-grab" />
                   <span className="text-ink-deep font-sans font-semibold text-sm">
-                    Module {moduleIndex}: {moduleIndex === 1 ? "Getting Started" : moduleIndex === 2 ? "HTML Fundamentals" : "Advanced Concepts"}
+                    Module {moduleIndex}:{" "}
+                    {moduleIndex === 1
+                      ? "Getting Started"
+                      : moduleIndex === 2
+                        ? "HTML Fundamentals"
+                        : "Advanced Concepts"}
                   </span>
-                  <Badge variant="secondary" className="bg-background text-text-secondary font-sans font-medium text-[10px] h-5 px-2">
+                  <Badge
+                    variant="secondary"
+                    className="bg-background text-text-secondary font-sans font-medium text-[10px] h-5 px-2"
+                  >
                     {moduleIndex === 1 ? "3" : "4"} Lessons
                   </Badge>
                 </div>
@@ -149,7 +168,10 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
                     </TableHeader>
                     <TableBody>
                       {lessons.map((lesson) => (
-                        <TableRow key={lesson.id} className="group hover:bg-surface-dim/50 border-border/50 transition-colors h-14">
+                        <TableRow
+                          key={lesson.id}
+                          className="group hover:bg-surface-dim/50 border-border/50 transition-colors h-14"
+                        >
                           <TableCell className="py-2 pl-7">
                             <div className="flex items-center gap-3">
                               <GripVertical className="size-3.5 text-text-muted cursor-grab opacity-0 group-hover:opacity-100 transition-opacity absolute left-2" />
@@ -197,7 +219,7 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
               </AccordionContent>
             </AccordionItem>
           ))}
-          
+
           <Button
             variant="outline"
             className="flex items-center justify-center rounded-lg gap-2 border border-dashed border-border p-8 bg-background hover:bg-surface-dim transition-colors cursor-pointer text-text-secondary hover:text-ink-deep w-full"
@@ -212,12 +234,14 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
       <div className="flex flex-col flex-1 shrink-0 gap-6">
         <Card className="border border-border bg-background shadow-none">
           <CardHeader className="p-5 pb-3">
-            <CardTitle className="text-ink-deep font-sans font-semibold text-sm">Course Overview</CardTitle>
+            <CardTitle className="text-ink-deep font-sans font-semibold text-sm">
+              Course Overview
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-5 pt-0 flex flex-col gap-5">
             <div className="flex items-center gap-4">
               <div className="relative size-16 rounded overflow-hidden border border-border shrink-0">
-                <Image 
+                <Image
                   src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800"
                   alt="Thumbnail"
                   fill
@@ -225,22 +249,38 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
                 />
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-text-muted font-sans text-[10px]">Course Title</span>
-                <span className="text-ink-deep font-sans font-semibold text-xs">Web Development Bootcamp</span>
+                <span className="text-text-muted font-sans text-[10px]">
+                  Course Title
+                </span>
+                <span className="text-ink-deep font-sans font-semibold text-xs">
+                  Web Development Bootcamp
+                </span>
               </div>
             </div>
             <div className="flex flex-col gap-3">
               <div className="flex justify-between items-center">
-                <span className="text-text-secondary font-sans text-xs">Total Modules</span>
-                <span className="text-ink-deep font-sans font-semibold text-xs">5</span>
+                <span className="text-text-secondary font-sans text-xs">
+                  Total Modules
+                </span>
+                <span className="text-ink-deep font-sans font-semibold text-xs">
+                  5
+                </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-text-secondary font-sans text-xs">Total Lessons</span>
-                <span className="text-ink-deep font-sans font-semibold text-xs">23</span>
+                <span className="text-text-secondary font-sans text-xs">
+                  Total Lessons
+                </span>
+                <span className="text-ink-deep font-sans font-semibold text-xs">
+                  23
+                </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-text-secondary font-sans text-xs">Total Duration</span>
-                <span className="text-ink-deep font-sans font-semibold text-xs">5h 32m</span>
+                <span className="text-text-secondary font-sans text-xs">
+                  Total Duration
+                </span>
+                <span className="text-ink-deep font-sans font-semibold text-xs">
+                  5h 32m
+                </span>
               </div>
             </div>
           </CardContent>
@@ -249,17 +289,24 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
         <Card className="bg-[#f0f7ff] border-[#e1eefc] shadow-none">
           <CardContent className="p-5 flex flex-col gap-3">
             <div className="flex items-center gap-2">
-              <div className="size-5 rounded-full bg-primary text-white flex items-center justify-center text-[10px] font-bold">i</div>
-              <span className="text-ink-deep font-sans font-semibold text-xs">Tips</span>
+              <div className="size-5 rounded-full bg-primary text-white flex items-center justify-center text-[10px] font-bold">
+                i
+              </div>
+              <span className="text-ink-deep font-sans font-semibold text-xs">
+                Tips
+              </span>
             </div>
             <ul className="flex flex-col gap-2.5 list-none p-0 m-0">
               {[
                 "Start with a clear learning path from basics to advanced.",
                 "Keep lessons focused and under 15 minutes when possible.",
                 "Add resources like notes, code files, and cheatsheets.",
-                "Preview your course to ensure everything looks perfect."
+                "Preview your course to ensure everything looks perfect.",
               ].map((tip, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-text-secondary font-sans text-xs leading-relaxed">
+                <li
+                  key={idx}
+                  className="flex items-start gap-2 text-text-secondary font-sans text-xs leading-relaxed"
+                >
                   <span className="text-primary mt-1">•</span>
                   <span>{tip}</span>
                 </li>
@@ -270,7 +317,9 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
 
         <Card className="border border-border bg-background shadow-none">
           <CardHeader className="p-5 pb-3">
-            <CardTitle className="text-ink-deep font-sans font-semibold text-sm">Curriculum Checklist</CardTitle>
+            <CardTitle className="text-ink-deep font-sans font-semibold text-sm">
+              Curriculum Checklist
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-5 pt-0 flex flex-col gap-3">
             {[
@@ -286,10 +335,12 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
                 ) : (
                   <Circle className="size-4 text-text-muted" />
                 )}
-                <span className={cn(
-                  "font-sans text-xs",
-                  item.done ? "text-ink-deep" : "text-text-secondary"
-                )}>
+                <span
+                  className={cn(
+                    "font-sans text-xs",
+                    item.done ? "text-ink-deep" : "text-text-secondary",
+                  )}
+                >
                   {item.text}
                 </span>
               </div>

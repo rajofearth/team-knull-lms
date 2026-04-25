@@ -1,59 +1,71 @@
 "use client";
 
-import { useState } from "react";
-import { Star, Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 const testimonials = [
   [
     {
       id: "t1",
-      quote: "Team Knull's LMS helped me go from beginner to freelance developer. The courses are practical and well-structured.",
+      quote:
+        "Team Knull's LMS helped me go from beginner to freelance developer. The courses are practical and well-structured.",
       name: "Rohit Sharma",
       role: "Freelance Developer",
-      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/5GTC3F374F4BEQGPRE362DETJ5.jpg",
+      image:
+        "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/5GTC3F374F4BEQGPRE362DETJ5.jpg",
       stars: 5,
     },
     {
       id: "t2",
-      quote: "The UI/UX Design course was a game changer for my career. The certificate helped me land a great job!",
+      quote:
+        "The UI/UX Design course was a game changer for my career. The certificate helped me land a great job!",
       name: "Ananya Verma",
       role: "UI/UX Designer",
-      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/60HFB93Q7QA9YWHMTYQ521ZPQ5.jpg",
+      image:
+        "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/60HFB93Q7QA9YWHMTYQ521ZPQ5.jpg",
       stars: 5,
     },
     {
       id: "t3",
-      quote: "I love how I can learn at my own pace and revisit lessons anytime. Highly recommend Team Knull!",
+      quote:
+        "I love how I can learn at my own pace and revisit lessons anytime. Highly recommend Team Knull!",
       name: "Karan Mehta",
       role: "Digital Marketer",
-      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/2H99XH9HBYZWC3JMJ33G6YC1W0.jpg",
+      image:
+        "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/2H99XH9HBYZWC3JMJ33G6YC1W0.jpg",
       stars: 5,
     },
   ],
   [
     {
       id: "t4",
-      quote: "The instructors are top-notch and the content is always up to date. Best LMS platform I've used.",
+      quote:
+        "The instructors are top-notch and the content is always up to date. Best LMS platform I've used.",
       name: "Priya Singh",
       role: "Product Manager",
-      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/5GTC3F374F4BEQGPRE362DETJ5.jpg",
+      image:
+        "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/5GTC3F374F4BEQGPRE362DETJ5.jpg",
       stars: 5,
     },
     {
       id: "t5",
-      quote: "Earned my certificate in just 3 weeks. The structured curriculum made all the difference.",
+      quote:
+        "Earned my certificate in just 3 weeks. The structured curriculum made all the difference.",
       name: "Amit Patel",
       role: "Software Engineer",
-      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/60HFB93Q7QA9YWHMTYQ521ZPQ5.jpg",
+      image:
+        "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/60HFB93Q7QA9YWHMTYQ521ZPQ5.jpg",
       stars: 5,
     },
     {
       id: "t6",
-      quote: "Excellent platform with a clean interface. My team has been using it for internal training.",
+      quote:
+        "Excellent platform with a clean interface. My team has been using it for internal training.",
       name: "Neha Gupta",
       role: "HR Manager",
-      image: "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/2H99XH9HBYZWC3JMJ33G6YC1W0.jpg",
+      image:
+        "https://app.paper.design/file-assets/01KPZWMJ3H4NEREG0PQ8WG2GWM/2H99XH9HBYZWC3JMJ33G6YC1W0.jpg",
       stars: 5,
     },
   ],
@@ -73,17 +85,21 @@ export function Testimonials() {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {current.map((t) => (
-            <div 
-              key={t.id} 
+            <div
+              key={t.id}
               className="flex flex-col rounded-[20px] gap-6 bg-canvas border border-border p-8 shadow-subtle hover:shadow-card transition-shadow"
             >
-              <Quote size={32} className="text-text-muted opacity-10 shrink-0" fill="currentColor" />
+              <Quote
+                size={32}
+                className="text-text-muted opacity-10 shrink-0"
+                fill="currentColor"
+              />
               <p className="text-sm leading-relaxed text-text-description font-heading m-0">
                 &quot;{t.quote}&quot;
               </p>
               <div className="flex items-center gap-3">
                 <div className="size-12 rounded-full overflow-hidden bg-surface-dim shrink-0">
-                   <Image
+                  <Image
                     src={t.image}
                     alt={t.name}
                     width={48}
@@ -102,7 +118,11 @@ export function Testimonials() {
               </div>
               <div className="flex gap-1 mt-auto">
                 {Array.from({ length: t.stars }).map((_, i) => (
-                  <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                  <Star
+                    key={i}
+                    size={14}
+                    className="fill-amber-400 text-amber-400"
+                  />
                 ))}
               </div>
             </div>

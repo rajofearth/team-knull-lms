@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import type { EnrollmentDataPoint } from "@/lib/data/admin";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Select,
@@ -11,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { EnrollmentDataPoint } from "@/lib/data/admin";
 
 interface EnrollmentChartProps {
   data: EnrollmentDataPoint[];
@@ -42,7 +42,9 @@ export function EnrollmentChart({ data }: EnrollmentChartProps) {
       <CardContent className="flex flex-col gap-5 p-5">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h3 className="font-heading font-semibold text-lg text-foreground">Enrollment Overview</h3>
+          <h3 className="font-heading font-semibold text-lg text-foreground">
+            Enrollment Overview
+          </h3>
           <Select value={period} onValueChange={setPeriod}>
             <SelectTrigger className="w-[100px] h-8 text-[13px] font-sans font-medium text-foreground/80 bg-white border-border">
               <SelectValue placeholder="Period" />
@@ -61,7 +63,10 @@ export function EnrollmentChart({ data }: EnrollmentChartProps) {
             {/* Y-axis labels */}
             <div className="flex flex-col justify-between h-full pr-3 shrink-0 w-10">
               {yLabels.map((label) => (
-                <span key={label} className="text-[11px] text-muted-foreground font-sans leading-none">
+                <span
+                  key={label}
+                  className="text-[11px] text-muted-foreground font-sans leading-none"
+                >
                   {label}
                 </span>
               ))}
@@ -86,7 +91,13 @@ export function EnrollmentChart({ data }: EnrollmentChartProps) {
               >
                 {/* Gradient fill */}
                 <defs>
-                  <linearGradient id="enrollmentGrad" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient
+                    id="enrollmentGrad"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
                     <stop offset="0%" stopColor="#111827" stopOpacity="0.12" />
                     <stop offset="100%" stopColor="#111827" stopOpacity="0" />
                   </linearGradient>
@@ -112,7 +123,10 @@ export function EnrollmentChart({ data }: EnrollmentChartProps) {
           {/* X-axis labels */}
           <div className="flex justify-between mt-3 pl-10">
             {xLabels.map((label) => (
-              <span key={label} className="text-[11px] text-muted-foreground font-sans">
+              <span
+                key={label}
+                className="text-[11px] text-muted-foreground font-sans"
+              >
                 {label}
               </span>
             ))}

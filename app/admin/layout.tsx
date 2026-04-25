@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { AdminHeader } from "@/components/admin/admin-header";
+import { AdminSidebar } from "@/components/admin/admin-sidebar";
 
 export const metadata: Metadata = {
   title: "Admin — Team Knull LMS",
   description: "Admin panel for Team Knull LMS",
 };
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex min-h-screen bg-[#F9FAFB]">
       <AdminSidebar />

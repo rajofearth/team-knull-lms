@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronUp, ChevronDown } from "lucide-react";
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -31,14 +31,21 @@ interface CurriculumAccordionProps {
 
 export function CurriculumAccordion({ modules }: CurriculumAccordionProps) {
   return (
-    <Accordion type="multiple" defaultValue={[modules[0].id]} className="w-70 shrink-0 flex flex-col gap-4">
+    <Accordion
+      type="multiple"
+      defaultValue={[modules[0].id]}
+      className="w-70 shrink-0 flex flex-col gap-4"
+    >
       {modules.map((module) => (
-        <AccordionItem 
-          key={module.id} 
+        <AccordionItem
+          key={module.id}
           value={module.id}
           className="rounded-xl overflow-hidden bg-canvas border border-border shadow-subtle data-[state=open]:shadow-md transition-shadow"
         >
-          <AccordionTrigger hideIcon className="flex justify-between items-center py-4.5 px-5 bg-canvas hover:no-underline group">
+          <AccordionTrigger
+            hideIcon
+            className="flex justify-between items-center py-4.5 px-5 bg-canvas hover:no-underline group"
+          >
             <div className="flex justify-between items-center w-full pr-4">
               <span className="text-ink font-sans font-bold text-sm">
                 {module.title}
@@ -54,30 +61,41 @@ export function CurriculumAccordion({ modules }: CurriculumAccordionProps) {
           <AccordionContent className="pb-0">
             <div className="flex flex-col">
               {module.lessons.map((lesson) => (
-                <div 
+                <div
                   key={lesson.id}
                   className={cn(
                     "flex items-center justify-between py-3.75 px-5 border-t border-surface",
-                    lesson.isActive && "bg-surface"
+                    lesson.isActive && "bg-surface",
                   )}
                 >
                   <div className="flex items-center gap-3">
                     {lesson.isCompleted ? (
-                      <Check className="size-4 text-success" strokeWidth={2.5} />
+                      <Check
+                        className="size-4 text-success"
+                        strokeWidth={2.5}
+                      />
                     ) : (
                       <div className="size-4 rounded-full border-2 border-border-dark" />
                     )}
-                    <span className={cn(
-                      "font-sans text-sm",
-                      lesson.isActive ? "text-ink font-bold" : "text-text-secondary font-medium"
-                    )}>
+                    <span
+                      className={cn(
+                        "font-sans text-sm",
+                        lesson.isActive
+                          ? "text-ink font-bold"
+                          : "text-text-secondary font-medium",
+                      )}
+                    >
                       {lesson.title}
                     </span>
                   </div>
-                  <span className={cn(
-                    "w-10 font-sans text-xs shrink-0 text-right",
-                    lesson.isActive ? "text-text-muted font-semibold" : "text-text-dim"
-                  )}>
+                  <span
+                    className={cn(
+                      "w-10 font-sans text-xs shrink-0 text-right",
+                      lesson.isActive
+                        ? "text-text-muted font-semibold"
+                        : "text-text-dim",
+                    )}
+                  >
                     {lesson.duration}
                   </span>
                 </div>

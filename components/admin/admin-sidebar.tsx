@@ -1,27 +1,27 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
-  Home,
-  BookOpen,
-  Users,
-  User,
-  Monitor,
-  Folder,
   Award,
   BarChart2,
-  DollarSign,
-  MessageSquare,
-  FileText,
-  Shield,
-  Settings,
-  Clock,
-  ExternalLink,
+  BookOpen,
   ChevronDown,
+  Clock,
+  DollarSign,
+  ExternalLink,
+  FileText,
+  Folder,
+  Home,
+  MessageSquare,
+  Monitor,
+  Settings,
+  Shield,
+  User,
+  Users,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { adminNavSections } from "@/lib/data/admin";
+import { cn } from "@/lib/utils";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   book: BookOpen,
@@ -79,7 +79,7 @@ export function AdminSidebar() {
             "flex items-center gap-3 rounded-md py-2.5 px-3 transition-colors",
             pathname === "/admin/dashboard"
               ? "bg-muted text-foreground font-semibold"
-              : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              : "text-muted-foreground hover:bg-muted hover:text-foreground",
           )}
         >
           <Home className="size-[18px] shrink-0" />
@@ -105,7 +105,7 @@ export function AdminSidebar() {
                     "flex items-center gap-3 rounded-lg py-2.5 px-3 text-sm font-heading font-semibold transition-colors",
                     isActive
                       ? "bg-muted text-foreground"
-                      : "text-foreground/80 hover:bg-muted hover:text-foreground"
+                      : "text-foreground/80 hover:bg-muted hover:text-foreground",
                   )}
                 >
                   <Icon className="size-[18px] shrink-0 text-muted-foreground" />
@@ -123,17 +123,25 @@ export function AdminSidebar() {
           href="/"
           className="flex items-center justify-between rounded-md py-2.5 px-3 bg-white border border-border hover:bg-muted transition-colors"
         >
-          <span className="text-sm font-heading font-medium text-foreground/80">View Site</span>
+          <span className="text-sm font-heading font-medium text-foreground/80">
+            View Site
+          </span>
           <ExternalLink className="size-4 text-muted-foreground shrink-0" />
         </Link>
         <button className="flex items-center justify-between rounded-md bg-muted p-3 w-full hover:bg-muted/70 transition-colors">
           <div className="flex items-center gap-3">
             <div className="size-9 rounded-full bg-foreground flex items-center justify-center shrink-0">
-              <span className="text-background font-heading font-semibold text-sm">A</span>
+              <span className="text-background font-heading font-semibold text-sm">
+                A
+              </span>
             </div>
             <div className="flex flex-col text-left">
-              <span className="text-sm font-heading font-semibold text-foreground">Admin</span>
-              <span className="text-xs text-muted-foreground font-sans">Super Admin</span>
+              <span className="text-sm font-heading font-semibold text-foreground">
+                Admin
+              </span>
+              <span className="text-xs text-muted-foreground font-sans">
+                Super Admin
+              </span>
             </div>
           </div>
           <ChevronDown className="size-4 text-muted-foreground shrink-0" />

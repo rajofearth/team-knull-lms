@@ -1,8 +1,8 @@
+import { ArrowRight, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Star, ArrowRight } from "lucide-react";
-import { courses } from "@/lib/data/courses";
 import { CourseCard } from "@/components/course-card";
+import { courses } from "@/lib/data/courses";
 
 export function PopularCourses() {
   const popularCourses = Object.values(courses);
@@ -15,11 +15,17 @@ export function PopularCourses() {
           <h2 className="text-ink font-heading font-bold text-3xl leading-tight m-0">
             Popular Courses
           </h2>
-          <Link href="/courses" className="flex items-center gap-2 group cursor-pointer transition-opacity hover:opacity-80">
+          <Link
+            href="/courses"
+            className="flex items-center gap-2 group cursor-pointer transition-opacity hover:opacity-80"
+          >
             <span className="text-text-muted group-hover:text-ink font-heading font-semibold text-sm transition-colors">
               View All Courses
             </span>
-            <ArrowRight className="size-4 text-text-muted group-hover:text-ink transition-colors" strokeWidth={2} />
+            <ArrowRight
+              className="size-4 text-text-muted group-hover:text-ink transition-colors"
+              strokeWidth={2}
+            />
           </Link>
         </div>
 
@@ -33,4 +39,3 @@ export function PopularCourses() {
     </section>
   );
 }
-

@@ -1,13 +1,22 @@
-import Link from "next/link";
 import { Search, ShoppingBag } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between w-full py-4 px-6 md:px-20 bg-canvas border-b border-border shadow-subtle">
       {/* Logo */}
-      <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-90">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 30" width="150" height="30" className="fill-ink shrink-0">
+      <Link
+        href="/"
+        className="flex items-center gap-2 transition-opacity hover:opacity-90"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 150 30"
+          width="150"
+          height="30"
+          className="fill-ink shrink-0"
+        >
           <path d="m45.8 11.4h-3.5v10.8h-2.9v-10.8h-3.3v-2.2h9.7v2.2z" />
           <path d="m56.3 11.3h-5.9v3h5v2.1h-5v3.5h6.1v2.3h-9v-13h8.6l0.2 2.1z" />
           <path d="m69.2 22.1h-2.7l-0.8-2.7h-4.4l-0.8 2.7h-2.7l4-12.9h3.3l4.1 12.9zm-5.7-10.9-1.6 5.8h3.2l-1.6-5.8z" />
@@ -25,7 +34,13 @@ export function Navbar() {
 
       {/* Navigation Links */}
       <div className="hidden lg:flex items-center gap-8">
-        {["Courses", "Categories", "My Learning", "Certifications", "About"].map((item) => (
+        {[
+          "Courses",
+          "Categories",
+          "My Learning",
+          "Certifications",
+          "About",
+        ].map((item) => (
           <Link
             key={item}
             href={`/${item.toLowerCase().replace(" ", "-")}`}
@@ -38,10 +53,18 @@ export function Navbar() {
 
       {/* Action Buttons */}
       <div className="flex items-center gap-2 md:gap-4">
-        <Button variant="ghost" className="text-text-muted hover:text-ink transition-colors" aria-label="Search">
+        <Button
+          variant="ghost"
+          className="text-text-muted hover:text-ink transition-colors"
+          aria-label="Search"
+        >
           <Search size={20} strokeWidth={2} />
         </Button>
-        <Button variant="ghost" className="text-text-muted hover:text-ink transition-colors" aria-label="Cart">
+        <Button
+          variant="ghost"
+          className="text-text-muted hover:text-ink transition-colors"
+          aria-label="Cart"
+        >
           <ShoppingBag size={20} strokeWidth={2} />
         </Button>
         <Link href="/login">

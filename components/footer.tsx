@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { Heart, Send } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { InstagramIcon } from "./ui/svgs/instagramIcon";
 import { Linkedin } from "./ui/svgs/linkedin";
-import { Youtube } from "./ui/svgs/youtube";
-import Image from "next/image";
 import { X } from "./ui/svgs/x";
+import { Youtube } from "./ui/svgs/youtube";
 
 const footerLinks = {
   Platform: ["Courses", "Categories", "My Learning", "Certifications"],
@@ -19,15 +19,28 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2 max-w-[300px]">
-            <Link href="/" className="mb-6 block transition-opacity hover:opacity-90">
-              <Image src="/teamknull-logo.svg" alt="Logo" width={140} height={140} />
+            <Link
+              href="/"
+              className="mb-6 block transition-opacity hover:opacity-90"
+            >
+              <Image
+                src="/teamknull-logo.svg"
+                alt="Logo"
+                width={140}
+                height={140}
+              />
             </Link>
             <p className="text-sm leading-relaxed text-text-description font-heading mb-8">
-              Empowering learners worldwide with high-quality education and practical skills for a better future.
+              Empowering learners worldwide with high-quality education and
+              practical skills for a better future.
             </p>
             <div className="flex gap-4">
               {[X, Linkedin, Youtube, InstagramIcon].map((Icon, i) => (
-                <a key={i} href="#" className="flex items-center justify-center size-6 rounded-lg text-text-muted hover:text-ink transition-all">
+                <a
+                  key={i}
+                  href="#"
+                  className="flex items-center justify-center size-6 rounded-lg text-text-muted hover:text-ink transition-all"
+                >
                   <Icon strokeWidth={2} />
                 </a>
               ))}
@@ -43,7 +56,10 @@ export function Footer() {
               <ul className="flex flex-col gap-4 p-0 m-0 list-none">
                 {links.map((link) => (
                   <li key={link}>
-                    <Link href="#" className="text-sm text-text-muted hover:text-ink font-heading transition-colors">
+                    <Link
+                      href="#"
+                      className="text-sm text-text-muted hover:text-ink font-heading transition-colors"
+                    >
                       {link}
                     </Link>
                   </li>
@@ -58,12 +74,13 @@ export function Footer() {
               Stay Updated
             </h4>
             <p className="text-xs leading-relaxed text-text-description font-heading mb-6">
-              Subscribe to our newsletter for the latest courses and professional tips.
+              Subscribe to our newsletter for the latest courses and
+              professional tips.
             </p>
             <div className="relative group">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
+              <input
+                type="email"
+                placeholder="Your email address"
                 className="w-full bg-surface-dim border border-border rounded-xl py-3 px-4 pr-12 text-sm font-heading outline-none focus:border-ink transition-colors"
               />
               <button className="absolute right-2 top-1/2 -translate-y-1/2 size-8 flex items-center justify-center bg-ink text-canvas rounded-lg hover:bg-ink-deep transition-colors">

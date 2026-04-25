@@ -1,11 +1,11 @@
 import {
-  Code2,
-  Paintbrush,
-  Megaphone,
+  ArrowRight,
   Briefcase,
   Camera,
+  Code2,
+  Megaphone,
+  Paintbrush,
   User,
-  ArrowRight,
 } from "lucide-react";
 
 const categories = [
@@ -30,7 +30,10 @@ export function Categories() {
             <span className="text-text-muted group-hover:text-ink font-heading font-semibold text-sm transition-colors">
               View All Categories
             </span>
-            <ArrowRight className="size-4 text-text-muted group-hover:text-ink transition-colors" strokeWidth={2} />
+            <ArrowRight
+              className="size-4 text-text-muted group-hover:text-ink transition-colors"
+              strokeWidth={2}
+            />
           </div>
         </div>
 
@@ -39,8 +42,8 @@ export function Categories() {
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
-              <div 
-                key={cat.id} 
+              <div
+                key={cat.id}
                 className="flex flex-col items-center justify-center p-8 rounded-2xl bg-surface-dim border border-transparent transition-all duration-300 hover:bg-canvas hover:border-border hover:shadow-card cursor-pointer group"
               >
                 <div className="flex items-center justify-center rounded-xl bg-canvas shadow-subtle shrink-0 size-12 mb-4 group-hover:shadow-md transition-shadow">
@@ -62,4 +65,3 @@ export function Categories() {
     </section>
   );
 }
-

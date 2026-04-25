@@ -1,5 +1,5 @@
 import { MoreHorizontal } from "lucide-react";
-import type { CountrySegment } from "@/lib/data/admin";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   DropdownMenu,
@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+import type { CountrySegment } from "@/lib/data/admin";
 
 interface StudentsCountryProps {
   data: CountrySegment[];
@@ -29,10 +29,16 @@ export function StudentsCountry({ data, total }: StudentsCountryProps) {
       <CardContent className="flex flex-col gap-5 p-5 h-full">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h3 className="font-heading font-semibold text-lg text-foreground">Students by Country</h3>
+          <h3 className="font-heading font-semibold text-lg text-foreground">
+            Students by Country
+          </h3>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="h-8 w-8 rounded-md border-border bg-white hover:bg-muted text-muted-foreground transition-colors shadow-none">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 rounded-md border-border bg-white hover:bg-muted text-muted-foreground transition-colors shadow-none"
+              >
                 <MoreHorizontal className="size-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -67,7 +73,9 @@ export function StudentsCountry({ data, total }: StudentsCountryProps) {
               <span className="text-xl font-heading font-bold text-foreground leading-none">
                 {total}
               </span>
-              <span className="text-[10px] font-sans text-muted-foreground mt-0.5">Students</span>
+              <span className="text-[10px] font-sans text-muted-foreground mt-0.5">
+                Students
+              </span>
             </div>
           </div>
 
@@ -75,9 +83,16 @@ export function StudentsCountry({ data, total }: StudentsCountryProps) {
           <div className="flex flex-col gap-3">
             {segments.map((s, i) => (
               <div key={i} className="flex items-center gap-2">
-                <div className="size-2 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />
-                <span className="text-xs font-sans text-muted-foreground w-20">{s.country}</span>
-                <span className="text-xs font-sans font-medium text-foreground">{s.percentage}%</span>
+                <div
+                  className="size-2 rounded-sm shrink-0"
+                  style={{ backgroundColor: s.color }}
+                />
+                <span className="text-xs font-sans text-muted-foreground w-20">
+                  {s.country}
+                </span>
+                <span className="text-xs font-sans font-medium text-foreground">
+                  {s.percentage}%
+                </span>
               </div>
             ))}
           </div>

@@ -1,33 +1,34 @@
 "use client";
 
-import * as React from "react";
-import Image from "next/image";
-import { 
-  Plus, 
-  Upload, 
-  Trash2, 
-  Image as ImageIcon,
+import {
   AlignCenter,
   Bold,
-  Italic,
-  Underline,
-  List,
-  ListOrdered,
-  Quote,
-  Link as LinkIcon,
-  Code,
+  ChevronRight,
   ChevronUp,
-  Video,
-  FileText,
-  GripVertical,
+  Code,
   Edit2,
   FileCode,
-  ChevronRight
+  FileText,
+  GripVertical,
+  Image as ImageIcon,
+  Italic,
+  Link as LinkIcon,
+  List,
+  ListOrdered,
+  Plus,
+  Quote,
+  Trash2,
+  Underline,
+  Upload,
+  Video,
 } from "lucide-react";
+import Image from "next/image";
+import type * as React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -35,8 +36,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
 interface DetailsTabProps {
@@ -46,7 +46,12 @@ interface DetailsTabProps {
   setActiveTab: (tab: string) => void;
 }
 
-export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: DetailsTabProps) {
+export function DetailsTab({
+  status,
+  setStatus,
+  outcomes,
+  setActiveTab,
+}: DetailsTabProps) {
   const handleKeyDown = (e: React.KeyboardEvent, value: string) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -84,7 +89,9 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
             placeholder="Write a short description about the course"
             className="min-h-[100px] rounded-md px-3 py-2 bg-background border border-border text-ink-deep text-sm focus-visible:ring-0 focus-visible:border-ink-deep placeholder:text-text-muted resize-none"
           />
-          <span className="absolute bottom-2 right-3 text-[10px] text-text-muted">0/160</span>
+          <span className="absolute bottom-2 right-3 text-[10px] text-text-muted">
+            0/160
+          </span>
         </div>
 
         {/* Full Description */}
@@ -110,22 +117,42 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
                 </Select>
                 <div className="w-px h-4 bg-border mx-1" />
                 <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" className="size-7"><Bold className="size-3.5" /></Button>
-                  <Button variant="ghost" size="icon" className="size-7"><Italic className="size-3.5" /></Button>
-                  <Button variant="ghost" size="icon" className="size-7"><Underline className="size-3.5" /></Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <Bold className="size-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <Italic className="size-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <Underline className="size-3.5" />
+                  </Button>
                 </div>
                 <div className="w-px h-4 bg-border mx-1" />
                 <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" className="size-7"><List className="size-3.5" /></Button>
-                  <Button variant="ghost" size="icon" className="size-7"><ListOrdered className="size-3.5" /></Button>
-                  <Button variant="ghost" size="icon" className="size-7"><AlignCenter className="size-3.5" /></Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <List className="size-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <ListOrdered className="size-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <AlignCenter className="size-3.5" />
+                  </Button>
                 </div>
                 <div className="w-px h-4 bg-border mx-1" />
                 <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" className="size-7"><LinkIcon className="size-3.5" /></Button>
-                  <Button variant="ghost" size="icon" className="size-7"><ImageIcon className="size-3.5" /></Button>
-                  <Button variant="ghost" size="icon" className="size-7"><Quote className="size-3.5" /></Button>
-                  <Button variant="ghost" size="icon" className="size-7"><Code className="size-3.5" /></Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <LinkIcon className="size-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <ImageIcon className="size-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <Quote className="size-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="size-7">
+                    <Code className="size-3.5" />
+                  </Button>
                 </div>
               </div>
             </div>
@@ -134,7 +161,9 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
               className="min-h-[250px] border-0 rounded-none focus-visible:ring-0 text-sm placeholder:text-text-muted resize-none"
             />
           </div>
-          <span className="absolute bottom-2 right-3 text-[10px] text-text-muted">0/2000</span>
+          <span className="absolute bottom-2 right-3 text-[10px] text-text-muted">
+            0/2000
+          </span>
         </div>
 
         {/* Outcomes */}
@@ -187,7 +216,9 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>JS</AvatarFallback>
               </Avatar>
-              <span className="text-ink-deep font-sans font-medium text-xs pr-2">John Smith</span>
+              <span className="text-ink-deep font-sans font-medium text-xs pr-2">
+                John Smith
+              </span>
               <button className="text-text-muted hover:text-red-500 transition-colors">
                 <Plus className="size-3.5 rotate-45" />
               </button>
@@ -218,7 +249,9 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
                 Recommended size: 1280x720px JPG, PNG or WebP (Max 5MB)
               </p>
             </div>
-            <Button variant="outline" className="h-8 px-4 text-xs">Upload Image</Button>
+            <Button variant="outline" className="h-8 px-4 text-xs">
+              Upload Image
+            </Button>
           </div>
         </div>
 
@@ -228,7 +261,7 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
             Preview
           </Label>
           <div className="relative aspect-video rounded-lg overflow-hidden border border-border">
-            <Image 
+            <Image
               src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800"
               alt="Preview"
               fill
@@ -264,39 +297,72 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
               onClick={() => setStatus("draft")}
               className={cn(
                 "flex items-start gap-3 p-3 border-b border-border transition-colors text-left",
-                status === "draft" ? "bg-white" : "bg-surface-dim/50"
+                status === "draft" ? "bg-white" : "bg-surface-dim/50",
               )}
             >
-              <div className={cn("size-4 rounded-full border mt-0.5 flex items-center justify-center transition-all", status === "draft" ? "border-primary border-4" : "border-border")} />
+              <div
+                className={cn(
+                  "size-4 rounded-full border mt-0.5 flex items-center justify-center transition-all",
+                  status === "draft"
+                    ? "border-primary border-4"
+                    : "border-border",
+                )}
+              />
               <div className="flex flex-col gap-0.5">
-                <span className="text-ink-deep font-sans font-medium text-xs">Draft</span>
-                <p className="text-text-secondary font-sans text-[10px]">Save as draft and continue editing later</p>
+                <span className="text-ink-deep font-sans font-medium text-xs">
+                  Draft
+                </span>
+                <p className="text-text-secondary font-sans text-[10px]">
+                  Save as draft and continue editing later
+                </p>
               </div>
             </button>
             <button
               onClick={() => setStatus("published")}
               className={cn(
                 "flex items-start gap-3 p-3 border-b border-border transition-colors text-left",
-                status === "published" ? "bg-white" : "bg-surface-dim/50"
+                status === "published" ? "bg-white" : "bg-surface-dim/50",
               )}
             >
-              <div className={cn("size-4 rounded-full border mt-0.5 flex items-center justify-center transition-all", status === "published" ? "border-primary border-4" : "border-border")} />
+              <div
+                className={cn(
+                  "size-4 rounded-full border mt-0.5 flex items-center justify-center transition-all",
+                  status === "published"
+                    ? "border-primary border-4"
+                    : "border-border",
+                )}
+              />
               <div className="flex flex-col gap-0.5">
-                <span className="text-ink-deep font-sans font-medium text-xs">Published</span>
-                <p className="text-text-secondary font-sans text-[10px]">Make course available to students</p>
+                <span className="text-ink-deep font-sans font-medium text-xs">
+                  Published
+                </span>
+                <p className="text-text-secondary font-sans text-[10px]">
+                  Make course available to students
+                </p>
               </div>
             </button>
             <button
               onClick={() => setStatus("scheduled")}
               className={cn(
                 "flex items-start gap-3 p-3 transition-colors text-left",
-                status === "scheduled" ? "bg-white" : "bg-surface-dim/50"
+                status === "scheduled" ? "bg-white" : "bg-surface-dim/50",
               )}
             >
-              <div className={cn("size-4 rounded-full border mt-0.5 flex items-center justify-center transition-all", status === "scheduled" ? "border-primary border-4" : "border-border")} />
+              <div
+                className={cn(
+                  "size-4 rounded-full border mt-0.5 flex items-center justify-center transition-all",
+                  status === "scheduled"
+                    ? "border-primary border-4"
+                    : "border-border",
+                )}
+              />
               <div className="flex flex-col gap-0.5">
-                <span className="text-ink-deep font-sans font-medium text-xs">Scheduled</span>
-                <p className="text-text-secondary font-sans text-[10px]">Publish course at a specific date and time</p>
+                <span className="text-ink-deep font-sans font-medium text-xs">
+                  Scheduled
+                </span>
+                <p className="text-text-secondary font-sans text-[10px]">
+                  Publish course at a specific date and time
+                </p>
               </div>
             </button>
           </div>
@@ -329,7 +395,9 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
             placeholder="Add tags..."
             className="h-10 rounded-md px-3 bg-background border border-border text-sm"
           />
-          <p className="text-text-muted font-sans text-[10px]">Press Enter to add multiple tags</p>
+          <p className="text-text-muted font-sans text-[10px]">
+            Press Enter to add multiple tags
+          </p>
         </div>
       </div>
 
@@ -340,13 +408,17 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
           <CardHeader className="px-4 py-3 border-b border-border flex flex-row items-center justify-between space-y-0">
             <div className="flex items-center gap-2">
               <GripVertical className="size-4 text-text-muted" />
-              <CardTitle className="text-ink-deep font-sans font-semibold text-sm">Course Curriculum</CardTitle>
+              <CardTitle className="text-ink-deep font-sans font-semibold text-sm">
+                Course Curriculum
+              </CardTitle>
             </div>
             <ChevronUp className="size-4 text-text-muted" />
           </CardHeader>
           <CardContent className="p-4 flex flex-col gap-5">
             <div className="flex items-center justify-between">
-              <span className="text-ink-deep font-sans font-medium text-xs">Modules</span>
+              <span className="text-ink-deep font-sans font-medium text-xs">
+                Modules
+              </span>
               <Button className="h-8 px-3 gap-1.5 bg-black hover:bg-ink-deep text-white text-[10px] font-semibold transition-colors">
                 <Plus className="size-3" />
                 Add Module
@@ -355,11 +427,17 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
 
             <div className="flex flex-col gap-3">
               {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="flex flex-col rounded-md border border-border overflow-hidden">
+                <div
+                  key={i}
+                  className="flex flex-col rounded-md border border-border overflow-hidden"
+                >
                   <div className="flex items-center justify-between p-2.5 bg-surface-dim/50 border-b border-border/50">
                     <div className="flex items-center gap-2">
                       <GripVertical className="size-3.5 text-text-muted" />
-                      <span className="text-ink-deep font-sans font-semibold text-[11px]">Module {i}: {i === 1 ? 'Getting Started' : 'Content Section'}</span>
+                      <span className="text-ink-deep font-sans font-semibold text-[11px]">
+                        Module {i}:{" "}
+                        {i === 1 ? "Getting Started" : "Content Section"}
+                      </span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <Edit2 className="size-3 text-text-muted cursor-pointer" />
@@ -369,25 +447,38 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
                   {i === 1 && (
                     <div className="flex flex-col p-2 gap-2 bg-white">
                       <div className="flex flex-col gap-1.5">
-                        <span className="text-ink-deep font-sans font-medium text-[10px]">Lessons (3)</span>
+                        <span className="text-ink-deep font-sans font-medium text-[10px]">
+                          Lessons (3)
+                        </span>
                         <div className="flex flex-col gap-1.5 pl-4 border-l border-border/50">
                           <div className="flex flex-col gap-0.5">
-                            <span className="text-ink-deep font-sans font-medium text-[10px]">1. Introduction to the Course</span>
+                            <span className="text-ink-deep font-sans font-medium text-[10px]">
+                              1. Introduction to the Course
+                            </span>
                             <div className="flex items-center gap-3 text-text-muted text-[9px]">
-                              <span className="flex items-center gap-1"><Video className="size-2.5" /> Video</span>
+                              <span className="flex items-center gap-1">
+                                <Video className="size-2.5" /> Video
+                              </span>
                               <span>08:45</span>
                             </div>
                           </div>
                           <div className="flex flex-col gap-0.5 opacity-60">
-                            <span className="text-ink-deep font-sans font-medium text-[10px]">2. Course Overview</span>
+                            <span className="text-ink-deep font-sans font-medium text-[10px]">
+                              2. Course Overview
+                            </span>
                             <div className="flex items-center gap-3 text-text-muted text-[9px]">
-                              <span className="flex items-center gap-1"><FileText className="size-2.5" /> Article</span>
+                              <span className="flex items-center gap-1">
+                                <FileText className="size-2.5" /> Article
+                              </span>
                               <span>05:30</span>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <Button variant="outline" className="h-7 w-fit px-3 gap-1 text-[9px] border-dashed">
+                      <Button
+                        variant="outline"
+                        className="h-7 w-fit px-3 gap-1 text-[9px] border-dashed"
+                      >
                         <Plus className="size-2.5" /> Add Lesson
                       </Button>
                     </div>
@@ -401,29 +492,45 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
         {/* Resources Sidebar */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <span className="text-ink-deep font-sans font-medium text-sm">Lesson Resources</span>
-            <p className="text-text-secondary font-sans text-[10px]">Add resources that will be available to students in this course.</p>
+            <span className="text-ink-deep font-sans font-medium text-sm">
+              Lesson Resources
+            </span>
+            <p className="text-text-secondary font-sans text-[10px]">
+              Add resources that will be available to students in this course.
+            </p>
           </div>
-          <Button variant="outline" className="h-9 w-fit px-4 gap-2 border-border text-ink-deep text-xs font-medium">
+          <Button
+            variant="outline"
+            className="h-9 w-fit px-4 gap-2 border-border text-ink-deep text-xs font-medium"
+          >
             <Plus className="size-3.5" /> Add Resource
           </Button>
           <div className="flex flex-col gap-3">
-            <span className="text-ink-deep font-sans font-medium text-[10px]">Resource Types</span>
+            <span className="text-ink-deep font-sans font-medium text-[10px]">
+              Resource Types
+            </span>
             <div className="grid grid-cols-4 gap-4">
               {[
-                { icon: FileText, label: 'Document', sub: 'PDF, DOC, PPT' },
-                { icon: FileCode, label: 'File', sub: 'ZIP, RAR, etc.' },
-                { icon: LinkIcon, label: 'Link', sub: 'External URL' },
-                { icon: ImageIcon, label: 'Code', sub: 'Source Code' },
+                { icon: FileText, label: "Document", sub: "PDF, DOC, PPT" },
+                { icon: FileCode, label: "File", sub: "ZIP, RAR, etc." },
+                { icon: LinkIcon, label: "Link", sub: "External URL" },
+                { icon: ImageIcon, label: "Code", sub: "Source Code" },
               ].map((res, idx) => {
                 const Icon = res.icon;
                 return (
-                  <div key={idx} className="flex flex-col items-center text-center gap-1">
+                  <div
+                    key={idx}
+                    className="flex flex-col items-center text-center gap-1"
+                  >
                     <div className="size-8 rounded-lg border border-border flex items-center justify-center text-text-secondary">
                       <Icon className="size-4" />
                     </div>
-                    <span className="text-ink-deep font-sans font-medium text-[9px]">{res.label}</span>
-                    <p className="text-text-muted font-sans text-[8px] leading-tight">{res.sub}</p>
+                    <span className="text-ink-deep font-sans font-medium text-[9px]">
+                      {res.label}
+                    </span>
+                    <p className="text-text-muted font-sans text-[8px] leading-tight">
+                      {res.sub}
+                    </p>
                   </div>
                 );
               })}
@@ -434,11 +541,16 @@ export function DetailsTab({ status, setStatus, outcomes, setActiveTab }: Detail
 
       {/* FOOTER */}
       <div className="fixed bottom-0 left-[260px] right-0 h-20 bg-background border-t border-border px-10 flex items-center justify-end gap-3 z-10 shadow-lg">
-        <Button variant="outline" className="h-10 px-6 font-medium text-sm border-border text-ink-deep">Cancel</Button>
+        <Button
+          variant="outline"
+          className="h-10 px-6 font-medium text-sm border-border text-ink-deep"
+        >
+          Cancel
+        </Button>
         <Button className="h-10 px-6 font-medium text-sm bg-ink-deep hover:bg-black text-white flex items-center gap-2">
           <FileCode className="size-4" /> Save as Draft
         </Button>
-        <Button 
+        <Button
           onClick={() => setActiveTab("curriculum")}
           className="h-10 px-6 font-medium text-sm bg-primary hover:bg-ink-deep text-white flex items-center gap-2"
         >

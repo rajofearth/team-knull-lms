@@ -1,19 +1,19 @@
-import {
-  statCards,
-  enrollmentOverview,
-  topCourses,
-  studentsByCountry,
-  totalStudents,
-  newInstructors,
-  recentActivity,
-} from "@/lib/data/admin";
 import { DashboardStatCard } from "@/components/admin/dashboard-stat-card";
 import { EnrollmentChart } from "@/components/admin/enrollment-chart";
-import { TopCourses } from "@/components/admin/top-courses";
-import { StudentsCountry } from "@/components/admin/students-country";
 import { NewInstructors } from "@/components/admin/new-instructors";
 import { RecentActivity } from "@/components/admin/recent-activity";
+import { StudentsCountry } from "@/components/admin/students-country";
+import { TopCourses } from "@/components/admin/top-courses";
 import { DatePickerWithRange } from "@/components/ui/date-picker-with-range";
+import {
+  enrollmentOverview,
+  newInstructors,
+  recentActivity,
+  statCards,
+  studentsByCountry,
+  topCourses,
+  totalStudents,
+} from "@/lib/data/admin";
 
 export default function AdminDashboardPage() {
   return (
@@ -25,7 +25,8 @@ export default function AdminDashboardPage() {
             Dashboard
           </h1>
           <p className="text-xs font-sans text-muted-foreground m-0">
-            Welcome back! Here&apos;s what&apos;s happening with your learning platform.
+            Welcome back! Here&apos;s what&apos;s happening with your learning
+            platform.
           </p>
         </div>
 

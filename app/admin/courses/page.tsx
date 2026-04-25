@@ -1,12 +1,12 @@
 "use client";
 
+import { Download, Filter, Plus, Search } from "lucide-react";
 import Link from "next/link";
-import { Plus, Search, Filter, Download } from "lucide-react";
 import { CoursesTable } from "@/components/admin/courses/courses-table";
-import { adminCoursesData } from "@/lib/data/admin";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { adminCoursesData } from "@/lib/data/admin";
 
 export default function AdminCoursesPage() {
   return (
@@ -61,13 +61,23 @@ export default function AdminCoursesPage() {
               className="pl-9 bg-white border-border h-9"
             />
           </div>
-          <Button variant="outline" className="h-9 px-4 gap-2 bg-white border-border">
+          <Button
+            variant="outline"
+            className="h-9 px-4 gap-2 bg-white border-border"
+          >
             <Filter className="size-4 text-foreground/80 shrink-0" />
-            <span className="font-sans font-medium text-sm text-foreground/80">Filter</span>
+            <span className="font-sans font-medium text-sm text-foreground/80">
+              Filter
+            </span>
           </Button>
-          <Button variant="outline" className="h-9 px-4 gap-2 bg-white border-border">
+          <Button
+            variant="outline"
+            className="h-9 px-4 gap-2 bg-white border-border"
+          >
             <Download className="size-4 text-foreground/80 shrink-0" />
-            <span className="font-sans font-medium text-sm text-foreground/80">Export</span>
+            <span className="font-sans font-medium text-sm text-foreground/80">
+              Export
+            </span>
           </Button>
         </div>
       </div>

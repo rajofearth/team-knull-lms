@@ -1,8 +1,8 @@
+import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Star } from "lucide-react";
-import type { CourseData } from "@/lib/data/courses";
 import { Badge } from "@/components/ui/badge";
+import type { CourseData } from "@/lib/data/courses";
 
 interface CourseCardProps {
   course: CourseData;
@@ -25,7 +25,10 @@ export function CourseCard({ course }: CourseCardProps) {
         />
         {course.badge && (
           <div className="absolute top-3 left-3">
-            <Badge variant="secondary" className="bg-white/90 backdrop-blur-sm text-ink font-bold text-xs uppercase tracking-wider border-none shadow-subtle">
+            <Badge
+              variant="secondary"
+              className="bg-white/90 backdrop-blur-sm text-ink font-bold text-xs uppercase tracking-wider border-none shadow-subtle"
+            >
               {course.badge}
             </Badge>
           </div>
@@ -56,9 +59,7 @@ export function CourseCard({ course }: CourseCardProps) {
             <span className="text-text-muted font-sans text-xs">
               {course.level}
             </span>
-            <span className="text-text-muted font-sans text-xs">
-              •
-            </span>
+            <span className="text-text-muted font-sans text-xs">•</span>
             <span className="text-text-muted font-sans text-xs">
               {course.duration}
             </span>

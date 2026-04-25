@@ -1,20 +1,19 @@
 "use client";
 
-import * as React from "react";
-import { 
-  ChevronRight, 
-  ChevronLeft,
-  FileCode,
+import {
   ArrowRight,
-  ExternalLink
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  FileCode,
 } from "lucide-react";
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -22,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 interface SettingsTabProps {
   setActiveTab: (tab: string) => void;
@@ -42,7 +42,6 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
 
       {/* Settings Grid Area */}
       <div className="flex rounded-lg gap-10 bg-white border border-border p-8 items-stretch">
-        
         {/* Course Visibility */}
         <div className="flex flex-col grow shrink basis-0 gap-5">
           <Label className="text-ink-deep font-sans font-semibold text-sm">
@@ -53,7 +52,10 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
             <div className="flex items-start gap-3">
               <RadioGroupItem value="public" id="public" className="mt-0.5" />
               <div className="flex flex-col gap-0.5">
-                <Label htmlFor="public" className="text-ink-deep font-sans font-semibold text-sm cursor-pointer">
+                <Label
+                  htmlFor="public"
+                  className="text-ink-deep font-sans font-semibold text-sm cursor-pointer"
+                >
                   Public
                 </Label>
                 <span className="text-text-secondary font-sans text-xs">
@@ -64,9 +66,16 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
 
             {/* Unlisted */}
             <div className="flex items-start gap-3">
-              <RadioGroupItem value="unlisted" id="unlisted" className="mt-0.5" />
+              <RadioGroupItem
+                value="unlisted"
+                id="unlisted"
+                className="mt-0.5"
+              />
               <div className="flex flex-col gap-0.5">
-                <Label htmlFor="unlisted" className="text-ink-deep font-sans font-medium text-sm cursor-pointer">
+                <Label
+                  htmlFor="unlisted"
+                  className="text-ink-deep font-sans font-medium text-sm cursor-pointer"
+                >
                   Unlisted
                 </Label>
                 <span className="text-text-secondary font-sans text-xs">
@@ -79,7 +88,10 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
             <div className="flex items-start gap-3">
               <RadioGroupItem value="private" id="private" className="mt-0.5" />
               <div className="flex flex-col gap-0.5">
-                <Label htmlFor="private" className="text-ink-deep font-sans font-medium text-sm cursor-pointer">
+                <Label
+                  htmlFor="private"
+                  className="text-ink-deep font-sans font-medium text-sm cursor-pointer"
+                >
                   Private
                 </Label>
                 <span className="text-text-secondary font-sans text-xs">
@@ -101,7 +113,10 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
             <div className="flex items-start gap-3">
               <Checkbox id="enable-cert" defaultChecked className="mt-0.5" />
               <div className="flex flex-col gap-0.5">
-                <Label htmlFor="enable-cert" className="text-ink-deep font-sans font-semibold text-sm cursor-pointer">
+                <Label
+                  htmlFor="enable-cert"
+                  className="text-ink-deep font-sans font-semibold text-sm cursor-pointer"
+                >
                   Enable certificate
                 </Label>
                 <span className="text-text-secondary font-sans text-xs">
@@ -120,7 +135,9 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="default">Default Certificate</SelectItem>
-                  <SelectItem value="professional">Professional Template</SelectItem>
+                  <SelectItem value="professional">
+                    Professional Template
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <button className="flex items-center gap-1 text-text-secondary hover:text-ink-deep transition-colors group">
@@ -134,12 +151,14 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
                 Passing Percentage
               </Label>
               <div className="flex gap-2">
-                <Input 
-                  defaultValue="70" 
-                  className="h-9 grow shrink basis-0 rounded-md border-border bg-white px-3 text-sm font-sans focus-visible:ring-0" 
+                <Input
+                  defaultValue="70"
+                  className="h-9 grow shrink basis-0 rounded-md border-border bg-white px-3 text-sm font-sans focus-visible:ring-0"
                 />
                 <div className="flex items-center justify-center rounded-md border border-border shrink-0 size-9 bg-surface-dim/30">
-                  <span className="text-text-secondary font-sans text-sm">%</span>
+                  <span className="text-text-secondary font-sans text-sm">
+                    %
+                  </span>
                 </div>
               </div>
               <span className="text-text-secondary font-sans text-[10px]">
@@ -160,7 +179,10 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
             <div className="flex items-start gap-3">
               <Checkbox id="lifetime" defaultChecked className="mt-0.5" />
               <div className="flex flex-col gap-0.5">
-                <Label htmlFor="lifetime" className="text-ink-deep font-sans font-semibold text-sm cursor-pointer">
+                <Label
+                  htmlFor="lifetime"
+                  className="text-ink-deep font-sans font-semibold text-sm cursor-pointer"
+                >
                   Lifetime Access
                 </Label>
                 <span className="text-text-secondary font-sans text-xs">
@@ -172,7 +194,10 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
             <div className="flex items-start gap-3">
               <Checkbox id="resources" defaultChecked className="mt-0.5" />
               <div className="flex flex-col gap-0.5">
-                <Label htmlFor="resources" className="text-ink-deep font-sans font-semibold text-sm cursor-pointer">
+                <Label
+                  htmlFor="resources"
+                  className="text-ink-deep font-sans font-semibold text-sm cursor-pointer"
+                >
                   Downloadable Resources
                 </Label>
                 <span className="text-text-secondary font-sans text-xs">
@@ -184,7 +209,10 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
             <div className="flex items-start gap-3">
               <Checkbox id="discussion" className="mt-0.5" />
               <div className="flex flex-col gap-0.5">
-                <Label htmlFor="discussion" className="text-ink-deep font-sans font-medium text-sm cursor-pointer">
+                <Label
+                  htmlFor="discussion"
+                  className="text-ink-deep font-sans font-medium text-sm cursor-pointer"
+                >
                   Discussion
                 </Label>
                 <span className="text-text-secondary font-sans text-xs">
@@ -207,9 +235,9 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
               <Label className="text-ink-deep font-sans font-medium text-sm">
                 Meta Title
               </Label>
-              <Input 
-                defaultValue="Web Development Bootcamp" 
-                className="h-9 rounded-md border-border bg-white px-3 text-sm font-sans focus-visible:ring-0" 
+              <Input
+                defaultValue="Web Development Bootcamp"
+                className="h-9 rounded-md border-border bg-white px-3 text-sm font-sans focus-visible:ring-0"
               />
               <span className="text-text-secondary font-sans text-[10px]">
                 Recommended: 50-60 characters
@@ -220,9 +248,9 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
               <Label className="text-ink-deep font-sans font-medium text-sm">
                 Meta Description
               </Label>
-              <Textarea 
-                defaultValue="Learn HTML, CSS, JavaScript, and more to build real-world websites." 
-                className="min-h-20 rounded-md border-border bg-white p-3 text-sm leading-relaxed font-sans resize-none focus-visible:ring-0" 
+              <Textarea
+                defaultValue="Learn HTML, CSS, JavaScript, and more to build real-world websites."
+                className="min-h-20 rounded-md border-border bg-white p-3 text-sm leading-relaxed font-sans resize-none focus-visible:ring-0"
               />
               <span className="text-text-secondary font-sans text-[10px]">
                 Recommended: 150-160 characters
@@ -233,9 +261,9 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
               <Label className="text-ink-deep font-sans font-medium text-sm">
                 URL Slug
               </Label>
-              <Input 
-                defaultValue="web-development-bootcamp" 
-                className="h-9 rounded-md border-border bg-white px-3 text-sm font-sans focus-visible:ring-0" 
+              <Input
+                defaultValue="web-development-bootcamp"
+                className="h-9 rounded-md border-border bg-white px-3 text-sm font-sans focus-visible:ring-0"
               />
               <span className="text-text-secondary font-sans text-[10px] break-all">
                 https://teamknull.com/courses/web-development-bootcamp

@@ -1,8 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { ChevronRight, Eye, FileCode } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import * as React from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,16 +10,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
-
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CurriculumTab } from "./_components/CurriculumTab";
 // Modular Components
 import { DetailsTab } from "./_components/DetailsTab";
-import { CurriculumTab } from "./_components/CurriculumTab";
 import { PricingTab } from "./_components/PricingTab";
 import { SettingsTab } from "./_components/SettingsTab";
 
@@ -40,7 +34,10 @@ export default function AddCoursePage() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/admin/courses" className="text-text-secondary hover:text-ink-deep transition-colors text-[13px]">
+              <BreadcrumbLink
+                href="/admin/courses"
+                className="text-text-secondary hover:text-ink-deep transition-colors text-[13px]"
+              >
                 Courses
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -48,7 +45,9 @@ export default function AddCoursePage() {
               <ChevronRight className="size-3" />
             </BreadcrumbSeparator>
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-text-secondary text-[13px]">Add Course</BreadcrumbPage>
+              <BreadcrumbPage className="text-text-secondary text-[13px]">
+                Add Course
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -75,7 +74,7 @@ export default function AddCoursePage() {
               { id: "details", label: "Course Details" },
               { id: "curriculum", label: "Curriculum" },
               { id: "pricing", label: "Pricing" },
-              { id: "settings", label: "Settings" }
+              { id: "settings", label: "Settings" },
             ].map((tab) => (
               <TabsTrigger
                 key={tab.id}
@@ -86,7 +85,7 @@ export default function AddCoursePage() {
               </TabsTrigger>
             ))}
           </TabsList>
-          
+
           <div className="flex items-center gap-3 mb-2">
             <Button
               variant="outline"
@@ -106,11 +105,11 @@ export default function AddCoursePage() {
         </div>
 
         <TabsContent value="details" className="mt-0 outline-none">
-          <DetailsTab 
-            status={status} 
-            setStatus={setStatus} 
-            outcomes={outcomes} 
-            setActiveTab={setActiveTab} 
+          <DetailsTab
+            status={status}
+            setStatus={setStatus}
+            outcomes={outcomes}
+            setActiveTab={setActiveTab}
           />
         </TabsContent>
 

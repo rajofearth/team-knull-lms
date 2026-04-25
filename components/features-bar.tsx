@@ -1,4 +1,4 @@
-import { BookOpen, Clock, Award, ShieldCheck } from "lucide-react";
+import { Award, BookOpen, Clock, ShieldCheck } from "lucide-react";
 
 const features = [
   {
@@ -30,7 +30,10 @@ export function FeaturesBar() {
         {features.map((f, i) => {
           const Icon = f.icon;
           return (
-            <div key={f.title} className="flex items-center gap-8 grow shrink basis-0">
+            <div
+              key={f.title}
+              className="flex items-center gap-8 grow shrink basis-0"
+            >
               <div className="flex items-start gap-5">
                 <div className="flex items-center justify-center rounded-xl bg-canvas shadow-subtle shrink-0 size-12">
                   <Icon className="size-6 text-ink" strokeWidth={2} />

@@ -1,8 +1,16 @@
 "use client";
 
+import {
+  Award,
+  Briefcase,
+  CheckCircle2,
+  Clock,
+  Code,
+  Laptop,
+  Users,
+} from "lucide-react";
 import React from "react";
-import { CheckCircle2, Briefcase, Users, Clock, Award, Code, Laptop } from "lucide-react";
-import { Overview } from "@/lib/data/courses";
+import type { Overview } from "@/lib/data/courses";
 
 interface CourseOverviewProps {
   overview: Overview;
@@ -32,7 +40,7 @@ export function CourseOverview({ overview }: CourseOverviewProps) {
             </div>
           </div>
         </div>
-        
+
         {/* Features Sidebar */}
         <div className="w-95 flex flex-col rounded-xl gap-6 bg-canvas border border-solid border-border shrink-0 p-6">
           {overview.features?.map((feature, index) => {
@@ -102,7 +110,10 @@ export function CourseOverview({ overview }: CourseOverviewProps) {
           {overview.whoThisCourseIsFor?.map((item, index) => {
             const Icon = iconMap[item.icon] || Code;
             return (
-              <div key={index} className="grow shrink basis-[0%] flex flex-col rounded-xl gap-4 bg-canvas border border-solid border-border p-8 hover:shadow-card transition-all group">
+              <div
+                key={index}
+                className="grow shrink basis-[0%] flex flex-col rounded-xl gap-4 bg-canvas border border-solid border-border p-8 hover:shadow-card transition-all group"
+              >
                 <div className="flex items-center justify-center rounded-xl bg-muted shrink-0 size-12 group-hover:bg-ink group-hover:text-canvas transition-colors">
                   <Icon className="size-6 text-ink group-hover:text-canvas" />
                 </div>

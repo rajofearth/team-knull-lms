@@ -1,11 +1,11 @@
-import { Navbar } from "@/components/navbar";
-import { HeroSection } from "@/components/hero-section";
-import { FeaturesBar } from "@/components/features-bar";
-import { PopularCourses } from "@/components/popular-courses";
 import { Categories } from "@/components/categories";
-import { Testimonials } from "@/components/testimonials";
 import { CTASection } from "@/components/cta-section";
+import { FeaturesBar } from "@/components/features-bar";
 import { Footer } from "@/components/footer";
+import { HeroSection } from "@/components/hero-section";
+import { Navbar } from "@/components/navbar";
+import { PopularCourses } from "@/components/popular-courses";
+import { Testimonials } from "@/components/testimonials";
 
 export default function Home() {
   return (
