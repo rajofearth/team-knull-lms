@@ -54,9 +54,10 @@ export function StudentsCountry({ data, total }: StudentsCountryProps) {
           {/* Donut Chart */}
           <div className="relative size-32 shrink-0">
             <svg viewBox="0 0 36 36" className="size-full transform -rotate-90">
-              {segments.map((s, i) => (
+              <title>Students by country</title>
+              {segments.map((s) => (
                 <circle
-                  key={i}
+                  key={s.country}
                   cx="18"
                   cy="18"
                   r="15.91549430918954"
@@ -81,8 +82,8 @@ export function StudentsCountry({ data, total }: StudentsCountryProps) {
 
           {/* Legend */}
           <div className="flex flex-col gap-3">
-            {segments.map((s, i) => (
-              <div key={i} className="flex items-center gap-2">
+            {segments.map((s) => (
+              <div key={s.country} className="flex items-center gap-2">
                 <div
                   className="size-2 rounded-sm shrink-0"
                   style={{ backgroundColor: s.color }}

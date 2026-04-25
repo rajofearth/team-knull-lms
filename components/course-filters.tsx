@@ -6,21 +6,28 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface CourseFiltersProps {
-  activeFilters: {
-    levels: string[];
-    price: "all" | "free" | "paid";
-    durations: string[];
-    ratings: number[];
-  };
+  activeFilters: CourseFiltersState;
   filterCounts: {
     levels: Record<string, number>;
     price: { free: number; paid: number };
     durations: Record<string, number>;
     ratings: Record<number, number>;
   };
-  onFilterChange: (type: string, value: any) => void;
+  onFilterChange: <K extends keyof CourseFiltersState>(
+    type: K,
+    value: CourseFiltersState[K],
+  ) => void;
   onClearFilters: () => void;
 }
+
+type CourseFiltersState = {
+  activeFilters: {
+    levels: string[];
+    price: "all" | "free" | "paid";
+    durations: string[];
+    ratings: number[];
+  };
+};
 
 export function CourseFilters({
   activeFilters,
@@ -33,10 +40,21 @@ export function CourseFilters({
     value: string | number,
   ) => {
     // Fix: Cast to any[] to avoid union array issues, then re-cast for type safety
-    const current = activeFilters[type] as any[];
-    const updated = current.includes(value)
-      ? current.filter((v) => v !== value)
-      : [...current, value];
+    if (type === "ratings") {
+      const current = activeFilters.ratings;
+      const nextValue = value as number;
+      const updated = current.includes(nextValue)
+        ? current.filter((item) => item !== nextValue)
+        : [...current, nextValue];
+      onFilterChange(type, updated);
+      return;
+    }
+
+    const current = activeFilters[type];
+    const nextValue = value as string;
+    const updated = current.includes(nextValue)
+      ? current.filter((item) => item !== nextValue)
+      : [...current, nextValue];
     onFilterChange(type, updated);
   };
 
@@ -46,6 +64,7 @@ export function CourseFilters({
       <div className="flex justify-between items-center pb-4 border-b border-border">
         <h2 className="text-ink font-heading font-semibold text-lg">Filters</h2>
         <button
+          type="button"
           onClick={onClearFilters}
           className="text-text-muted hover:text-ink font-sans text-sm transition-colors cursor-pointer"
         >
@@ -172,7 +191,7 @@ export function CourseFilters({
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
                   <Star
-                    key={i}
+                    key={`rating-${rating}-star-${i + 1}`}
                     size={14}
                     className={
                       i < rating
@@ -192,6 +211,7 @@ export function CourseFilters({
 
       {/* Apply Button */}
       <button
+        type="button"
         onClick={onClearFilters}
         className="flex items-center justify-center w-full rounded-lg bg-canvas border border-border py-3 hover:bg-muted transition-colors font-sans font-semibold text-sm text-ink cursor-pointer"
       >

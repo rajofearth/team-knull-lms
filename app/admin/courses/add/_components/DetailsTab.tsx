@@ -23,7 +23,6 @@ import {
   Video,
 } from "lucide-react";
 import Image from "next/image";
-import type * as React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -52,13 +51,6 @@ export function DetailsTab({
   outcomes,
   setActiveTab,
 }: DetailsTabProps) {
-  const handleKeyDown = (e: React.KeyboardEvent, value: string) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      setStatus(value);
-    }
-  };
-
   return (
     <div className="flex items-start w-full gap-6 pb-24">
       {/* COLUMN 1: Content (approx 46%) */}
@@ -175,8 +167,8 @@ export function DetailsTab({
             <span className="text-red-500 text-xs">*</span>
           </div>
           <div className="flex flex-col gap-2 bg-surface-dim/30 p-4 rounded-lg border border-border/50">
-            {outcomes.map((outcome, index) => (
-              <div key={index} className="flex items-center gap-3">
+            {outcomes.map((outcome) => (
+              <div key={outcome} className="flex items-center gap-3">
                 <div className="size-1 rounded-full bg-text-secondary" />
                 <Input
                   defaultValue={outcome}
@@ -219,7 +211,10 @@ export function DetailsTab({
               <span className="text-ink-deep font-sans font-medium text-xs pr-2">
                 John Smith
               </span>
-              <button className="text-text-muted hover:text-red-500 transition-colors">
+              <button
+                type="button"
+                className="text-text-muted hover:text-red-500 transition-colors"
+              >
                 <Plus className="size-3.5 rotate-45" />
               </button>
             </div>
@@ -294,6 +289,7 @@ export function DetailsTab({
           </div>
           <div className="flex flex-col rounded-lg border border-border bg-background overflow-hidden">
             <button
+              type="button"
               onClick={() => setStatus("draft")}
               className={cn(
                 "flex items-start gap-3 p-3 border-b border-border transition-colors text-left",
@@ -318,6 +314,7 @@ export function DetailsTab({
               </div>
             </button>
             <button
+              type="button"
               onClick={() => setStatus("published")}
               className={cn(
                 "flex items-start gap-3 p-3 border-b border-border transition-colors text-left",
@@ -342,6 +339,7 @@ export function DetailsTab({
               </div>
             </button>
             <button
+              type="button"
               onClick={() => setStatus("scheduled")}
               className={cn(
                 "flex items-start gap-3 p-3 transition-colors text-left",
@@ -515,11 +513,11 @@ export function DetailsTab({
                 { icon: FileCode, label: "File", sub: "ZIP, RAR, etc." },
                 { icon: LinkIcon, label: "Link", sub: "External URL" },
                 { icon: ImageIcon, label: "Code", sub: "Source Code" },
-              ].map((res, idx) => {
+              ].map((res) => {
                 const Icon = res.icon;
                 return (
                   <div
-                    key={idx}
+                    key={res.label}
                     className="flex flex-col items-center text-center gap-1"
                   >
                     <div className="size-8 rounded-lg border border-border flex items-center justify-center text-text-secondary">

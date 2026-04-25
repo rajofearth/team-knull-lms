@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import type { Lesson, Module } from "@/lib/data/courses";
 import { cn } from "@/lib/utils";
 
@@ -36,7 +36,8 @@ export function CurriculumSidebar({
             key={module.id}
             className="flex flex-col gap-0 rounded-xl overflow-clip bg-canvas border border-solid border-border-subtle shadow-subtle"
           >
-            <div
+            <button
+              type="button"
               className={cn(
                 "flex justify-between items-center py-4.5 px-5 bg-canvas cursor-pointer hover:bg-surface transition-colors",
                 isExpanded && "border-b border-b-solid border-surface-dim",
@@ -56,7 +57,7 @@ export function CurriculumSidebar({
                   <ChevronDown className="size-3.5 text-text-muted" />
                 )}
               </div>
-            </div>
+            </button>
 
             {isExpanded && (
               <div className="flex flex-col">
@@ -64,10 +65,11 @@ export function CurriculumSidebar({
                   const isActive = lesson.id === activeLessonId;
 
                   return (
-                    <div
+                    <button
+                      type="button"
                       key={lesson.id}
                       className={cn(
-                        "flex items-center justify-between py-4 px-5 border-b border-solid border-surface-dim cursor-pointer hover:bg-surface group",
+                        "flex w-full items-center justify-between py-4 px-5 border-b border-solid border-surface-dim cursor-pointer hover:bg-surface group text-left",
                         isActive && "bg-surface",
                       )}
                       onClick={() => onLessonSelect?.(lesson)}
@@ -102,7 +104,7 @@ export function CurriculumSidebar({
                       >
                         {lesson.duration}
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </div>

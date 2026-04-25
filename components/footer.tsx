@@ -12,6 +12,17 @@ const footerLinks = {
   Support: ["Help Center", "Terms of Use", "Privacy Policy", "Refund Policy"],
 };
 
+const socialLinks = [
+  { href: "https://x.com", label: "X", Icon: X },
+  { href: "https://www.linkedin.com", label: "LinkedIn", Icon: Linkedin },
+  { href: "https://www.youtube.com", label: "YouTube", Icon: Youtube },
+  {
+    href: "https://www.instagram.com",
+    label: "Instagram",
+    Icon: InstagramIcon,
+  },
+];
+
 export function Footer() {
   return (
     <footer className="bg-canvas pt-16 border-t border-border">
@@ -35,11 +46,12 @@ export function Footer() {
               practical skills for a better future.
             </p>
             <div className="flex gap-4">
-              {[X, Linkedin, Youtube, InstagramIcon].map((Icon, i) => (
+              {socialLinks.map(({ href, label, Icon }) => (
                 <a
-                  key={i}
-                  href="#"
+                  key={label}
+                  href={href}
                   className="flex items-center justify-center size-6 rounded-lg text-text-muted hover:text-ink transition-all"
+                  aria-label={label}
                 >
                   <Icon strokeWidth={2} />
                 </a>
@@ -83,7 +95,10 @@ export function Footer() {
                 placeholder="Your email address"
                 className="w-full bg-surface-dim border border-border rounded-xl py-3 px-4 pr-12 text-sm font-heading outline-none focus:border-ink transition-colors"
               />
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 size-8 flex items-center justify-center bg-ink text-canvas rounded-lg hover:bg-ink-deep transition-colors">
+              <button
+                type="button"
+                className="absolute right-2 top-1/2 -translate-y-1/2 size-8 flex items-center justify-center bg-ink text-canvas rounded-lg hover:bg-ink-deep transition-colors"
+              >
                 <Send size={14} />
               </button>
             </div>

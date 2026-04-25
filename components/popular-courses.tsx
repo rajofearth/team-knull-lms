@@ -1,5 +1,4 @@
-import { ArrowRight, Star } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { CourseCard } from "@/components/course-card";
 import { courses } from "@/lib/data/courses";

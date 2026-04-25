@@ -3,10 +3,8 @@
 import {
   CheckCircle2,
   ChevronRight,
-  ChevronUp,
   Circle,
   Edit2,
-  FileCode,
   FileText,
   GripVertical,
   Link as LinkIcon,
@@ -16,7 +14,6 @@ import {
   Video,
 } from "lucide-react";
 import Image from "next/image";
-import * as React from "react";
 import {
   Accordion,
   AccordionContent,
@@ -25,13 +22,7 @@ import {
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -302,9 +293,9 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
                 "Keep lessons focused and under 15 minutes when possible.",
                 "Add resources like notes, code files, and cheatsheets.",
                 "Preview your course to ensure everything looks perfect.",
-              ].map((tip, idx) => (
+              ].map((tip) => (
                 <li
-                  key={idx}
+                  key={tip}
                   className="flex items-start gap-2 text-text-secondary font-sans text-xs leading-relaxed"
                 >
                   <span className="text-primary mt-1">•</span>
@@ -328,8 +319,8 @@ export function CurriculumTab({ setActiveTab }: CurriculumTabProps) {
               { text: "Add preview video", done: true },
               { text: "Add lesson resources", done: false },
               { text: "Review course duration", done: false },
-            ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-2.5">
+            ].map((item) => (
+              <div key={item.text} className="flex items-center gap-2.5">
                 {item.done ? (
                   <CheckCircle2 className="size-4 text-green-500" />
                 ) : (

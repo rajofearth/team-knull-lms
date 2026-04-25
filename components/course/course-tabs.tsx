@@ -20,6 +20,7 @@ export function CourseTabs({ activeTab, onTabChange }: CourseTabsProps) {
     <div className="flex mt-6 w-full px-20 gap-10 border-b border-b-solid border-border bg-canvas">
       {tabs.map((tab) => (
         <button
+          type="button"
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
           className={cn(

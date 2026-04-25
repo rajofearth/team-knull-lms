@@ -12,6 +12,7 @@ export function AdminHeader() {
       <div className="flex items-center gap-4">
         {/* Bell */}
         <button
+          type="button"
           className="relative size-10 flex items-center justify-center rounded-md hover:bg-muted transition-colors"
           aria-label="Notifications"
         >
@@ -20,7 +21,10 @@ export function AdminHeader() {
         </button>
 
         {/* User */}
-        <button className="flex items-center gap-3 rounded-md bg-white px-2 py-1.5 hover:bg-muted transition-colors">
+        <button
+          type="button"
+          className="flex items-center gap-3 rounded-md bg-white px-2 py-1.5 hover:bg-muted transition-colors"
+        >
           <div className="size-8.5 rounded-full bg-foreground flex items-center justify-center shrink-0">
             <span className="text-background font-heading font-semibold text-sm">
               A

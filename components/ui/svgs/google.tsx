@@ -1,6 +1,8 @@
 import type { SVGProps } from "react";
 
-const Google = (props: SVGProps<SVGSVGElement>) => (
+type IconProps = SVGProps<SVGSVGElement> & { title?: string };
+
+const Google = ({ title = "Google", ...props }: IconProps) => (
   <svg
     {...props}
     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -8,6 +10,7 @@ const Google = (props: SVGProps<SVGSVGElement>) => (
     overflow="hidden"
     viewBox="0 0 268.152 273.883"
   >
+    <title>{title}</title>
     <defs>
       <linearGradient id="a">
         <stop offset="0" stopColor="#0fbc5c" />

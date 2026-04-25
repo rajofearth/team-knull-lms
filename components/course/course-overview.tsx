@@ -1,5 +1,6 @@
 "use client";
 
+import type { LucideIcon } from "lucide-react";
 import {
   Award,
   Briefcase,
@@ -9,14 +10,13 @@ import {
   Laptop,
   Users,
 } from "lucide-react";
-import React from "react";
 import type { Overview } from "@/lib/data/courses";
 
 interface CourseOverviewProps {
   overview: Overview;
 }
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, LucideIcon> = {
   briefcase: Briefcase,
   users: Users,
   clock: Clock,
@@ -43,10 +43,10 @@ export function CourseOverview({ overview }: CourseOverviewProps) {
 
         {/* Features Sidebar */}
         <div className="w-95 flex flex-col rounded-xl gap-6 bg-canvas border border-solid border-border shrink-0 p-6">
-          {overview.features?.map((feature, index) => {
+          {overview.features?.map((feature) => {
             const Icon = iconMap[feature.icon] || Briefcase;
             return (
-              <div key={index} className="flex items-start gap-4">
+              <div key={feature.title} className="flex items-start gap-4">
                 <div className="flex items-center justify-center rounded-lg bg-muted shrink-0 size-10 border border-border">
                   <Icon className="size-5 text-ink" />
                 </div>
@@ -71,8 +71,8 @@ export function CourseOverview({ overview }: CourseOverviewProps) {
             What You'll Learn
           </div>
           <div className="flex flex-col gap-4">
-            {overview.whatYouWillLearn.map((item, index) => (
-              <div key={index} className="flex items-center gap-3">
+            {overview.whatYouWillLearn.map((item) => (
+              <div key={item} className="flex items-center gap-3">
                 <CheckCircle2 className="size-5 text-success shrink-0" />
                 <div className="inline-block text-text-description font-sans text-base/5">
                   {item}
@@ -87,8 +87,8 @@ export function CourseOverview({ overview }: CourseOverviewProps) {
             Requirements
           </div>
           <div className="flex flex-col gap-4 m-0">
-            {overview.requirements.map((item, index) => (
-              <div key={index} className="flex gap-3">
+            {overview.requirements.map((item) => (
+              <div key={item} className="flex gap-3">
                 <div className="inline-block text-text-muted font-sans text-base/5">
                   •
                 </div>
@@ -107,11 +107,11 @@ export function CourseOverview({ overview }: CourseOverviewProps) {
           Who This Course Is For
         </div>
         <div className="flex gap-6">
-          {overview.whoThisCourseIsFor?.map((item, index) => {
+          {overview.whoThisCourseIsFor?.map((item) => {
             const Icon = iconMap[item.icon] || Code;
             return (
               <div
-                key={index}
+                key={item.title}
                 className="grow shrink basis-[0%] flex flex-col rounded-xl gap-4 bg-canvas border border-solid border-border p-8 hover:shadow-card transition-all group"
               >
                 <div className="flex items-center justify-center rounded-xl bg-muted shrink-0 size-12 group-hover:bg-ink group-hover:text-canvas transition-colors">

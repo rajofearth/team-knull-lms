@@ -1,6 +1,5 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -89,6 +88,7 @@ export function EnrollmentChart({ data }: EnrollmentChartProps) {
                 viewBox="0 0 100 100"
                 className="absolute inset-0"
               >
+                <title>Enrollment trend</title>
                 {/* Gradient fill */}
                 <defs>
                   <linearGradient

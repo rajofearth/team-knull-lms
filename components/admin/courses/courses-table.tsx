@@ -113,7 +113,7 @@ export function CoursesTable({ data }: CoursesTableProps) {
 
         {/* Table Body */}
         <TableBody>
-          {data.map((course, i) => (
+          {data.map((course, _i) => (
             <TableRow
               key={course.id}
               className="border-border hover:bg-muted/30"

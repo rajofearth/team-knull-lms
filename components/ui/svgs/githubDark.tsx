@@ -1,7 +1,10 @@
 import type { SVGProps } from "react";
 
-const GithubDark = (props: SVGProps<SVGSVGElement>) => (
+type IconProps = SVGProps<SVGSVGElement> & { title?: string };
+
+const GithubDark = ({ title = "GitHub", ...props }: IconProps) => (
   <svg {...props} viewBox="0 0 1024 1024" fill="none">
+    <title>{title}</title>
     <path
       fillRule="evenodd"
       clipRule="evenodd"

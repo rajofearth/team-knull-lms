@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import {
   Accordion,
   AccordionContent,

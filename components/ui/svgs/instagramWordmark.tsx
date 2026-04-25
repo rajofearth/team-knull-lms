@@ -1,7 +1,13 @@
 import type { SVGProps } from "react";
 
-const InstagramWordmark = (props: SVGProps<SVGSVGElement>) => (
+type IconProps = SVGProps<SVGSVGElement> & { title?: string };
+
+const InstagramWordmark = ({
+  title = "Instagram wordmark",
+  ...props
+}: IconProps) => (
   <svg {...props} xmlSpace="preserve" viewBox="0 0 792 224.7">
+    <title>{title}</title>
     <defs>
       <linearGradient id="a" x1="0%" x2="100%" y1="0%" y2="0%">
         <stop offset="0%" style={{ stopColor: "#780cff" }} />

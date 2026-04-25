@@ -74,6 +74,7 @@ export default function CoursePage({
             xmlns="http://www.w3.org/2000/svg"
             style={{ flexShrink: "0" }}
           >
+            <title>Breadcrumb separator</title>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <Link
@@ -94,6 +95,7 @@ export default function CoursePage({
             xmlns="http://www.w3.org/2000/svg"
             style={{ flexShrink: "0" }}
           >
+            <title>Breadcrumb separator</title>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <div className="inline-block text-text-muted font-sans text-sm leading-none">
@@ -111,6 +113,7 @@ export default function CoursePage({
             xmlns="http://www.w3.org/2000/svg"
             style={{ flexShrink: "0" }}
           >
+            <title>Breadcrumb separator</title>
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <div className="inline-block text-ink-secondary font-sans text-sm leading-none">
@@ -151,6 +154,7 @@ export default function CoursePage({
 
                 <div className="flex justify-between mt-2">
                   <button
+                    type="button"
                     className={cn(
                       "flex items-center rounded-lg py-3 px-6 gap-2.5 border-[1.5px] border-solid border-border transition-colors",
                       activeLessonId === allLessons[0].id
@@ -172,6 +176,7 @@ export default function CoursePage({
                       xmlns="http://www.w3.org/2000/svg"
                       style={{ flexShrink: "0" }}
                     >
+                      <title>Previous lesson</title>
                       <line x1="19" y1="12" x2="5" y2="12" />
                       <polyline points="12 19 5 12 12 5" />
                     </svg>
@@ -180,6 +185,7 @@ export default function CoursePage({
                     </div>
                   </button>
                   <button
+                    type="button"
                     className={cn(
                       "flex items-center rounded-lg py-3 px-6 gap-2.5 bg-ink transition-opacity",
                       activeLessonId === allLessons[allLessons.length - 1].id
@@ -206,6 +212,7 @@ export default function CoursePage({
                       xmlns="http://www.w3.org/2000/svg"
                       style={{ flexShrink: "0" }}
                     >
+                      <title>Next lesson</title>
                       <line x1="5" y1="12" x2="19" y2="12" />
                       <polyline points="12 5 19 12 12 19" />
                     </svg>

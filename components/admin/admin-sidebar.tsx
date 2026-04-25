@@ -54,6 +54,7 @@ export function AdminSidebar() {
             height="26"
             className="fill-foreground shrink-0"
           >
+            <title>Team Knull</title>
             <path d="m45.8 11.4h-3.5v10.8h-2.9v-10.8h-3.3v-2.2h9.7v2.2z" />
             <path d="m56.3 11.3h-5.9v3h5v2.1h-5v3.5h6.1v2.3h-9v-13h8.6l0.2 2.1z" />
             <path d="m69.2 22.1h-2.7l-0.8-2.7h-4.4l-0.8 2.7h-2.7l4-12.9h3.3l4.1 12.9zm-5.7-10.9-1.6 5.8h3.2l-1.6-5.8z" />
@@ -128,7 +129,10 @@ export function AdminSidebar() {
           </span>
           <ExternalLink className="size-4 text-muted-foreground shrink-0" />
         </Link>
-        <button className="flex items-center justify-between rounded-md bg-muted p-3 w-full hover:bg-muted/70 transition-colors">
+        <button
+          type="button"
+          className="flex items-center justify-between rounded-md bg-muted p-3 w-full hover:bg-muted/70 transition-colors"
+        >
           <div className="flex items-center gap-3">
             <div className="size-9 rounded-full bg-foreground flex items-center justify-center shrink-0">
               <span className="text-background font-heading font-semibold text-sm">

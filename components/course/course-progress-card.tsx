@@ -1,7 +1,9 @@
 "use client";
 
-import { Clock, FileText, Grid, Trophy } from "lucide-react";
+import type { SVGProps } from "react";
 import { cn } from "@/lib/utils";
+
+type StatIconProps = SVGProps<SVGSVGElement>;
 
 interface CourseProgressCardProps {
   progress: {
@@ -20,7 +22,7 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
     {
       label: "Lessons Completed",
       value: `${progress.lessonsCompleted} / ${progress.totalLessons}`,
-      icon: (props: any) => (
+      icon: (props: StatIconProps) => (
         <svg
           width="18"
           height="18"
@@ -33,6 +35,7 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
           xmlns="http://www.w3.org/2000/svg"
           {...props}
         >
+          <title>Lessons completed</title>
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
           <polyline points="14 2 14 8 20 8" />
           <line x1="16" y1="13" x2="8" y2="13" />
@@ -44,7 +47,7 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
     {
       label: "Projects Completed",
       value: `${progress.projectsCompleted} / ${progress.totalProjects}`,
-      icon: (props: any) => (
+      icon: (props: StatIconProps) => (
         <svg
           width="18"
           height="18"
@@ -57,6 +60,7 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
           xmlns="http://www.w3.org/2000/svg"
           {...props}
         >
+          <title>Projects completed</title>
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
           <line x1="3" y1="9" x2="21" y2="9" />
           <line x1="9" y1="21" x2="9" y2="9" />
@@ -66,7 +70,7 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
     {
       label: "Quiz Scores",
       value: `${progress.quizScore}%`,
-      icon: (props: any) => (
+      icon: (props: StatIconProps) => (
         <svg
           width="18"
           height="18"
@@ -79,6 +83,7 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
           xmlns="http://www.w3.org/2000/svg"
           {...props}
         >
+          <title>Quiz score</title>
           <circle cx="12" cy="12" r="10" />
           <polyline points="12 6 12 12 16 14" />
         </svg>
@@ -87,7 +92,7 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
     {
       label: "Certificate",
       value: progress.certificateAvailable ? "Available" : "Locked",
-      icon: (props: any) => (
+      icon: (props: StatIconProps) => (
         <svg
           width="18"
           height="18"
@@ -100,6 +105,7 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
           xmlns="http://www.w3.org/2000/svg"
           {...props}
         >
+          <title>Certificate status</title>
           <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
           <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
           <path d="M4 22h16" />
@@ -131,8 +137,8 @@ export function CourseProgressCard({ progress }: CourseProgressCardProps) {
       </div>
 
       <div className="flex flex-col gap-5">
-        {stats.map((stat, index) => (
-          <div key={index} className="flex justify-between items-center">
+        {stats.map((stat) => (
+          <div key={stat.label} className="flex justify-between items-center">
             <div className="flex items-center gap-3.5">
               <stat.icon className="size-4 text-ink" />
               <div className="inline-block text-text-description font-sans font-medium text-sm">

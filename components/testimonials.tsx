@@ -119,7 +119,7 @@ export function Testimonials() {
               <div className="flex gap-1 mt-auto">
                 {Array.from({ length: t.stars }).map((_, i) => (
                   <Star
-                    key={i}
+                    key={`${t.id}-star-${i + 1}`}
                     size={14}
                     className="fill-amber-400 text-amber-400"
                   />
@@ -133,7 +133,8 @@ export function Testimonials() {
         <div className="flex justify-center gap-2">
           {testimonials.map((_, i) => (
             <button
-              key={i}
+              type="button"
+              key={`testimonial-page-${i + 1}`}
               onClick={() => setPage(i)}
               className={`size-2 rounded-full transition-all duration-300 ${
                 i === page ? "bg-ink w-6" : "bg-border hover:bg-text-muted"

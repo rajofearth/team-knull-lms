@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
-  FileCode,
-} from "lucide-react";
-import * as React from "react";
+import { ArrowRight, ChevronLeft, ExternalLink, FileCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -140,7 +132,10 @@ export function SettingsTab({ setActiveTab }: SettingsTabProps) {
                   </SelectItem>
                 </SelectContent>
               </Select>
-              <button className="flex items-center gap-1 text-text-secondary hover:text-ink-deep transition-colors group">
+              <button
+                type="button"
+                className="flex items-center gap-1 text-text-secondary hover:text-ink-deep transition-colors group"
+              >
                 <span className="text-xs font-sans">Preview Certificate</span>
                 <ExternalLink className="size-3" />
               </button>

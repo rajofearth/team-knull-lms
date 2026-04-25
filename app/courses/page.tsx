@@ -19,17 +19,23 @@ import { courses } from "@/lib/data/courses";
 import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 6;
+type ActiveFilters = {
+  levels: string[];
+  price: "all" | "free" | "paid";
+  durations: string[];
+  ratings: number[];
+};
 
 export default function CoursesPage() {
   // State
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("Most Popular");
   const [currentPage, setCurrentPage] = useState(1);
-  const [activeFilters, setActiveFilters] = useState({
-    levels: [] as string[],
-    price: "all" as "all" | "free" | "paid",
-    durations: [] as string[],
-    ratings: [] as number[],
+  const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
+    levels: [],
+    price: "all",
+    durations: [],
+    ratings: [],
   });
 
   // Derived Data
@@ -60,7 +66,7 @@ export default function CoursesPage() {
       else counts.price.paid++;
 
       // Duration
-      const hours = parseInt(course.duration);
+      const hours = parseInt(course.duration, 10);
       if (hours <= 5) counts.durations["0-5 Hours"]++;
       else if (hours <= 15) counts.durations["5-15 Hours"]++;
       else counts.durations["15+ Hours"]++;
@@ -100,7 +106,7 @@ export default function CoursesPage() {
       // Duration Filter
       if (activeFilters.durations.length > 0) {
         // Simplified duration check for demo
-        const courseDurationHours = parseInt(course.duration);
+        const courseDurationHours = parseInt(course.duration, 10);
         const matchesDuration = activeFilters.durations.some((d) => {
           if (d === "0-5 Hours") return courseDurationHours <= 5;
           if (d === "5-15 Hours")
@@ -140,7 +146,10 @@ export default function CoursesPage() {
     currentPage * ITEMS_PER_PAGE,
   );
 
-  const handleFilterChange = (type: string, value: any) => {
+  const handleFilterChange = <K extends keyof ActiveFilters>(
+    type: K,
+    value: ActiveFilters[K],
+  ) => {
     setActiveFilters((prev) => ({
       ...prev,
       [type]: value,
@@ -221,13 +230,14 @@ export default function CoursesPage() {
                   "Price: Low to High",
                   "Price: High to Low",
                 ].map((option) => (
-                  <div
+                  <button
+                    type="button"
                     key={option}
                     onClick={() => setSortBy(option)}
-                    className="p-3 hover:bg-muted cursor-pointer text-sm font-sans text-ink"
+                    className="w-full p-3 text-left hover:bg-muted cursor-pointer text-sm font-sans text-ink"
                   >
                     {option}
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
@@ -278,6 +288,7 @@ export default function CoursesPage() {
                   Try clearing them to see more options.
                 </p>
                 <button
+                  type="button"
                   onClick={handleClearFilters}
                   className="mt-2 text-ink-deep font-semibold hover:underline"
                 >
@@ -290,6 +301,7 @@ export default function CoursesPage() {
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2 mt-12">
                 <button
+                  type="button"
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   className="size-9 rounded-md border border-border flex items-center justify-center text-text-muted hover:bg-muted transition-colors cursor-pointer group disabled:opacity-30 disabled:cursor-not-allowed"
@@ -299,7 +311,8 @@ export default function CoursesPage() {
                 </button>
                 {[...Array(totalPages)].map((_, i) => (
                   <button
-                    key={i}
+                    type="button"
+                    key={`page-${i + 1}`}
                     onClick={() => setCurrentPage(i + 1)}
                     className={cn(
                       "size-9 rounded-md font-semibold text-sm flex items-center justify-center cursor-pointer transition-colors",
@@ -312,6 +325,7 @@ export default function CoursesPage() {
                   </button>
                 ))}
                 <button
+                  type="button"
                   disabled={currentPage === totalPages}
                   onClick={() =>
                     setCurrentPage((p) => Math.min(totalPages, p + 1))

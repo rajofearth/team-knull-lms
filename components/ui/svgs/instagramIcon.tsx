@@ -1,11 +1,14 @@
 import type { SVGProps } from "react";
 
-const InstagramIcon = (props: SVGProps<SVGSVGElement>) => (
+type IconProps = SVGProps<SVGSVGElement> & { title?: string };
+
+const InstagramIcon = ({ title = "Instagram", ...props }: IconProps) => (
   <svg
     {...props}
     xmlnsXlink="http://www.w3.org/1999/xlink"
     viewBox="0 0 264.583 264.583"
   >
+    <title>{title}</title>
     <defs>
       <radialGradient
         xlinkHref="#a"

@@ -1,7 +1,13 @@
 import type { SVGProps } from "react";
 
-const YoutubeWordmarkDark = (props: SVGProps<SVGSVGElement>) => (
+type IconProps = SVGProps<SVGSVGElement> & { title?: string };
+
+const YoutubeWordmarkDark = ({
+  title = "YouTube wordmark",
+  ...props
+}: IconProps) => (
   <svg {...props} viewBox="409.289 277.787 512 114.301">
+    <title>{title}</title>
     <g>
       <g>
         <path

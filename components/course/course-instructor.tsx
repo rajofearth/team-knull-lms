@@ -1,7 +1,7 @@
 "use client";
 
 import { Folder, Globe, Star, Users } from "lucide-react";
-import React from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import type { Instructor } from "@/lib/data/courses";
 import { GithubLight } from "../ui/svgs/githubLight";
@@ -26,9 +26,11 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
               Your Instructor
             </div>
             <div className="rounded-full overflow-hidden bg-muted shrink-0 size-40 border-4 border-muted">
-              <img
+              <Image
                 src={instructor.avatar}
                 alt={instructor.name}
+                width={160}
+                height={160}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -68,7 +70,8 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
             <div className="flex gap-3">
               {[Globe, Linkedin, GithubLight, X].map((Icon, i) => (
                 <button
-                  key={i}
+                  type="button"
+                  key={`social-${i + 1}`}
                   className="flex items-center justify-center rounded-lg border border-solid border-border shrink-0 size-10 hover:bg-muted transition-colors cursor-pointer text-ink"
                 >
                   <Icon className="size-5" />
@@ -96,9 +99,9 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
                 },
                 { label: "Courses Created", value: instructor.stats.courses },
                 { label: "Average Rating", value: instructor.stats.rating },
-              ].map((stat, i) => (
+              ].map((stat) => (
                 <div
-                  key={i}
+                  key={stat.label}
                   className="grow shrink basis-[0%] flex flex-col items-center rounded-xl border border-solid border-border p-6 bg-muted/20"
                 >
                   <div className="text-ink font-sans font-bold text-[32px]/10">
@@ -124,9 +127,11 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
                   className="flex items-center transition-all rounded-xl gap-4 p-3 hover:bg-muted/30 cursor-pointer group"
                 >
                   <div className="w-20 h-15 rounded-lg overflow-hidden bg-muted shrink-0">
-                    <img
+                    <Image
                       src={course.thumbnail}
                       alt={course.title}
+                      width={80}
+                      height={60}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>

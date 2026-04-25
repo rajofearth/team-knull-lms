@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, FileText, FolderArchive } from "lucide-react";
+import { Download } from "lucide-react";
 import type { Resource } from "@/lib/data/courses";
 
 interface ResourcesCardProps {
@@ -14,9 +14,9 @@ export function ResourcesCard({ resources }: ResourcesCardProps) {
         Lesson Resources
       </div>
       <div className="flex flex-col gap-5">
-        {resources.map((resource, index) => (
+        {resources.map((resource) => (
           <div
-            key={index}
+            key={resource.title}
             className="flex items-center justify-between group cursor-pointer"
           >
             <div className="flex items-center gap-3.5">
@@ -34,6 +34,7 @@ export function ResourcesCard({ resources }: ResourcesCardProps) {
                     xmlns="http://www.w3.org/2000/svg"
                     style={{ flexShrink: "0" }}
                   >
+                    <title>File resource</title>
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                     <polyline points="14 2 14 8 20 8" />
                     <line x1="16" y1="13" x2="8" y2="13" />
@@ -53,6 +54,7 @@ export function ResourcesCard({ resources }: ResourcesCardProps) {
                     xmlns="http://www.w3.org/2000/svg"
                     style={{ flexShrink: "0" }}
                   >
+                    <title>Folder resource</title>
                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
                   </svg>
                 )}
