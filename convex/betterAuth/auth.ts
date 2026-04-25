@@ -19,9 +19,11 @@ export const authComponent = createClient<DataModel, typeof schema>(
 
 // Better Auth Options
 export const createAuthOptions = (ctx: GenericCtx<DataModel>) => {
+  const siteUrl = process.env.SITE_URL ?? process.env.NEXT_PUBLIC_SITE_URL;
+
   return {
     appName: "Team Knull LMS",
-    baseURL: process.env.SITE_URL,
+    baseURL: siteUrl,
     secret: process.env.BETTER_AUTH_SECRET,
     database: authComponent.adapter(ctx),
     socialProviders: {
@@ -34,6 +36,7 @@ export const createAuthOptions = (ctx: GenericCtx<DataModel>) => {
         clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
       },
     },
+    trustedOrigins: siteUrl ? [siteUrl] : undefined,
     plugins: [convex({ authConfig })],
   } satisfies BetterAuthOptions;
 };

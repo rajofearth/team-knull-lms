@@ -14,8 +14,11 @@ import {
   topCourses,
   totalStudents,
 } from "@/lib/data/admin";
+import { requireAuth } from "@/lib/session";
 
-export default function AdminDashboardPage() {
+export default async function AdminDashboardPage() {
+  await requireAuth("/admin/dashboard");
+
   return (
     <div className="flex flex-col px-10 py-5 gap-5 min-h-full">
       {/* Page header */}

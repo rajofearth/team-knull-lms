@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { AppSessionProvider } from "@/components/auth/session-context";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { getToken } from "@/lib/auth-server";
 
 const inter = Inter({
@@ -42,9 +43,11 @@ export default async function RootLayout({
       className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-full antialiased font-sans">
-      <ConvexClientProvider initialToken={token}>
-      <TooltipProvider>{children}</TooltipProvider>
-      </ConvexClientProvider>
+        <ConvexClientProvider initialToken={token}>
+          <AppSessionProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </AppSessionProvider>
+        </ConvexClientProvider>
       </body>
     </html>
   );

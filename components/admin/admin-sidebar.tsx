@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAppSession } from "@/components/auth/session-context";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -51,6 +52,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const { signOut, user } = useAppSession();
+  const initials = user?.name
+    ?.split(" ")
+    .map((part: string) => part[0]?.toUpperCase())
+    .join("")
+    .slice(0, 2);
 
   return (
     <Sidebar
@@ -156,27 +163,31 @@ export function AdminSidebar() {
             <ExternalLink className="size-4 text-muted-foreground shrink-0" />
           </Link>
         </Button>
-        <Button
-          type="button"
-          variant="ghost"
-          className="h-auto w-full justify-between rounded-md bg-muted p-3 hover:bg-muted/70"
-        >
+        <div className="flex items-center justify-between rounded-md bg-muted p-3">
           <div className="flex items-center gap-3">
-            <div className="size-9 rounded-full bg-foreground flex items-center justify-center shrink-0">
-              <span className="text-background font-heading font-semibold text-sm">
-                A
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-foreground">
+              <span className="text-sm font-heading font-semibold text-background">
+                {initials || "U"}
               </span>
             </div>
-            <div className="flex flex-col text-left">
-              <span className="text-sm font-heading font-semibold text-foreground">
-                Admin
+            <div className="flex min-w-0 flex-col text-left">
+              <span className="truncate text-sm font-heading font-semibold text-foreground">
+                {user?.name || "Authenticated User"}
               </span>
-              <span className="text-xs text-muted-foreground font-sans">
-                Super Admin
+              <span className="truncate text-xs font-sans text-muted-foreground">
+                {user?.email || "Signed in"}
               </span>
             </div>
           </div>
-          <ChevronDown className="size-4 text-muted-foreground shrink-0" />
+          <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
+        </div>
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={() => void signOut("/login")}
+          className="h-auto w-full justify-center rounded-md border border-border bg-white px-3 py-2.5 text-sm font-heading font-semibold text-foreground hover:bg-muted"
+        >
+          Sign out
         </Button>
       </SidebarFooter>
     </Sidebar>

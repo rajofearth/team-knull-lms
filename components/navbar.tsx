@@ -1,5 +1,9 @@
+"use client";
+
 import { Menu, Search, ShoppingBag } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useAppSession } from "@/components/auth/session-context";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -17,6 +21,10 @@ const navItems = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
+  const { isAuthenticated, isPending, signOut, user } = useAppSession();
+  const callbackUrl = pathname && pathname !== "/login" ? pathname : "/courses";
+
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between w-full py-4 px-6 md:px-20 bg-canvas border-b border-border shadow-subtle">
       {/* Logo */}
@@ -123,12 +131,26 @@ export function Navbar() {
                 ))}
               </div>
               <div className="border-t border-border px-4 py-4">
-                <Button
-                  asChild
-                  className="w-full rounded-lg bg-ink-deep py-2.5 font-heading text-sm font-semibold text-canvas hover:opacity-90"
-                >
-                  <Link href="/login">Sign In</Link>
-                </Button>
+                {isAuthenticated ? (
+                  <Button
+                    type="button"
+                    onClick={() => void signOut("/login")}
+                    className="w-full rounded-lg bg-ink-deep py-2.5 font-heading text-sm font-semibold text-canvas hover:opacity-90"
+                  >
+                    Sign Out
+                  </Button>
+                ) : (
+                  <Button
+                    asChild
+                    className="w-full rounded-lg bg-ink-deep py-2.5 font-heading text-sm font-semibold text-canvas hover:opacity-90"
+                  >
+                    <Link
+                      href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+                    >
+                      Sign In
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           </SheetContent>
@@ -147,11 +169,24 @@ export function Navbar() {
         >
           <ShoppingBag size={20} strokeWidth={2} />
         </Button>
-        <Link href="/login">
-          <Button className="hidden md:flex rounded-lg py-2.5 px-6 bg-ink-deep text-canvas hover:opacity-90 font-heading font-semibold text-sm">
-            Sign In
+        {isAuthenticated ? (
+          <Button
+            type="button"
+            onClick={() => void signOut("/login")}
+            className="hidden rounded-lg bg-ink-deep px-6 py-2.5 text-sm font-heading font-semibold text-canvas hover:opacity-90 md:flex"
+          >
+            {user?.name ? `Sign Out ${user.name.split(" ")[0]}` : "Sign Out"}
           </Button>
-        </Link>
+        ) : (
+          <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}>
+            <Button
+              disabled={isPending}
+              className="hidden rounded-lg bg-ink-deep px-6 py-2.5 text-sm font-heading font-semibold text-canvas hover:opacity-90 md:flex"
+            >
+              Sign In
+            </Button>
+          </Link>
+        )}
       </div>
     </nav>
   );
