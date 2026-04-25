@@ -15,6 +15,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { courses } from "@/lib/data/courses";
 import { cn } from "@/lib/utils";
 
@@ -204,12 +206,12 @@ export default function CoursesPage() {
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
             <div className="flex items-center w-full sm:w-80 rounded-lg py-3 px-4 gap-3 bg-canvas border border-border shrink-0 focus-within:ring-2 focus-within:ring-ink/20 transition-all">
               <Search className="size-5 text-text-muted" />
-              <input
+              <Input
                 type="text"
                 placeholder="Search courses..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent border-none outline-none text-ink font-sans text-sm w-full placeholder:text-text-muted"
+                className="h-auto border-0 bg-transparent px-0 py-0 font-sans text-sm text-ink shadow-none focus-visible:border-0 focus-visible:ring-0"
               />
             </div>
             <div className="flex items-center gap-3 w-full sm:w-auto group relative">
@@ -230,14 +232,15 @@ export default function CoursesPage() {
                   "Price: Low to High",
                   "Price: High to Low",
                 ].map((option) => (
-                  <button
+                  <Button
                     type="button"
                     key={option}
+                    variant="ghost"
                     onClick={() => setSortBy(option)}
-                    className="w-full p-3 text-left hover:bg-muted cursor-pointer text-sm font-sans text-ink"
+                    className="h-auto w-full justify-start rounded-none p-3 font-sans text-left text-sm text-ink hover:bg-muted"
                   >
                     {option}
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>
@@ -287,54 +290,61 @@ export default function CoursesPage() {
                   We couldn't find any courses matching your current filters.
                   Try clearing them to see more options.
                 </p>
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
                   onClick={handleClearFilters}
-                  className="mt-2 text-ink-deep font-semibold hover:underline"
+                  className="mt-2 h-auto px-0 py-0 font-semibold text-ink-deep hover:bg-transparent hover:underline"
                 >
                   Clear all filters
-                </button>
+                </Button>
               </div>
             )}
 
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2 mt-12">
-                <button
+                <Button
                   type="button"
+                  variant="outline"
+                  size="icon"
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  className="size-9 rounded-md border border-border flex items-center justify-center text-text-muted hover:bg-muted transition-colors cursor-pointer group disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="group size-9 rounded-md border-border text-text-muted transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-30"
                   aria-label="Previous page"
                 >
                   <ChevronLeft className="size-4 group-hover:text-ink transition-colors" />
-                </button>
+                </Button>
                 {[...Array(totalPages)].map((_, i) => (
-                  <button
+                  <Button
                     type="button"
                     key={`page-${i + 1}`}
+                    variant={currentPage === i + 1 ? "default" : "outline"}
+                    size="icon"
                     onClick={() => setCurrentPage(i + 1)}
                     className={cn(
-                      "size-9 rounded-md font-semibold text-sm flex items-center justify-center cursor-pointer transition-colors",
+                      "size-9 rounded-md text-sm font-semibold transition-colors",
                       currentPage === i + 1
                         ? "bg-ink text-canvas"
                         : "border border-border text-text-description hover:bg-muted",
                     )}
                   >
                     {i + 1}
-                  </button>
+                  </Button>
                 ))}
-                <button
+                <Button
                   type="button"
+                  variant="outline"
+                  size="icon"
                   disabled={currentPage === totalPages}
                   onClick={() =>
                     setCurrentPage((p) => Math.min(totalPages, p + 1))
                   }
-                  className="size-9 rounded-md border border-border flex items-center justify-center text-text-muted hover:bg-muted transition-colors cursor-pointer group disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="group size-9 rounded-md border-border text-text-muted transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-30"
                   aria-label="Next page"
                 >
                   <ChevronRight className="size-4 group-hover:text-ink transition-colors" />
-                </button>
+                </Button>
               </div>
             )}
           </div>

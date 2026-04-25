@@ -3,6 +3,7 @@
 import { Quote, Star } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const testimonials = [
   [
@@ -132,9 +133,11 @@ export function Testimonials() {
         {/* Pagination Dots */}
         <div className="flex justify-center gap-2">
           {testimonials.map((_, i) => (
-            <button
+            <Button
               type="button"
               key={`testimonial-page-${i + 1}`}
+              variant="ghost"
+              size="icon"
               onClick={() => setPage(i)}
               className={`size-2 rounded-full transition-all duration-300 ${
                 i === page ? "bg-ink w-6" : "bg-border hover:bg-text-muted"

@@ -1,6 +1,8 @@
 import { Heart, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import { InstagramIcon } from "./ui/svgs/instagramIcon";
 import { Linkedin } from "./ui/svgs/linkedin";
 import { X } from "./ui/svgs/x";
@@ -90,17 +92,18 @@ export function Footer() {
               professional tips.
             </p>
             <div className="relative group">
-              <input
+              <Input
                 type="email"
                 placeholder="Your email address"
-                className="w-full bg-surface-dim border border-border rounded-xl py-3 px-4 pr-12 text-sm font-heading outline-none focus:border-ink transition-colors"
+                className="h-auto w-full rounded-xl border-border bg-surface-dim py-3 pr-12 pl-4 font-heading text-sm focus-visible:border-ink focus-visible:ring-0"
               />
-              <button
+              <Button
                 type="button"
-                className="absolute right-2 top-1/2 -translate-y-1/2 size-8 flex items-center justify-center bg-ink text-canvas rounded-lg hover:bg-ink-deep transition-colors"
+                size="icon"
+                className="absolute top-1/2 right-2 size-8 -translate-y-1/2 rounded-lg bg-ink text-canvas hover:bg-ink-deep"
               >
                 <Send size={14} />
-              </button>
+              </Button>
             </div>
           </div>
         </div>

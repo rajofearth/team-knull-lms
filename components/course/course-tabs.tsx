@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface CourseTabsProps {
@@ -19,12 +20,13 @@ export function CourseTabs({ activeTab, onTabChange }: CourseTabsProps) {
   return (
     <div className="flex mt-6 w-full px-20 gap-10 border-b border-b-solid border-border bg-canvas">
       {tabs.map((tab) => (
-        <button
+        <Button
           type="button"
           key={tab.id}
+          variant="ghost"
           onClick={() => onTabChange(tab.id)}
           className={cn(
-            "relative py-4 cursor-pointer border-none bg-transparent transition-all",
+            "relative h-auto rounded-none py-4 transition-all hover:bg-transparent",
             activeTab === tab.id &&
               "after:absolute after:-bottom-px after:left-0 after:right-0 after:h-[3px] after:bg-ink-deep",
           )}
@@ -39,7 +41,7 @@ export function CourseTabs({ activeTab, onTabChange }: CourseTabsProps) {
           >
             {tab.label}
           </div>
-        </button>
+        </Button>
       ))}
     </div>
   );

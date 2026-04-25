@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import { adminNavSections } from "@/lib/data/admin";
 import { cn } from "@/lib/utils";
 
@@ -129,9 +130,10 @@ export function AdminSidebar() {
           </span>
           <ExternalLink className="size-4 text-muted-foreground shrink-0" />
         </Link>
-        <button
+        <Button
           type="button"
-          className="flex items-center justify-between rounded-md bg-muted p-3 w-full hover:bg-muted/70 transition-colors"
+          variant="ghost"
+          className="h-auto w-full justify-between rounded-md bg-muted p-3 hover:bg-muted/70"
         >
           <div className="flex items-center gap-3">
             <div className="size-9 rounded-full bg-foreground flex items-center justify-center shrink-0">
@@ -149,7 +151,7 @@ export function AdminSidebar() {
             </div>
           </div>
           <ChevronDown className="size-4 text-muted-foreground shrink-0" />
-        </button>
+        </Button>
       </div>
     </aside>
   );

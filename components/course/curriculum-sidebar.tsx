@@ -2,6 +2,7 @@
 
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import type { Lesson, Module } from "@/lib/data/courses";
 import { cn } from "@/lib/utils";
 
@@ -36,10 +37,11 @@ export function CurriculumSidebar({
             key={module.id}
             className="flex flex-col gap-0 rounded-xl overflow-clip bg-canvas border border-solid border-border-subtle shadow-subtle"
           >
-            <button
+            <Button
               type="button"
+              variant="ghost"
               className={cn(
-                "flex justify-between items-center py-4.5 px-5 bg-canvas cursor-pointer hover:bg-surface transition-colors",
+                "h-auto justify-between rounded-none bg-canvas px-5 py-4.5 hover:bg-surface",
                 isExpanded && "border-b border-b-solid border-surface-dim",
               )}
               onClick={() => toggleModule(module.id)}
@@ -57,7 +59,7 @@ export function CurriculumSidebar({
                   <ChevronDown className="size-3.5 text-text-muted" />
                 )}
               </div>
-            </button>
+            </Button>
 
             {isExpanded && (
               <div className="flex flex-col">
@@ -65,11 +67,12 @@ export function CurriculumSidebar({
                   const isActive = lesson.id === activeLessonId;
 
                   return (
-                    <button
+                    <Button
                       type="button"
                       key={lesson.id}
+                      variant="ghost"
                       className={cn(
-                        "flex w-full items-center justify-between py-4 px-5 border-b border-solid border-surface-dim cursor-pointer hover:bg-surface group text-left",
+                        "group h-auto w-full justify-between rounded-none border-b border-solid border-surface-dim px-5 py-4 text-left hover:bg-surface",
                         isActive && "bg-surface",
                       )}
                       onClick={() => onLessonSelect?.(lesson)}
@@ -104,7 +107,7 @@ export function CurriculumSidebar({
                       >
                         {lesson.duration}
                       </div>
-                    </button>
+                    </Button>
                   );
                 })}
               </div>

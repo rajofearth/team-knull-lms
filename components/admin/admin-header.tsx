@@ -1,6 +1,7 @@
 "use client";
 
 import { Bell, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function AdminHeader() {
   return (
@@ -11,19 +12,22 @@ export function AdminHeader() {
       {/* Right: actions */}
       <div className="flex items-center gap-4">
         {/* Bell */}
-        <button
+        <Button
           type="button"
-          className="relative size-10 flex items-center justify-center rounded-md hover:bg-muted transition-colors"
+          variant="ghost"
+          size="icon"
+          className="relative size-10 rounded-md hover:bg-muted"
           aria-label="Notifications"
         >
           <Bell className="size-5 text-foreground/70" />
           <span className="absolute top-2 right-2.5 size-2 rounded-full bg-destructive border-2 border-white" />
-        </button>
+        </Button>
 
         {/* User */}
-        <button
+        <Button
           type="button"
-          className="flex items-center gap-3 rounded-md bg-white px-2 py-1.5 hover:bg-muted transition-colors"
+          variant="ghost"
+          className="h-auto rounded-md bg-white px-2 py-1.5 hover:bg-muted"
         >
           <div className="size-8.5 rounded-full bg-foreground flex items-center justify-center shrink-0">
             <span className="text-background font-heading font-semibold text-sm">
@@ -39,7 +43,7 @@ export function AdminHeader() {
             </span>
           </div>
           <ChevronDown className="size-3.5 text-muted-foreground shrink-0" />
-        </button>
+        </Button>
       </div>
     </header>
   );

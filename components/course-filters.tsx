@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronDown, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -21,12 +22,10 @@ interface CourseFiltersProps {
 }
 
 type CourseFiltersState = {
-  activeFilters: {
-    levels: string[];
-    price: "all" | "free" | "paid";
-    durations: string[];
-    ratings: number[];
-  };
+  levels: string[];
+  price: "all" | "free" | "paid";
+  durations: string[];
+  ratings: number[];
 };
 
 export function CourseFilters({
@@ -63,13 +62,14 @@ export function CourseFilters({
       {/* Filters Header */}
       <div className="flex justify-between items-center pb-4 border-b border-border">
         <h2 className="text-ink font-heading font-semibold text-lg">Filters</h2>
-        <button
+        <Button
           type="button"
+          variant="ghost"
           onClick={onClearFilters}
-          className="text-text-muted hover:text-ink font-sans text-sm transition-colors cursor-pointer"
+          className="h-auto px-0 py-0 font-sans text-sm text-text-muted hover:bg-transparent hover:text-ink"
         >
           Clear All
-        </button>
+        </Button>
       </div>
 
       {/* Categories */}
@@ -113,7 +113,9 @@ export function CourseFilters({
         <h3 className="text-ink font-sans font-semibold text-sm">Price</h3>
         <RadioGroup
           value={activeFilters.price}
-          onValueChange={(val) => onFilterChange("price", val)}
+          onValueChange={(val) =>
+            onFilterChange("price", val as CourseFiltersState["price"])
+          }
           className="flex flex-col gap-3"
         >
           <div className="flex items-center gap-3">
@@ -210,13 +212,14 @@ export function CourseFilters({
       </div>
 
       {/* Apply Button */}
-      <button
+      <Button
         type="button"
+        variant="outline"
         onClick={onClearFilters}
-        className="flex items-center justify-center w-full rounded-lg bg-canvas border border-border py-3 hover:bg-muted transition-colors font-sans font-semibold text-sm text-ink cursor-pointer"
+        className="w-full rounded-lg border-border bg-canvas py-3 font-sans text-sm font-semibold text-ink hover:bg-muted"
       >
         Clear Filters
-      </button>
+      </Button>
     </div>
   );
 }

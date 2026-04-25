@@ -11,6 +11,7 @@ import { CurriculumSidebar } from "@/components/course/curriculum-sidebar";
 import { ResourcesCard } from "@/components/course/resources-card";
 import { VideoPlayer } from "@/components/course/video-player";
 import { Navbar } from "@/components/navbar";
+import { Button } from "@/components/ui/button";
 import { courses } from "@/lib/data/courses";
 import { cn } from "@/lib/utils";
 
@@ -153,8 +154,9 @@ export default function CoursePage({
                 </div>
 
                 <div className="flex justify-between mt-2">
-                  <button
+                  <Button
                     type="button"
+                    variant="outline"
                     className={cn(
                       "flex items-center rounded-lg py-3 px-6 gap-2.5 border-[1.5px] border-solid border-border transition-colors",
                       activeLessonId === allLessons[0].id
@@ -183,8 +185,8 @@ export default function CoursePage({
                     <div className="inline-block text-ink-secondary font-sans font-bold text-sm leading-none">
                       Previous Lesson
                     </div>
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
                     className={cn(
                       "flex items-center rounded-lg py-3 px-6 gap-2.5 bg-ink transition-opacity",
@@ -216,7 +218,7 @@ export default function CoursePage({
                       <line x1="5" y1="12" x2="19" y2="12" />
                       <polyline points="12 5 19 12 12 19" />
                     </svg>
-                  </button>
+                  </Button>
                 </div>
               </div>
 

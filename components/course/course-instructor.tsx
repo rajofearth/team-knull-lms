@@ -69,13 +69,15 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
             </div>
             <div className="flex gap-3">
               {[Globe, Linkedin, GithubLight, X].map((Icon, i) => (
-                <button
+                <Button
                   type="button"
+                  variant="outline"
+                  size="icon"
                   key={`social-${i + 1}`}
-                  className="flex items-center justify-center rounded-lg border border-solid border-border shrink-0 size-10 hover:bg-muted transition-colors cursor-pointer text-ink"
+                  className="size-10 rounded-lg border-border text-ink hover:bg-muted"
                 >
                   <Icon className="size-5" />
-                </button>
+                </Button>
               ))}
             </div>
           </div>
