@@ -1,8 +1,14 @@
+"use client";
+
 import { ArrowRight, Award, CheckCircle2, Play } from "lucide-react";
 import Image from "next/image";
+import { useAppSession } from "@/components/auth/session-context";
 import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
+  const { isAuthenticated, isPending } = useAppSession();
+  const showLearnerProgress = !isPending && isAuthenticated;
+
   return (
     <section className="bg-canvas antialiased py-12 md:py-20 overflow-hidden">
       <div className="mx-auto max-w-[1280px] px-6 flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -124,72 +130,127 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* My Progress Card */}
-          <div className="absolute left-[440px] top-0 w-[240px] flex flex-col rounded-[20px] gap-4 bg-canvas border border-border shadow-subtle p-6">
-            <div className="inline-block text-ink font-heading font-bold text-sm">
-              My Progress
-            </div>
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-24 h-24 flex items-center justify-center relative rounded-full border-10 border-surface-dim shrink-0">
-                <div className="flex flex-col items-center">
-                  <div className="inline-block text-ink font-heading font-extrabold text-2xl">
-                    12
+          {showLearnerProgress ? (
+            <>
+              {/* My Progress Card */}
+              <div className="absolute left-[440px] top-0 w-[240px] flex flex-col rounded-[20px] gap-4 bg-canvas border border-border shadow-subtle p-6">
+                <div className="inline-block text-ink font-heading font-bold text-sm">
+                  My Progress
+                </div>
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-24 h-24 flex items-center justify-center relative rounded-full border-10 border-surface-dim shrink-0">
+                    <div className="flex flex-col items-center">
+                      <div className="inline-block text-ink font-heading font-extrabold text-2xl">
+                        12
+                      </div>
+                      <div className="text-center inline-block text-text-muted font-heading text-[8px]">
+                        Courses Enrolled
+                      </div>
+                    </div>
+                    <div className="absolute top-[-10px] left-[-10px] right-[-10px] bottom-[-10px] rounded-full border-10 border-ink-deep border-b-transparent border-r-transparent -rotate-45" />
                   </div>
-                  <div className="text-center inline-block text-text-muted font-heading text-[8px]">
-                    Courses Enrolled
+                  <div className="w-full flex flex-col gap-2">
+                    {[
+                      { label: "Completed", val: 5 },
+                      { label: "In Progress", val: 7 },
+                      { label: "Certificates", val: 3 },
+                    ].map((stat) => (
+                      <div
+                        key={stat.label}
+                        className="flex justify-between items-center"
+                      >
+                        <div className="inline-block text-text-muted font-heading text-[10px]">
+                          {stat.label}
+                        </div>
+                        <div className="inline-block text-ink font-heading font-bold text-[10px]">
+                          {stat.val}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <div className="absolute top-[-10px] left-[-10px] right-[-10px] bottom-[-10px] rounded-full border-10 border-ink-deep border-b-transparent border-r-transparent -rotate-45" />
               </div>
-              <div className="w-full flex flex-col gap-2">
-                {[
-                  { label: "Completed", val: 5 },
-                  { label: "In Progress", val: 7 },
-                  { label: "Certificates", val: 3 },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="flex justify-between items-center"
-                  >
-                    <div className="inline-block text-text-muted font-heading text-[10px]">
-                      {stat.label}
-                    </div>
-                    <div className="inline-block text-ink font-heading font-bold text-[10px]">
-                      {stat.val}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
 
-          {/* Latest Certificate Card */}
-          <div className="absolute left-[440px] top-[290px] w-[240px] flex flex-col rounded-[20px] gap-4 bg-canvas border border-border shadow-subtle p-6">
-            <div className="inline-block text-ink font-heading font-bold text-sm">
-              Latest Certificate
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="grow shrink basis-[0%] flex flex-col gap-2">
-                <div className="text-xs leading-tight inline-block text-ink font-heading font-bold whitespace-pre-wrap">
-                  UI/UX Design
-                  <br />
-                  Fundamentals
+              {/* Latest Certificate Card */}
+              <div className="absolute left-[440px] top-[290px] w-[240px] flex flex-col rounded-[20px] gap-4 bg-canvas border border-border shadow-subtle p-6">
+                <div className="inline-block text-ink font-heading font-bold text-sm">
+                  Latest Certificate
                 </div>
-                <div className="flex items-center gap-1 group cursor-pointer">
-                  <div className="inline-block text-text-muted font-heading font-semibold text-[10px] group-hover:text-ink transition-colors">
-                    View Certificate
+                <div className="flex items-center gap-4">
+                  <div className="grow shrink basis-[0%] flex flex-col gap-2">
+                    <div className="text-xs leading-tight inline-block text-ink font-heading font-bold whitespace-pre-wrap">
+                      UI/UX Design
+                      <br />
+                      Fundamentals
+                    </div>
+                    <div className="flex items-center gap-1 group cursor-pointer">
+                      <div className="inline-block text-text-muted font-heading font-semibold text-[10px] group-hover:text-ink transition-colors">
+                        View Certificate
+                      </div>
+                      <ArrowRight
+                        className="size-3 text-text-muted group-hover:text-ink transition-colors"
+                        strokeWidth={2.5}
+                      />
+                    </div>
                   </div>
-                  <ArrowRight
-                    className="size-3 text-text-muted group-hover:text-ink transition-colors"
-                    strokeWidth={2.5}
-                  />
+                  <div className="w-[60px] h-[80px] flex items-center justify-center rounded-lg bg-ink-deep shrink-0 shadow-float">
+                    <Award className="size-8 text-canvas" strokeWidth={1.5} />
+                  </div>
                 </div>
               </div>
-              <div className="w-[60px] h-[80px] flex items-center justify-center rounded-lg bg-ink-deep shrink-0 shadow-float">
-                <Award className="size-8 text-canvas" strokeWidth={1.5} />
+            </>
+          ) : (
+            <>
+              <div className="absolute left-[440px] top-0 w-[240px] flex flex-col rounded-[20px] gap-4 bg-canvas border border-border shadow-subtle p-6">
+                <div className="inline-block text-ink font-heading font-bold text-sm">
+                  Why Teams Choose Us
+                </div>
+                <div className="flex flex-col gap-3">
+                  {[
+                    "Expert-led, self-paced curriculum",
+                    "Hands-on lessons with guided projects",
+                    "Certificates you can share with your team",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-2">
+                      <CheckCircle2
+                        className="mt-0.5 size-4 shrink-0 text-success"
+                        strokeWidth={3}
+                      />
+                      <div className="text-[11px] leading-relaxed text-text-muted font-heading">
+                        {item}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
+
+              <div className="absolute left-[440px] top-[290px] w-[240px] flex flex-col rounded-[20px] gap-4 bg-canvas border border-border shadow-subtle p-6">
+                <div className="inline-block text-ink font-heading font-bold text-sm">
+                  What You Unlock
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { label: "Courses", val: "40+" },
+                    { label: "Paths", val: "12" },
+                    { label: "Projects", val: "24" },
+                    { label: "Certificates", val: "8" },
+                  ].map((stat) => (
+                    <div
+                      key={stat.label}
+                      className="rounded-xl border border-border bg-surface/60 px-3 py-4"
+                    >
+                      <div className="text-lg text-ink font-heading font-bold">
+                        {stat.val}
+                      </div>
+                      <div className="mt-1 text-[10px] uppercase tracking-[0.08em] text-text-muted font-heading">
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </section>
