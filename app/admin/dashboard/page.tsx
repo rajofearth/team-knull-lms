@@ -1,7 +1,3 @@
-"use client";
-
-import { useState } from "react";
-import { Calendar, ChevronDown } from "lucide-react";
 import {
   statCards,
   enrollmentOverview,
@@ -17,10 +13,9 @@ import { TopCourses } from "@/components/admin/top-courses";
 import { StudentsCountry } from "@/components/admin/students-country";
 import { NewInstructors } from "@/components/admin/new-instructors";
 import { RecentActivity } from "@/components/admin/recent-activity";
+import { DatePickerWithRange } from "@/components/ui/date-picker-with-range";
 
 export default function AdminDashboardPage() {
-  const [dateRange] = useState("May 1 – May 31, 2024");
-
   return (
     <div className="flex flex-col px-10 py-5 gap-5 min-h-full">
       {/* Page header */}
@@ -34,12 +29,8 @@ export default function AdminDashboardPage() {
           </p>
         </div>
 
-        {/* Date range picker (decorative) */}
-        <button className="flex items-center gap-2.5 rounded-md py-2.5 px-4 bg-white border border-border hover:bg-muted transition-colors h-[35px]">
-          <Calendar className="size-[18px] text-muted-foreground shrink-0" />
-          <span className="text-sm font-sans font-medium text-foreground/80">{dateRange}</span>
-          <ChevronDown className="size-4 text-muted-foreground shrink-0" />
-        </button>
+        {/* Date range picker */}
+        <DatePickerWithRange />
       </div>
 
       {/* ── Row 1: Stat Cards ── */}
@@ -61,7 +52,7 @@ export default function AdminDashboardPage() {
       <div className="flex gap-5 pb-5">
         <StudentsCountry data={studentsByCountry} total={totalStudents} />
         <NewInstructors instructors={newInstructors} />
-        <RecentActivity items={recentActivity} />
+        <RecentActivity activities={recentActivity} />
       </div>
     </div>
   );

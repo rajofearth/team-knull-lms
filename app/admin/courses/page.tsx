@@ -1,8 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { Plus, Search, Filter, Download } from "lucide-react";
 import { CoursesTable } from "@/components/admin/courses/courses-table";
 import { adminCoursesData } from "@/lib/data/admin";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function AdminCoursesPage() {
   return (
@@ -17,56 +21,54 @@ export default function AdminCoursesPage() {
             Manage and organize all courses on the platform.
           </p>
         </div>
-        <button className="flex items-center gap-2 rounded-md h-8 justify-center bg-black hover:bg-black/80 transition-colors px-4 py-2">
-          <Plus className="size-4 text-white shrink-0" strokeWidth={2.5} />
-          <span className="text-white font-sans text-xs font-medium">Add Course</span>
-        </button>
+        <Link href="/admin/courses/add">
+          <Button className="flex items-center gap-2 h-8 px-4 py-2">
+            <Plus className="size-4 shrink-0" strokeWidth={2.5} />
+            <span className="font-sans text-xs font-medium">Add Course</span>
+          </Button>
+        </Link>
       </div>
 
       {/* Toolbar */}
       <div className="flex items-center justify-between mb-1">
         {/* Tabs */}
-        <div className="flex gap-6 border-b border-transparent">
-          {["All Courses", "Published", "Draft", "Archived"].map((tab, i) => (
-            <div
-              key={tab}
-              className={`pb-2 ${
-                i === 0
-                  ? "border-b-2 border-black"
-                  : ""
-              } cursor-pointer`}
-            >
-              <span
-                className={`font-sans text-sm ${
-                  i === 0
-                    ? "font-semibold text-foreground"
-                    : "font-medium text-muted-foreground hover:text-foreground/80"
-                } transition-colors`}
+        <Tabs defaultValue="all" className="w-[400px]">
+          <TabsList className="bg-transparent border-b border-transparent p-0 h-auto gap-6 rounded-none justify-start w-full">
+            {[
+              { label: "All Courses", value: "all" },
+              { label: "Published", value: "published" },
+              { label: "Draft", value: "draft" },
+              { label: "Archived", value: "archived" },
+            ].map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                className="pb-2 pt-0 px-0 rounded-none border-b-2 border-transparent data-[state=active]:border-black data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:font-semibold font-sans text-sm font-medium text-muted-foreground data-[state=active]:text-foreground hover:text-foreground/80 transition-colors"
               >
-                {tab}
-              </span>
-            </div>
-          ))}
-        </div>
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
 
         {/* Actions */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center w-70 rounded-md gap-2.5 pl-3 pr-4 bg-white border border-border shrink-0 py-2">
-            <Search className="size-4 text-muted-foreground shrink-0" />
-            <input
+          <div className="relative w-70">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground shrink-0" />
+            <Input
               type="text"
               placeholder="Search courses..."
-              className="bg-transparent border-none outline-none text-sm font-sans placeholder:text-muted-foreground w-full text-foreground"
+              className="pl-9 bg-white border-border h-9"
             />
           </div>
-          <button className="flex items-center rounded-md py-2 px-4 gap-2 bg-white border border-border hover:bg-muted transition-colors">
+          <Button variant="outline" className="h-9 px-4 gap-2 bg-white border-border">
             <Filter className="size-4 text-foreground/80 shrink-0" />
             <span className="font-sans font-medium text-sm text-foreground/80">Filter</span>
-          </button>
-          <button className="flex items-center rounded-md py-2 px-4 gap-2 bg-white border border-border hover:bg-muted transition-colors">
+          </Button>
+          <Button variant="outline" className="h-9 px-4 gap-2 bg-white border-border">
             <Download className="size-4 text-foreground/80 shrink-0" />
             <span className="font-sans font-medium text-sm text-foreground/80">Export</span>
-          </button>
+          </Button>
         </div>
       </div>
 

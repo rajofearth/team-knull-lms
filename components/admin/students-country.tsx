@@ -1,4 +1,13 @@
+import { MoreHorizontal } from "lucide-react";
 import type { CountrySegment } from "@/lib/data/admin";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 interface StudentsCountryProps {
   data: CountrySegment[];
@@ -6,73 +15,74 @@ interface StudentsCountryProps {
 }
 
 export function StudentsCountry({ data, total }: StudentsCountryProps) {
-  // Build SVG donut segments
-  const radius = 70;
-  const cx = 80;
-  const cy = 80;
-  const circumference = 2 * Math.PI * radius;
-
-  let offset = 0;
-  const segments = data.map((seg) => {
-    const dash = (seg.percentage / 100) * circumference;
-    const gap = circumference - dash;
-    const currentOffset = offset;
-    offset += dash;
-    return { ...seg, dash, gap, offset: currentOffset };
+  // Calculation for SVG donut chart
+  let cumulativePercent = 0;
+  const segments = data.map((segment) => {
+    const dasharray = `${segment.percentage} ${100 - segment.percentage}`;
+    const dashoffset = -cumulativePercent;
+    cumulativePercent += segment.percentage;
+    return { ...segment, dasharray, dashoffset };
   });
 
   return (
-    <div className="flex flex-col rounded-md gap-5 bg-white border border-border p-5 w-[340px] shrink-0">
-      <h3 className="font-heading font-semibold text-lg text-foreground">Students by Country</h3>
+    <Card className="flex-[1.5] min-w-0 rounded-md bg-white border border-border shadow-none ring-0 p-0">
+      <CardContent className="flex flex-col gap-5 p-5 h-full">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <h3 className="font-heading font-semibold text-lg text-foreground">Students by Country</h3>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon" className="h-8 w-8 rounded-md border-border bg-white hover:bg-muted text-muted-foreground transition-colors shadow-none">
+                <MoreHorizontal className="size-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>View all regions</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
-      <div className="flex items-center gap-5">
-        {/* Donut */}
-        <div className="relative size-[140px] shrink-0">
-          <svg width="140" height="140" viewBox="0 0 160 160">
-            {/* Track */}
-            <circle cx={cx} cy={cy} r={radius} fill="none" stroke="#F3F4F6" strokeWidth="20" />
-            {/* Segments */}
-            {segments.map((seg) => (
-              <circle
-                key={seg.country}
-                cx={cx}
-                cy={cy}
-                r={radius}
-                fill="none"
-                stroke={seg.color}
-                strokeWidth="20"
-                strokeDasharray={`${seg.dash} ${seg.gap}`}
-                strokeDashoffset={-seg.offset}
-                transform={`rotate(-90 ${cx} ${cy})`}
-                strokeLinecap="butt"
-              />
+        {/* Content */}
+        <div className="flex items-center justify-between mt-auto">
+          {/* Donut Chart */}
+          <div className="relative size-32 shrink-0">
+            <svg viewBox="0 0 36 36" className="size-full transform -rotate-90">
+              {segments.map((s, i) => (
+                <circle
+                  key={i}
+                  cx="18"
+                  cy="18"
+                  r="15.91549430918954"
+                  fill="transparent"
+                  stroke={s.color}
+                  strokeWidth="4"
+                  strokeDasharray={s.dasharray}
+                  strokeDashoffset={s.dashoffset}
+                  className="transition-all duration-300"
+                />
+              ))}
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-xl font-heading font-bold text-foreground leading-none">
+                {total}
+              </span>
+              <span className="text-[10px] font-sans text-muted-foreground mt-0.5">Students</span>
+            </div>
+          </div>
+
+          {/* Legend */}
+          <div className="flex flex-col gap-3">
+            {segments.map((s, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <div className="size-2 rounded-sm shrink-0" style={{ backgroundColor: s.color }} />
+                <span className="text-xs font-sans text-muted-foreground w-20">{s.country}</span>
+                <span className="text-xs font-sans font-medium text-foreground">{s.percentage}%</span>
+              </div>
             ))}
-          </svg>
-          {/* Center text */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span className="font-heading font-bold text-lg text-foreground leading-tight">{total}</span>
-            <span className="text-[11px] text-muted-foreground font-sans">Total</span>
           </div>
         </div>
-
-        {/* Legend */}
-        <div className="flex flex-col gap-3 flex-1 min-w-0">
-          {data.map((seg) => (
-            <div key={seg.country} className="flex items-center justify-between">
-              <div className="flex items-center gap-2 min-w-0">
-                <span
-                  className="size-2 rounded-full shrink-0"
-                  style={{ backgroundColor: seg.color }}
-                />
-                <span className="text-xs font-sans text-foreground/70 truncate">{seg.country}</span>
-              </div>
-              <span className="text-xs font-sans font-semibold text-foreground shrink-0 ml-2">
-                {seg.percentage.toFixed(1)}%
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
