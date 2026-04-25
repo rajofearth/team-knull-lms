@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
+import type { ChartConfig } from "@/components/ui/chart";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import {
   Select,
   SelectContent,
@@ -15,37 +22,25 @@ interface EnrollmentChartProps {
   data: EnrollmentDataPoint[];
 }
 
-// Converts data points to SVG polyline points within a 0-100 coordinate space
-function toPolylinePoints(data: EnrollmentDataPoint[]): string {
-  const maxVal = Math.max(...data.map((d) => d.value));
-  const len = data.length - 1;
-  return data
-    .map((d, i) => {
-      const x = (i / len) * 100;
-      const y = 100 - (d.value / maxVal) * 100;
-      return `${x},${y}`;
-    })
-    .join(" ");
-}
-
-const xLabels = ["May 1", "May 8", "May 15", "May 22", "May 29"];
+const chartConfig = {
+  value: {
+    label: "Enrollments",
+    color: "var(--color-chart-1)",
+  },
+} satisfies ChartConfig;
 
 export function EnrollmentChart({ data }: EnrollmentChartProps) {
   const [period, setPeriod] = useState<string>("Daily");
 
-  const polylinePoints = toPolylinePoints(data);
-  const yLabels = ["8K", "6K", "4K", "2K", "0"];
-
   return (
-    <Card className="flex flex-col rounded-md bg-white border border-border shadow-none ring-0 p-0">
+    <Card className="flex flex-col rounded-md border border-border bg-white p-0 shadow-none ring-0">
       <CardContent className="flex flex-col gap-5 p-5">
-        {/* Header */}
         <div className="flex items-center justify-between">
-          <h3 className="font-heading font-semibold text-lg text-foreground">
+          <h3 className="font-heading text-lg font-semibold text-foreground">
             Enrollment Overview
           </h3>
           <Select value={period} onValueChange={setPeriod}>
-            <SelectTrigger className="w-[100px] h-8 text-[13px] font-sans font-medium text-foreground/80 bg-white border-border">
+            <SelectTrigger className="h-8 w-[100px] border-border bg-white text-[13px] font-medium text-foreground/80">
               <SelectValue placeholder="Period" />
             </SelectTrigger>
             <SelectContent>
@@ -56,82 +51,70 @@ export function EnrollmentChart({ data }: EnrollmentChartProps) {
           </Select>
         </div>
 
-        {/* Chart area */}
-        <div className="relative flex flex-col h-65">
-          <div className="flex grow relative">
-            {/* Y-axis labels */}
-            <div className="flex flex-col justify-between h-full pr-3 shrink-0 w-10">
-              {yLabels.map((label) => (
-                <span
-                  key={label}
-                  className="text-[11px] text-muted-foreground font-sans leading-none"
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
-
-            {/* Grid + polyline */}
-            <div className="grow relative border-l border-b border-border">
-              {/* Horizontal gridlines */}
-              {[0, 25, 50, 75].map((pct) => (
-                <div
-                  key={pct}
-                  className="absolute w-full border-t border-border/50"
-                  style={{ top: `${pct}%` }}
+        <ChartContainer
+          config={chartConfig}
+          className="h-65 w-full aspect-auto"
+          initialDimension={{ width: 703, height: 260 }}
+        >
+          <AreaChart
+            accessibilityLayer
+            data={data}
+            margin={{ top: 8, right: 8, left: 0, bottom: 8 }}
+          >
+            <defs>
+              <linearGradient id="fill-enrollments" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--color-value)"
+                  stopOpacity={0.2}
                 />
-              ))}
-              <svg
-                width="100%"
-                height="100%"
-                preserveAspectRatio="none"
-                viewBox="0 0 100 100"
-                className="absolute inset-0"
-              >
-                <title>Enrollment trend</title>
-                {/* Gradient fill */}
-                <defs>
-                  <linearGradient
-                    id="enrollmentGrad"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="0%" stopColor="#111827" stopOpacity="0.12" />
-                    <stop offset="100%" stopColor="#111827" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-                {/* Area fill */}
-                <polygon
-                  points={`0,100 ${polylinePoints} 100,100`}
-                  fill="url(#enrollmentGrad)"
+                <stop
+                  offset="95%"
+                  stopColor="var(--color-value)"
+                  stopOpacity={0}
                 />
-                {/* Line */}
-                <polyline
-                  points={polylinePoints}
-                  fill="none"
-                  stroke="#111827"
-                  strokeWidth="2"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
+              </linearGradient>
+            </defs>
+            <CartesianGrid vertical={false} />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              tickFormatter={(value) => `${Number(value) / 1000}K`}
+              domain={[0, 8000]}
+              ticks={[0, 2000, 4000, 6000, 8000]}
+            />
+            <XAxis
+              dataKey="date"
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              minTickGap={24}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent
+                  labelFormatter={(label) => String(label)}
+                  formatter={(value) => [
+                    typeof value === "number"
+                      ? value.toLocaleString()
+                      : String(value),
+                    "Enrollments",
+                  ]}
                 />
-              </svg>
-            </div>
-          </div>
-
-          {/* X-axis labels */}
-          <div className="flex justify-between mt-3 pl-10">
-            {xLabels.map((label) => (
-              <span
-                key={label}
-                className="text-[11px] text-muted-foreground font-sans"
-              >
-                {label}
-              </span>
-            ))}
-          </div>
-        </div>
+              }
+            />
+            <Area
+              dataKey="value"
+              type="monotone"
+              fill="url(#fill-enrollments)"
+              fillOpacity={1}
+              stroke="var(--color-value)"
+              strokeWidth={2}
+            />
+          </AreaChart>
+        </ChartContainer>
       </CardContent>
     </Card>
   );
