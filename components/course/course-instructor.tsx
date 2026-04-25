@@ -115,7 +115,7 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
                       {course.title}
                     </div>
                     <div className="mt-1 text-text-muted font-sans text-sm/4.5">
-                      {course.studentsCount.toLocaleString()} students
+                      {course.studentsCount ?? "—"} students
                     </div>
                   </div>
                   <div className="flex items-center gap-1">
