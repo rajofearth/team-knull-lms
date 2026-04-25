@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ConvexClientProvider } from "@/components/ConvexClientProvider";
+import { getToken } from "@/lib/auth-server";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,18 +29,22 @@ export const metadata: Metadata = {
     "Explore premium courses, learn at your own pace, and earn certificates to showcase your skills. Join thousands of learners on Team Knull LMS.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const token = await getToken();
+
   return (
     <html
       lang="en"
       className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-full antialiased font-sans">
-        <TooltipProvider>{children}</TooltipProvider>
+      <ConvexClientProvider initialToken={token}>
+      <TooltipProvider>{children}</TooltipProvider>
+      </ConvexClientProvider>
       </body>
     </html>
   );
