@@ -21,7 +21,8 @@ import {
 // Modular Components
 import { DetailsTab } from "./_components/DetailsTab";
 import { CurriculumTab } from "./_components/CurriculumTab";
-import { PricingTab, SettingsTab } from "./_components/PricingSettingsTabs";
+import { PricingTab } from "./_components/PricingTab";
+import { SettingsTab } from "./_components/SettingsTab";
 
 export default function AddCoursePage() {
   const [activeTab, setActiveTab] = React.useState("details");
@@ -33,7 +34,7 @@ export default function AddCoursePage() {
   ]);
 
   return (
-    <div className="[font-synthesis:none] min-h-screen flex flex-col py-8 px-10 overflow-x-hidden gap-8 bg-white antialiased text-xs/4">
+    <div className="[font-synthesis:none] min-h-screen flex flex-col py-8 px-10 gap-8 bg-white antialiased text-sm">
       {/* HEADER SECTION */}
       <div className="flex flex-col gap-4">
         <Breadcrumb>
