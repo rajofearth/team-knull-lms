@@ -43,205 +43,211 @@ interface CoursesTableProps {
 
 export function CoursesTable({ data }: CoursesTableProps) {
   return (
-    <div className="flex flex-col rounded-md overflow-hidden bg-white border border-border">
-      <Table>
-        {/* Table Header */}
-        <TableHeader className="bg-white">
-          <TableRow className="border-b border-border hover:bg-transparent">
-            <TableHead className="w-[30%] min-w-[200px] py-3 px-6 h-auto">
-              <div className="flex items-center gap-2">
-                <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
-                  Course
-                </span>
-                <ChevronDown className="size-3 text-muted-foreground shrink-0" />
-              </div>
-            </TableHead>
-            <TableHead className="w-[15%] min-w-[120px] py-3 px-0 h-auto">
-              <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
-                Instructor
-              </span>
-            </TableHead>
-            <TableHead className="w-[10%] min-w-[100px] py-3 px-0 h-auto">
-              <div className="flex items-center gap-2">
-                <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
-                  Category
-                </span>
-                <ChevronDown className="size-3 text-muted-foreground shrink-0" />
-              </div>
-            </TableHead>
-            <TableHead className="w-[10%] min-w-[90px] py-3 px-0 h-auto">
-              <div className="flex items-center gap-2">
-                <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
-                  Level
-                </span>
-                <ChevronDown className="size-3 text-muted-foreground shrink-0" />
-              </div>
-            </TableHead>
-            <TableHead className="w-[10%] min-w-[90px] py-3 px-0 h-auto">
-              <div className="flex items-center gap-2">
-                <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
-                  Students
-                </span>
-                <ChevronDown className="size-3 text-muted-foreground shrink-0" />
-              </div>
-            </TableHead>
-            <TableHead className="w-[8%] min-w-[70px] py-3 px-0 h-auto">
-              <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
-                Rating
-              </span>
-            </TableHead>
-            <TableHead className="w-[10%] min-w-[90px] py-3 px-0 h-auto">
-              <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
-                Status
-              </span>
-            </TableHead>
-            <TableHead className="w-[12%] min-w-[100px] py-3 px-0 h-auto">
-              <div className="flex items-center gap-2">
-                <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
-                  Created At
-                </span>
-                <ChevronDown className="size-3 text-muted-foreground shrink-0" />
-              </div>
-            </TableHead>
-            <TableHead className="w-[5%] min-w-[60px] py-3 px-6 h-auto text-right">
-              <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
-                Actions
-              </span>
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-
-        {/* Table Body */}
-        <TableBody>
-          {data.map((course, _i) => (
-            <TableRow
-              key={course.id}
-              className="border-border hover:bg-muted/30"
-            >
-              {/* Course */}
-              <TableCell className="py-4 px-6 min-w-0">
-                <div className="flex items-center gap-4 min-w-0 pr-4">
-                  <div className="w-20 h-12.5 shrink-0 rounded-md bg-muted overflow-hidden">
-                    {course.thumbnail ? (
-                      <Image
-                        src={course.thumbnail}
-                        alt={course.title}
-                        width={80}
-                        height={50}
-                        className="w-full h-full object-cover"
-                        unoptimized
-                      />
-                    ) : null}
-                  </div>
-                  <div className="flex flex-col gap-0.5 min-w-0">
-                    <span className="text-sm font-sans font-semibold text-foreground truncate">
-                      {course.title}
-                    </span>
-                    <span className="text-xs font-sans text-muted-foreground truncate" title={course.subtitle}>
-                      {course.subtitle.length > 50 ? course.subtitle.slice(0, 50) + "…" : course.subtitle}
-                    </span>
-               
-                  </div>
-                </div>
-              </TableCell>
-
-              {/* Instructor */}
-              <TableCell className="py-4 px-0 min-w-0">
-                <div className="flex items-center gap-2.5 min-w-0 pr-4">
-                  <div className="size-7 rounded-full bg-muted overflow-hidden shrink-0">
-                    {course.instructor.avatar ? (
-                      <Image
-                        src={course.instructor.avatar}
-                        alt={course.instructor.name}
-                        width={28}
-                        height={28}
-                        className="w-full h-full object-cover"
-                        unoptimized
-                      />
-                    ) : null}
-                  </div>
-                  <span className="text-[13px] font-sans font-medium text-foreground/80 truncate">
-                    {course.instructor.name}
+    <div className="flex flex-col min-w-0 rounded-md bg-white border border-border">
+      <div className="overflow-x-auto">
+        <Table>
+          {/* Table Header */}
+          <TableHeader className="bg-white">
+            <TableRow className="border-b border-border hover:bg-transparent">
+              <TableHead className="w-[30%] min-w-[200px] py-3 px-6 h-auto">
+                <div className="flex items-center gap-2">
+                  <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
+                    Course
                   </span>
+                  <ChevronDown className="size-3 text-muted-foreground shrink-0" />
                 </div>
-              </TableCell>
-
-              {/* Category */}
-              <TableCell className="py-4 px-0 min-w-0">
-                <div className="pr-4">
-                  <span className="text-[13px] font-sans text-foreground/70">
-                    {course.category}
+              </TableHead>
+              <TableHead className="w-[15%] min-w-[120px] py-3 px-0 h-auto">
+                <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
+                  Instructor
+                </span>
+              </TableHead>
+              <TableHead className="w-[10%] min-w-[100px] py-3 px-0 h-auto">
+                <div className="flex items-center gap-2">
+                  <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
+                    Category
                   </span>
+                  <ChevronDown className="size-3 text-muted-foreground shrink-0" />
                 </div>
-              </TableCell>
-
-              {/* Level */}
-              <TableCell className="py-4 px-0 min-w-0">
-                <div className="pr-4">
-                  <LevelBadge level={course.level} />
-                </div>
-              </TableCell>
-
-              {/* Students */}
-              <TableCell className="py-4 px-0 min-w-0">
-                <div className="pr-4">
-                  <span className="text-[13px] font-sans text-foreground/70">
-                    {course.students.toLocaleString()}
+              </TableHead>
+              <TableHead className="w-[10%] min-w-[90px] py-3 px-0 h-auto">
+                <div className="flex items-center gap-2">
+                  <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
+                    Level
                   </span>
+                  <ChevronDown className="size-3 text-muted-foreground shrink-0" />
                 </div>
-              </TableCell>
-
-              {/* Rating */}
-              <TableCell className="py-4 px-0 min-w-0">
-                <div className="flex items-center gap-1 pr-4">
-                  <span className="text-xs font-sans font-semibold text-foreground">
-                    {course.rating}
+              </TableHead>
+              <TableHead className="w-[10%] min-w-[90px] py-3 px-0 h-auto">
+                <div className="flex items-center gap-2">
+                  <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
+                    Students
                   </span>
-                  <Star className="size-3 fill-foreground text-foreground shrink-0" />
+                  <ChevronDown className="size-3 text-muted-foreground shrink-0" />
                 </div>
-              </TableCell>
-
-              {/* Status */}
-              <TableCell className="py-4 px-0 min-w-0">
-                <div className="pr-4">
-                  <StatusBadge status={course.status} />
-                </div>
-              </TableCell>
-
-              {/* Created At */}
-              <TableCell className="py-4 px-0 min-w-0">
-                <div className="pr-4">
-                  <span className="text-[13px] font-sans text-muted-foreground">
-                    {course.createdAt}
+              </TableHead>
+              <TableHead className="w-[8%] min-w-[70px] py-3 px-0 h-auto">
+                <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
+                  Rating
+                </span>
+              </TableHead>
+              <TableHead className="w-[10%] min-w-[90px] py-3 px-0 h-auto">
+                <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
+                  Status
+                </span>
+              </TableHead>
+              <TableHead className="w-[12%] min-w-[100px] py-3 px-0 h-auto">
+                <div className="flex items-center gap-2">
+                  <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
+                    Created At
                   </span>
+                  <ChevronDown className="size-3 text-muted-foreground shrink-0" />
                 </div>
-              </TableCell>
-
-              {/* Actions */}
-              <TableCell className="py-4 px-6 text-right">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="h-7 w-7 rounded-md border-border bg-transparent hover:bg-muted text-muted-foreground transition-colors shadow-none"
-                    >
-                      <MoreHorizontal className="size-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem>Edit course</DropdownMenuItem>
-                    <DropdownMenuItem>View analytics</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-600">
-                      Delete course
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </TableCell>
+              </TableHead>
+              <TableHead className="w-[5%] min-w-[60px] py-3 px-6 h-auto text-right">
+                <span className="uppercase tracking-widest text-muted-foreground font-sans font-semibold text-xs">
+                  Actions
+                </span>
+              </TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+
+          {/* Table Body */}
+          <TableBody>
+            {data.map((course, _i) => (
+              <TableRow
+                key={course.id}
+                className="border-border hover:bg-muted/30"
+              >
+                {/* Course */}
+                <TableCell className="py-4 px-6 min-w-0">
+                  <div className="flex items-center gap-4 min-w-0 pr-4">
+                    <div className="w-20 h-12.5 shrink-0 rounded-md bg-muted overflow-hidden">
+                      {course.thumbnail ? (
+                        <Image
+                          src={course.thumbnail}
+                          alt={course.title}
+                          width={80}
+                          height={50}
+                          className="w-full h-full object-cover"
+                          unoptimized
+                        />
+                      ) : null}
+                    </div>
+                    <div className="flex flex-col gap-0.5 min-w-0">
+                      <span className="text-sm font-sans font-semibold text-foreground truncate">
+                        {course.title}
+                      </span>
+                      <span
+                        className="text-xs font-sans text-muted-foreground truncate"
+                        title={course.subtitle}
+                      >
+                        {course.subtitle.length > 50
+                          ? course.subtitle.slice(0, 50) + "…"
+                          : course.subtitle}
+                      </span>
+                    </div>
+                  </div>
+                </TableCell>
+
+                {/* Instructor */}
+                <TableCell className="py-4 px-0 min-w-0">
+                  <div className="flex items-center gap-2.5 min-w-0 pr-4">
+                    <div className="size-7 rounded-full bg-muted overflow-hidden shrink-0">
+                      {course.instructor.avatar ? (
+                        <Image
+                          src={course.instructor.avatar}
+                          alt={course.instructor.name}
+                          width={28}
+                          height={28}
+                          className="w-full h-full object-cover"
+                          unoptimized
+                        />
+                      ) : null}
+                    </div>
+                    <span className="text-[13px] font-sans font-medium text-foreground/80 truncate">
+                      {course.instructor.name}
+                    </span>
+                  </div>
+                </TableCell>
+
+                {/* Category */}
+                <TableCell className="py-4 px-0 min-w-0">
+                  <div className="pr-4">
+                    <span className="text-[13px] font-sans text-foreground/70">
+                      {course.category}
+                    </span>
+                  </div>
+                </TableCell>
+
+                {/* Level */}
+                <TableCell className="py-4 px-0 min-w-0">
+                  <div className="pr-4">
+                    <LevelBadge level={course.level} />
+                  </div>
+                </TableCell>
+
+                {/* Students */}
+                <TableCell className="py-4 px-0 min-w-0">
+                  <div className="pr-4">
+                    <span className="text-[13px] font-sans text-foreground/70">
+                      {course.students.toLocaleString()}
+                    </span>
+                  </div>
+                </TableCell>
+
+                {/* Rating */}
+                <TableCell className="py-4 px-0 min-w-0">
+                  <div className="flex items-center gap-1 pr-4">
+                    <span className="text-xs font-sans font-semibold text-foreground">
+                      {course.rating}
+                    </span>
+                    <Star className="size-3 fill-foreground text-foreground shrink-0" />
+                  </div>
+                </TableCell>
+
+                {/* Status */}
+                <TableCell className="py-4 px-0 min-w-0">
+                  <div className="pr-4">
+                    <StatusBadge status={course.status} />
+                  </div>
+                </TableCell>
+
+                {/* Created At */}
+                <TableCell className="py-4 px-0 min-w-0">
+                  <div className="pr-4">
+                    <span className="text-[13px] font-sans text-muted-foreground">
+                      {course.createdAt}
+                    </span>
+                  </div>
+                </TableCell>
+
+                {/* Actions */}
+                <TableCell className="py-4 px-6 text-right">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="h-7 w-7 rounded-md border-border bg-transparent hover:bg-muted text-muted-foreground transition-colors shadow-none"
+                      >
+                        <MoreHorizontal className="size-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem>Edit course</DropdownMenuItem>
+                      <DropdownMenuItem>View analytics</DropdownMenuItem>
+                      <DropdownMenuItem className="text-red-600">
+                        Delete course
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
 
       {/* Pagination Footer */}
       <div className="flex items-center justify-between p-5 border-t border-border">

@@ -19,10 +19,10 @@ export default function AdminLayout({
     >
       <div className="flex min-h-screen w-full bg-[#F9FAFB]">
         <AdminSidebar />
-        <SidebarInset className="bg-[#F9FAFB]">
-          <div className="flex flex-col flex-1">
+        <SidebarInset className="bg-[#F9FAFB] min-w-0">
+          <div className="flex flex-col flex-1 min-w-0">
             <AdminHeader />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 min-w-0">{children}</main>
           </div>
         </SidebarInset>
       </div>
