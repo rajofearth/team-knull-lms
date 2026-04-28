@@ -34,11 +34,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { AdminCourse, CourseLevel, CourseStatus } from "@/lib/data/admin";
+import type { AdminCourseListItem } from "@/lib/lms/types";
 import { cn } from "@/lib/utils";
 
 interface CoursesTableProps {
-  data: AdminCourse[];
+  data: AdminCourseListItem[];
 }
 
 export function CoursesTable({ data }: CoursesTableProps) {
@@ -321,7 +321,7 @@ export function CoursesTable({ data }: CoursesTableProps) {
   );
 }
 
-function LevelBadge({ level }: { level: CourseLevel }) {
+function LevelBadge({ level }: { level: AdminCourseListItem["level"] }) {
   const styles = {
     Beginner: "bg-emerald-50 text-emerald-500 hover:bg-emerald-50/80",
     Intermediate: "bg-amber-50 text-amber-500 hover:bg-amber-50/80",
@@ -340,7 +340,7 @@ function LevelBadge({ level }: { level: CourseLevel }) {
   );
 }
 
-function StatusBadge({ status }: { status: CourseStatus }) {
+function StatusBadge({ status }: { status: AdminCourseListItem["status"] }) {
   const styles = {
     Published:
       "bg-emerald-50 border-emerald-100 text-emerald-500 hover:bg-emerald-50/80 before:bg-emerald-500",

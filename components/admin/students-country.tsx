@@ -16,10 +16,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { CountrySegment } from "@/lib/data/admin";
+import type { CountrySegmentData } from "@/lib/lms/types";
 
 interface StudentsCountryProps {
-  data: CountrySegment[];
+  data: CountrySegmentData[];
   total: string;
 }
 

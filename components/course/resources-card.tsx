@@ -1,10 +1,10 @@
 "use client";
 
 import { Download } from "lucide-react";
-import type { Resource } from "@/lib/data/courses";
+import type { CourseResourceData } from "@/lib/lms/types";
 
 interface ResourcesCardProps {
-  resources: Resource[];
+  resources: CourseResourceData[];
 }
 
 export function ResourcesCard({ resources }: ResourcesCardProps) {

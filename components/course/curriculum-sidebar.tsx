@@ -3,13 +3,13 @@
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import type { Lesson, Module } from "@/lib/data/courses";
+import type { CourseLessonData, CourseModuleData } from "@/lib/lms/types";
 import { cn } from "@/lib/utils";
 
 interface CurriculumSidebarProps {
-  modules: Module[];
+  modules: CourseModuleData[];
   activeLessonId?: string;
-  onLessonSelect?: (lesson: Lesson) => void;
+  onLessonSelect?: (lesson: CourseLessonData) => void;
 }
 
 export function CurriculumSidebar({

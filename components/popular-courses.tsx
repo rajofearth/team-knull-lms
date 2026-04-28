@@ -1,11 +1,9 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { CourseCard } from "@/components/course-card";
-import { courses } from "@/lib/data/courses";
+import type { CourseListItem } from "@/lib/lms/types";
 
-export function PopularCourses() {
-  const popularCourses = Object.values(courses);
-
+export function PopularCourses({ courses }: { courses: CourseListItem[] }) {
   return (
     <section className="bg-canvas py-12 md:py-20 px-6 md:px-20">
       <div className="mx-auto max-w-[1280px]">
@@ -30,7 +28,7 @@ export function PopularCourses() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {popularCourses.map((course) => (
+          {courses.map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
         </div>

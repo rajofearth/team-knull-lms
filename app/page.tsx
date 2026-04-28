@@ -6,14 +6,17 @@ import { HeroSection } from "@/components/hero-section";
 import { Navbar } from "@/components/navbar";
 import { PopularCourses } from "@/components/popular-courses";
 import { Testimonials } from "@/components/testimonials";
+import { getCatalogCourses } from "@/lib/data-access";
 
-export default function Home() {
+export default async function Home() {
+  const courses = await getCatalogCourses();
+
   return (
     <main className="bg-canvas min-h-screen">
       <Navbar />
       <HeroSection />
       <FeaturesBar />
-      <PopularCourses />
+      <PopularCourses courses={courses.slice(0, 4)} />
       <Categories />
       <Testimonials />
       <CTASection />

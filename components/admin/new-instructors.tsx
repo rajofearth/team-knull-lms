@@ -8,10 +8,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { NewInstructor } from "@/lib/data/admin";
+import type { NewInstructorData } from "@/lib/lms/types";
 
 interface NewInstructorsProps {
-  instructors: NewInstructor[];
+  instructors: NewInstructorData[];
 }
 
 export function NewInstructors({ instructors }: NewInstructorsProps) {

@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { EnrollmentDataPoint } from "@/lib/data/admin";
+import type { EnrollmentDataPoint } from "@/lib/lms/types";
 
 interface EnrollmentChartProps {
   data: EnrollmentDataPoint[];

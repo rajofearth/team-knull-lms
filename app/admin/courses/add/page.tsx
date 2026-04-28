@@ -1,8 +1,10 @@
+import { connection } from "next/server";
 import { AddCoursePageClient } from "@/components/pages/add-course-page";
-import { requireAuth } from "@/lib/session";
+import { requireAdminAccess } from "@/lib/data-access";
 
 export default async function AddCoursePage() {
-  await requireAuth("/admin/courses/add");
+  await connection();
+  await requireAdminAccess("/admin/courses/add");
 
   return <AddCoursePageClient />;
 }

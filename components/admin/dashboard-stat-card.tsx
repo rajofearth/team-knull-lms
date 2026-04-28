@@ -8,7 +8,7 @@ import {
   Users,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import type { StatCard } from "@/lib/data/admin";
+import type { DashboardStatCardData } from "@/lib/lms/types";
 import { cn } from "@/lib/utils";
 
 const iconMap = {
@@ -20,7 +20,7 @@ const iconMap = {
 };
 
 interface StatCardProps {
-  card: StatCard;
+  card: DashboardStatCardData;
 }
 
 export function DashboardStatCard({ card }: StatCardProps) {

@@ -6,9 +6,13 @@ import { CoursesTable } from "@/components/admin/courses/courses-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { adminCoursesData } from "@/lib/data/admin";
+import type { AdminCourseListItem } from "@/lib/lms/types";
 
-export function AdminCoursesPageClient() {
+export function AdminCoursesPageClient({
+  courses,
+}: {
+  courses: AdminCourseListItem[];
+}) {
   return (
     <div className="flex min-h-full flex-col gap-5 px-10 py-5">
       <div className="mb-3 flex items-center justify-between">
@@ -79,7 +83,7 @@ export function AdminCoursesPageClient() {
       </div>
 
       <div className="flex flex-col gap-5">
-        <CoursesTable data={adminCoursesData} />
+        <CoursesTable data={courses} />
       </div>
     </div>
   );

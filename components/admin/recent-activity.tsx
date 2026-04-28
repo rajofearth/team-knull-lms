@@ -14,10 +14,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { ActivityItem } from "@/lib/data/admin";
+import type { ActivityItemData } from "@/lib/lms/types";
 
 interface RecentActivityProps {
-  activities: ActivityItem[];
+  activities: ActivityItemData[];
 }
 
 const activityIconMap = {

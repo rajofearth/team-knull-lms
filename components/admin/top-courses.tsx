@@ -8,10 +8,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { TopCourse } from "@/lib/data/admin";
+import type { TopCourseData } from "@/lib/lms/types";
 
 interface TopCoursesProps {
-  courses: TopCourse[];
+  courses: TopCourseData[];
 }
 
 export function TopCourses({ courses }: TopCoursesProps) {

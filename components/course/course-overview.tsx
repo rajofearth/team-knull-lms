@@ -10,10 +10,10 @@ import {
   Laptop,
   Users,
 } from "lucide-react";
-import type { Overview } from "@/lib/data/courses";
+import type { CourseOverviewData } from "@/lib/lms/types";
 
 interface CourseOverviewProps {
-  overview: Overview;
+  overview: CourseOverviewData;
 }
 
 const iconMap: Record<string, LucideIcon> = {

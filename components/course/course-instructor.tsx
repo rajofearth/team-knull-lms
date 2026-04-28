@@ -3,13 +3,13 @@
 import { Folder, Globe, Star, Users } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import type { Instructor } from "@/lib/data/courses";
+import type { CourseDetailsData } from "@/lib/lms/types";
 import { GithubLight } from "../ui/svgs/githubLight";
 import { Linkedin } from "../ui/svgs/linkedin";
 import { X } from "../ui/svgs/x";
 
 interface CourseInstructorProps {
-  instructors: Instructor[];
+  instructors: CourseDetailsData["instructors"];
 }
 
 export function CourseInstructor({ instructors }: CourseInstructorProps) {

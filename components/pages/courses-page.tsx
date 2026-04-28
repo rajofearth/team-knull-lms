@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { courses } from "@/lib/data/courses";
+import type { CourseListItem } from "@/lib/lms/types";
 import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 6;
@@ -29,7 +29,7 @@ type ActiveFilters = {
   ratings: number[];
 };
 
-export function CoursesPageClient() {
+export function CoursesPageClient({ courses }: { courses: CourseListItem[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("Most Popular");
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +40,7 @@ export function CoursesPageClient() {
     ratings: [],
   });
 
-  const allCourses = Object.values(courses);
+  const allCourses = courses;
 
   const filterCounts = useMemo(() => {
     const counts = {

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import { isAuthenticated } from "@/lib/auth-server";
+import { getViewerSession } from "@/lib/data-access";
 
 const DEFAULT_PROTECTED_REDIRECT = "/courses";
 
@@ -29,3 +30,13 @@ export async function redirectIfAuthenticated(
     redirect(destination);
   }
 }
+
+export const getViewerState = cache(async () => {
+  const session = await getViewerSession();
+
+  return {
+    isAuthenticated: session.isAuthenticated,
+    role: session.role,
+    user: session.user,
+  };
+});

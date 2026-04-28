@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import { DashboardStatCard } from "@/components/admin/dashboard-stat-card";
 import { EnrollmentChart } from "@/components/admin/enrollment-chart";
 import { NewInstructors } from "@/components/admin/new-instructors";
@@ -5,19 +6,12 @@ import { RecentActivity } from "@/components/admin/recent-activity";
 import { StudentsCountry } from "@/components/admin/students-country";
 import { TopCourses } from "@/components/admin/top-courses";
 import { DatePickerWithRange } from "@/components/ui/date-picker-with-range";
-import {
-  enrollmentOverview,
-  newInstructors,
-  recentActivity,
-  statCards,
-  studentsByCountry,
-  topCourses,
-  totalStudents,
-} from "@/lib/data/admin";
-import { requireAuth } from "@/lib/session";
+import { getAdminDashboard, requireAdminAccess } from "@/lib/data-access";
 
 export default async function AdminDashboardPage() {
-  await requireAuth("/admin/dashboard");
+  await connection();
+  await requireAdminAccess("/admin/dashboard");
+  const dashboard = await getAdminDashboard();
 
   return (
     <div className="flex flex-col px-10 py-5 gap-5 min-h-full">
@@ -39,7 +33,7 @@ export default async function AdminDashboardPage() {
 
       {/* ── Row 1: Stat Cards ── */}
       <div className="flex gap-5">
-        {statCards.map((card) => (
+        {dashboard.statCards.map((card) => (
           <DashboardStatCard key={card.id} card={card} />
         ))}
       </div>
@@ -47,16 +41,19 @@ export default async function AdminDashboardPage() {
       {/* ── Row 2: Enrollment chart + Top Courses ── */}
       <div className="flex gap-5">
         <div className="w-[703px] shrink-0">
-          <EnrollmentChart data={enrollmentOverview} />
+          <EnrollmentChart data={dashboard.enrollmentOverview} />
         </div>
-        <TopCourses courses={topCourses} />
+        <TopCourses courses={dashboard.topCourses} />
       </div>
 
       {/* ── Row 3: Students by Country + New Instructors + Recent Activity ── */}
       <div className="flex gap-5 pb-5">
-        <StudentsCountry data={studentsByCountry} total={totalStudents} />
-        <NewInstructors instructors={newInstructors} />
-        <RecentActivity activities={recentActivity} />
+        <StudentsCountry
+          data={dashboard.studentsByCountry}
+          total={dashboard.totalStudents}
+        />
+        <NewInstructors instructors={dashboard.newInstructors} />
+        <RecentActivity activities={dashboard.recentActivity} />
       </div>
     </div>
   );

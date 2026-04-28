@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { CourseHeader } from "@/components/course/course-header";
 import { CourseInstructor } from "@/components/course/course-instructor";
 import { CourseOverview } from "@/components/course/course-overview";
@@ -12,25 +12,22 @@ import { ResourcesCard } from "@/components/course/resources-card";
 import { VideoPlayer } from "@/components/course/video-player";
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
-import { courses } from "@/lib/data/courses";
+import type { CourseDetailsData } from "@/lib/lms/types";
 import { cn } from "@/lib/utils";
 
-export function CoursePageClient({ courseId }: { courseId: string }) {
-  const courseData = courses[courseId] || courses["web-dev"];
+export function CoursePageClient({ course }: { course: CourseDetailsData }) {
   const [activeTab, setActiveTab] = useState("curriculum");
-  const [activeLessonId, setActiveLessonId] = useState("l5");
-
-  const allLessons = useMemo(
-    () => courseData.modules.flatMap((module) => module.lessons),
-    [courseData],
+  const [activeLessonId, setActiveLessonId] = useState(
+    course.modules
+      .flatMap((module) => module.lessons)
+      .find((lesson) => lesson.isActive)?.id ??
+      course.modules[0]?.lessons[0]?.id ??
+      "",
   );
 
-  const activeLesson = useMemo(
-    () =>
-      allLessons.find((lesson) => lesson.id === activeLessonId) ||
-      allLessons[0],
-    [activeLessonId, allLessons],
-  );
+  const allLessons = course.modules.flatMap((module) => module.lessons);
+  const activeLesson =
+    allLessons.find((lesson) => lesson.id === activeLessonId) || allLessons[0];
 
   const handleNextLesson = () => {
     const currentIndex = allLessons.findIndex(
@@ -101,7 +98,7 @@ export function CoursePageClient({ courseId }: { courseId: string }) {
             <polyline points="9 18 15 12 9 6" />
           </svg>
           <div className="inline-block text-sm leading-none font-sans text-text-muted">
-            {courseData.title}
+            {course.title}
           </div>
           <svg
             width="12"
@@ -124,8 +121,8 @@ export function CoursePageClient({ courseId }: { courseId: string }) {
         </div>
 
         <div className="flex items-start gap-12 px-20 py-8 antialiased [font-synthesis:none]">
-          <CourseHeader course={courseData} />
-          <CourseProgressCard progress={courseData.progress} />
+          <CourseHeader course={course} />
+          <CourseProgressCard progress={course.progress} />
         </div>
 
         <CourseTabs activeTab={activeTab} onTabChange={setActiveTab} />
@@ -134,7 +131,7 @@ export function CoursePageClient({ courseId }: { courseId: string }) {
           {activeTab === "curriculum" && (
             <>
               <CurriculumSidebar
-                modules={courseData.modules}
+                modules={course.modules}
                 activeLessonId={activeLessonId}
                 onLessonSelect={(lesson) => setActiveLessonId(lesson.id)}
               />
@@ -222,20 +219,20 @@ export function CoursePageClient({ courseId }: { courseId: string }) {
               </div>
 
               <div className="flex flex-col gap-6">
-                <ResourcesCard resources={courseData.resources} />
+                <ResourcesCard resources={course.resources} />
               </div>
             </>
           )}
 
           {activeTab === "overview" && (
             <div className="w-full">
-              <CourseOverview overview={courseData.overview} />
+              <CourseOverview overview={course.overview} />
             </div>
           )}
 
           {activeTab === "instructor" && (
             <div className="w-full">
-              <CourseInstructor instructors={courseData.instructors} />
+              <CourseInstructor instructors={course.instructors} />
             </div>
           )}
 

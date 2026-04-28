@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import { AppSessionProvider } from "@/components/auth/session-context";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { getToken } from "@/lib/auth-server";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,19 +35,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const token = await getToken();
-
   return (
     <html
       lang="en"
       className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-full antialiased font-sans">
-        <ConvexClientProvider initialToken={token}>
-          <AppSessionProvider>
-            <TooltipProvider>{children}</TooltipProvider>
-          </AppSessionProvider>
-        </ConvexClientProvider>
+        <Suspense fallback={null}>
+          <ConvexClientProvider>
+            <AppSessionProvider>
+              <TooltipProvider>{children}</TooltipProvider>
+            </AppSessionProvider>
+          </ConvexClientProvider>
+        </Suspense>
       </body>
     </html>
   );

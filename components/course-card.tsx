@@ -2,16 +2,16 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import type { CourseData } from "@/lib/data/courses";
+import type { CourseListItem } from "@/lib/lms/types";
 
 interface CourseCardProps {
-  course: CourseData;
+  course: CourseListItem;
 }
 
 export function CourseCard({ course }: CourseCardProps) {
   return (
     <Link
-      href={`/courses/${course.id}`}
+      href={`/courses/${course.slug}`}
       className="flex flex-col group rounded-xl overflow-hidden border border-border transition-all duration-300 hover:shadow-card hover:-translate-y-1 bg-canvas cursor-pointer no-underline"
     >
       {/* Image Container */}
