@@ -3,7 +3,8 @@ import { formatDistanceToNowStrict } from "date-fns";
 import type { CourseDetailsData } from "../lib/lms/types";
 import type { Doc } from "./_generated/dataModel";
 import type { QueryCtx } from "./_generated/server";
-import { query } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
+import { authComponent } from "./betterAuth/auth";
 import { getViewerOrThrow, requireAdmin } from "./lib/auth";
 
 const countryColors = ["#111827", "#374151", "#6B7280", "#9CA3AF", "#D1D5DB"];
@@ -33,6 +34,37 @@ async function listPublishedCourses(ctx: QueryCtx) {
     .withIndex("status", (q) => q.eq("status", "published"))
     .collect();
 }
+
+export const makeAdmin = mutation({
+  args: { userId: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    let userId = args.userId;
+
+    if (!userId) {
+      const user = await authComponent.getAuthUser(ctx);
+      if (!user) {
+        throw new Error("Not authenticated and no userId provided");
+      }
+      userId = user._id;
+    }
+
+    const existingProfile = await ctx.db
+      .query("userProfiles")
+      .withIndex("userId", (q) => q.eq("userId", userId))
+      .unique();
+
+    if (existingProfile) {
+      await ctx.db.patch(existingProfile._id, { role: "admin" });
+    } else {
+      await ctx.db.insert("userProfiles", {
+        userId,
+        role: "admin",
+      });
+    }
+
+    return { success: true };
+  },
+});
 
 export const getViewerSession = query({
   args: {},

@@ -137,9 +137,10 @@ export function CoursesTable({ data }: CoursesTableProps) {
                     <span className="text-sm font-sans font-semibold text-foreground truncate">
                       {course.title}
                     </span>
-                    <span className="text-xs font-sans text-muted-foreground truncate">
-                      {course.subtitle}
+                    <span className="text-xs font-sans text-muted-foreground truncate" title={course.subtitle}>
+                      {course.subtitle.length > 50 ? course.subtitle.slice(0, 50) + "…" : course.subtitle}
                     </span>
+               
                   </div>
                 </div>
               </TableCell>
