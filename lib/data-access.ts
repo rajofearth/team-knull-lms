@@ -4,6 +4,7 @@ import { fetchAuthQuery, isAuthenticated } from "@/lib/auth-server";
 import type {
   AdminCourseListItem,
   AdminDashboardData,
+  AdminInstructorsPageData,
   CourseDetailsData,
   CourseListItem,
   StudentDashboardData,
@@ -28,6 +29,10 @@ export async function getCourseDetailsOrThrow(
   }
 
   return course;
+}
+
+export async function getAdminInstructors(): Promise<AdminInstructorsPageData> {
+  return fetchAuthQuery(api.lms.getAdminInstructors, {});
 }
 
 export async function getAdminCourses(): Promise<AdminCourseListItem[]> {

@@ -65,9 +65,11 @@ async function findOrCreateInstructor(
   return await ctx.db.insert("instructors", {
     slug,
     name: instructor.name,
+    email: `${slug}@example.com`,
     role: instructor.role,
     avatar: instructor.avatar,
     bio: instructor.bio,
+    status: "Active",
     stats: instructor.stats,
     createdAt: Date.now(),
   });

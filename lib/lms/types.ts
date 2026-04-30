@@ -212,6 +212,53 @@ export interface AdminCourseListItem {
   createdAt: string;
 }
 
+export interface AdminInstructorListItem {
+  id: string;
+  name: string;
+  handle: string;
+  avatar: string;
+  email: string;
+  courses: number;
+  enrollments: number;
+  rating: number;
+  status: "Active" | "Inactive";
+  joinedDate: string;
+}
+
+export interface AdminInstructorsPageData {
+  statCards: DashboardStatCardData[];
+  instructors: AdminInstructorListItem[];
+}
+
+export interface AdminInstructorDetails {
+  id: string;
+  name: string;
+  slug: string;
+  email: string;
+  role: string;
+  avatar: string;
+  bio: string;
+  status: "Active" | "Inactive";
+  phoneNumber?: string;
+  website?: string;
+  socials?: {
+    twitter?: string;
+    linkedin?: string;
+    github?: string;
+    website?: string;
+  };
+  stats: {
+    yearsExperience?: string;
+    students: string;
+    courses: number;
+    rating: number;
+  };
+  assignedCourses: Array<{
+    id: string;
+    title: string;
+  }>;
+}
+
 export interface CourseCatalogData {
   courses: CourseListItem[];
 }

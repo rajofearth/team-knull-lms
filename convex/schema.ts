@@ -35,13 +35,27 @@ export default defineSchema({
   instructors: defineTable({
     slug: v.string(),
     name: v.string(),
+    email: v.optional(v.string()),
     role: v.string(),
     avatar: v.string(),
     bio: v.string(),
+    status: v.optional(v.union(v.literal("Active"), v.literal("Inactive"))),
+    phoneNumber: v.optional(v.string()),
+    website: v.optional(v.string()),
+    socials: v.optional(
+      v.object({
+        twitter: v.optional(v.string()),
+        linkedin: v.optional(v.string()),
+        github: v.optional(v.string()),
+        website: v.optional(v.string()),
+      }),
+    ),
     stats: instructorStats,
     createdAt: v.number(),
   })
     .index("slug", ["slug"])
+    .index("email", ["email"])
+    .index("status", ["status"])
     .index("createdAt", ["createdAt"]),
   categories: defineTable({
     slug: v.string(),

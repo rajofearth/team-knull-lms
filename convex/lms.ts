@@ -192,11 +192,16 @@ export const getCourseDetails = query({
           )
         ).filter(Boolean);
 
+        const avatar = instructor.avatar.startsWith("http")
+          ? instructor.avatar
+          : ((await ctx.storage.getUrl(instructor.avatar)) ??
+            instructor.avatar);
+
         return {
           id: String(instructor._id),
           name: instructor.name,
           role: instructor.role,
-          avatar: instructor.avatar,
+          avatar,
           bio: instructor.bio,
           stats: instructor.stats,
           coursesOnPlatform: relatedCourses,
@@ -328,6 +333,212 @@ export const listAdminCourses = query({
           };
         }),
     );
+  },
+});
+
+export const getAdminInstructors = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireAdmin(ctx);
+    const [instructors, courses, enrollments] = await Promise.all([
+      ctx.db.query("instructors").withIndex("createdAt").collect(),
+      ctx.db.query("courses").collect(),
+      ctx.db.query("enrollments").collect(),
+    ]);
+
+    const instructorList = await Promise.all(
+      instructors
+        .sort((a, b) => b.createdAt - a.createdAt)
+        .map(async (instructor) => {
+          const instructorCourses = courses.filter((c) =>
+            c.instructorIds.includes(instructor._id),
+          );
+          const totalEnrollments = instructorCourses.reduce(
+            (sum, c) => sum + c.studentsCount,
+            0,
+          );
+
+          const avatar = instructor.avatar.startsWith("http")
+            ? instructor.avatar
+            : ((await ctx.storage.getUrl(instructor.avatar)) ??
+              instructor.avatar);
+
+          return {
+            id: instructor._id,
+            name: instructor.name,
+            handle: `@${instructor.slug}`,
+            avatar,
+            email: instructor.email ?? `${instructor.slug}@example.com`,
+            courses: instructorCourses.length,
+            enrollments: totalEnrollments,
+            rating: instructor.stats.rating,
+            status: (instructor.status as "Active" | "Inactive") ?? "Active",
+            joinedDate: new Date(instructor.createdAt).toLocaleDateString(
+              "en-US",
+              {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              },
+            ),
+          };
+        }),
+    );
+
+    const totalInstructors = instructors.length;
+    const activeInstructors = instructors.filter(
+      (i) => (i.status as string) === "Active",
+    ).length;
+    const totalCourses = courses.length;
+    const totalEnrollments = enrollments.length;
+    const avgRating =
+      instructors.reduce((sum, i) => sum + i.stats.rating, 0) /
+      (instructors.length || 1);
+
+    return {
+      statCards: [
+        {
+          id: "total-instructors",
+          label: "Total Instructors",
+          value: formatCount(totalInstructors),
+          badge: "+5.0%",
+          secondary: "18.0%",
+          trend: "up" as const,
+          comparison: "vs previous month",
+          icon: "user" as const,
+        },
+        {
+          id: "active-instructors",
+          label: "Active Instructors",
+          value: formatCount(activeInstructors),
+          badge: "+5.0%",
+          secondary: "18.0%",
+          trend: "up" as const,
+          comparison: "vs previous month",
+          icon: "book" as const,
+        },
+        {
+          id: "total-courses",
+          label: "Total Courses",
+          value: formatCount(totalCourses),
+          badge: "+8.1%",
+          secondary: "18.0%",
+          trend: "up" as const,
+          comparison: "vs previous month",
+          icon: "database" as const,
+        },
+        {
+          id: "total-enrollments",
+          label: "Total Enrollments",
+          value: formatCount(totalEnrollments),
+          badge: "+15.3%",
+          secondary: "18.0%",
+          trend: "up" as const,
+          comparison: "vs previous month",
+          icon: "mail" as const,
+        },
+        {
+          id: "avg-rating",
+          label: "Average Rating",
+          value: avgRating.toFixed(1),
+          badge: "+0.3",
+          secondary: "18.0%",
+          trend: "up" as const,
+          comparison: "vs previous month",
+          icon: "star" as const,
+        },
+      ],
+      instructors: instructorList,
+    };
+  },
+});
+
+export const getAdminInstructor = query({
+  args: { instructorId: v.id("instructors") },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+    const instructor = await ctx.db.get(args.instructorId);
+    if (!instructor) return null;
+
+    const courses = await ctx.db.query("courses").collect();
+    const instructorCourses = courses.filter((c) =>
+      c.instructorIds.includes(instructor._id),
+    );
+
+    const avatar = instructor.avatar.startsWith("http")
+      ? instructor.avatar
+      : ((await ctx.storage.getUrl(instructor.avatar)) ?? instructor.avatar);
+
+    return {
+      ...instructor,
+      id: instructor._id,
+      avatar,
+      assignedCourses: instructorCourses.map((c) => ({
+        id: c._id,
+        title: c.title,
+      })),
+    };
+  },
+});
+
+export const addInstructor = mutation({
+  args: {
+    name: v.string(),
+    email: v.string(),
+    role: v.string(),
+    avatar: v.string(),
+    bio: v.string(),
+    slug: v.string(),
+    status: v.union(v.literal("Active"), v.literal("Inactive")),
+    phoneNumber: v.optional(v.string()),
+    website: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+    const instructorId = await ctx.db.insert("instructors", {
+      ...args,
+      stats: {
+        courses: 0,
+        rating: 5.0,
+        students: "0",
+        yearsExperience: "0",
+      },
+      createdAt: Date.now(),
+    });
+
+    await ctx.db.insert("activityLogs", {
+      type: "instructor",
+      message: `Added new instructor: ${args.name}`,
+      createdAt: Date.now(),
+    });
+
+    return instructorId;
+  },
+});
+
+export const updateInstructor = mutation({
+  args: {
+    instructorId: v.id("instructors"),
+    name: v.string(),
+    email: v.string(),
+    role: v.string(),
+    avatar: v.string(),
+    bio: v.string(),
+    slug: v.string(),
+    status: v.union(v.literal("Active"), v.literal("Inactive")),
+    phoneNumber: v.optional(v.string()),
+    website: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+    const { instructorId, ...data } = args;
+    await ctx.db.patch(instructorId, data);
+
+    await ctx.db.insert("activityLogs", {
+      type: "update",
+      message: `Updated instructor: ${args.name}`,
+      createdAt: Date.now(),
+    });
   },
 });
 

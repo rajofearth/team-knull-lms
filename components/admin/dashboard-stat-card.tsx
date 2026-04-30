@@ -1,7 +1,10 @@
 import {
   BookOpen,
+  Database,
   DollarSign,
+  Mail,
   Monitor,
+  Star,
   TrendingDown,
   TrendingUp,
   User,
@@ -17,6 +20,9 @@ const iconMap = {
   user: User,
   monitor: Monitor,
   dollar: DollarSign,
+  star: Star,
+  database: Database,
+  mail: Mail,
 };
 
 interface StatCardProps {
