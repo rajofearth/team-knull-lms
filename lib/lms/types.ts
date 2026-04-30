@@ -147,7 +147,15 @@ export interface DashboardStatCardData {
   secondary: string;
   trend: "up" | "down";
   comparison: string;
-  icon: "users" | "book" | "user" | "monitor" | "dollar";
+  icon:
+    | "users"
+    | "book"
+    | "user"
+    | "monitor"
+    | "dollar"
+    | "database"
+    | "mail"
+    | "star";
 }
 
 export interface EnrollmentDataPoint {

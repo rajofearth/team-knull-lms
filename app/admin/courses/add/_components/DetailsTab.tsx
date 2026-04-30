@@ -25,6 +25,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import type { Dispatch, SetStateAction } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,12 +40,13 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/convex/_generated/api";
+import type { Doc } from "@/convex/_generated/dataModel";
 import type { AdminInstructorListItem } from "@/lib/lms/types";
 import { cn } from "@/lib/utils";
 
 interface DetailsTabProps {
-  status: string;
-  setStatus: (status: string) => void;
+  status: Doc<"courses">["status"];
+  setStatus: Dispatch<SetStateAction<Doc<"courses">["status"]>>;
   outcomes: { id: string; text: string }[];
   setOutcomes: (outcomes: { id: string; text: string }[]) => void;
   setActiveTab: (tab: string) => void;

@@ -1,15 +1,7 @@
 "use client";
 
 import { useMutation, useQuery } from "convex/react";
-import {
-  ChevronLeft,
-  Github,
-  Globe,
-  Linkedin,
-  Twitter,
-  Upload,
-  X,
-} from "lucide-react";
+import { ChevronLeft, Globe, Upload } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -31,6 +23,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { GithubLight as Github } from "@/components/ui/svgs/githubLight";
+import { Linkedin } from "@/components/ui/svgs/linkedin";
+import { X } from "@/components/ui/svgs/x";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
@@ -388,7 +383,7 @@ export function InstructorForm({
             </Label>
             <InputGroup>
               <InputGroupAddon className="px-3 border-r-0 rounded-l-md bg-muted/30">
-                <Twitter className="size-3.5 text-muted-foreground" />
+                <X className="size-3.5 text-muted-foreground" />
               </InputGroupAddon>
               <InputGroupInput
                 placeholder="https://x.com/username"
@@ -525,7 +520,10 @@ export function InstructorForm({
             <Select
               value={formData.status}
               onValueChange={(val) =>
-                setFormData((prev) => ({ ...prev, status: val }))
+                setFormData((prev) => ({
+                  ...prev,
+                  status: val as "Active" | "Inactive",
+                }))
               }
             >
               <SelectTrigger className="h-10 rounded-md border-border">

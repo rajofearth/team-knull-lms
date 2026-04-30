@@ -85,7 +85,7 @@ export function AddCoursePageClient({
 
       if (isEditing && initialData) {
         await updateCourse({
-          courseId: initialData.id,
+          courseId: initialData._id,
           ...payload,
         });
         return "Course updated successfully";
