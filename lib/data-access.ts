@@ -6,6 +6,7 @@ import type {
   AdminDashboardData,
   CourseDetailsData,
   CourseListItem,
+  StudentDashboardData,
   ViewerSessionData,
 } from "@/lib/lms/types";
 
@@ -51,4 +52,8 @@ export async function requireAdminAccess(callbackUrl: string) {
   }
 
   return viewer;
+}
+
+export async function getStudentDashboard(): Promise<StudentDashboardData> {
+  return fetchAuthQuery(api.lms.getStudentDashboard, {});
 }

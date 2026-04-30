@@ -4,9 +4,15 @@ import { Award, BookOpen, Calendar, Globe, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
+import type { StudentDashboardData } from "@/lib/lms/types";
 
-export function ProfileSummary() {
-  const progress = 65;
+interface ProfileSummaryProps {
+  user: StudentDashboardData["user"];
+  stats: StudentDashboardData["stats"];
+}
+
+export function ProfileSummary({ user, stats }: ProfileSummaryProps) {
+  const progress = user.overallProgress;
   const radius = 60;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
@@ -17,17 +23,18 @@ export function ProfileSummary() {
       <div className="flex flex-col md:flex-row gap-8 flex-1 w-full">
         <div className="relative size-[120px] rounded-full overflow-hidden shrink-0 border border-border">
           <Image
-            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200&auto=format&fit=crop"
-            alt="Rohit Sharma"
+            src={user.avatar || "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200&auto=format&fit=crop"}
+            alt={user.name}
             fill
             className="object-cover"
+            unoptimized
           />
         </div>
 
         <div className="flex flex-col gap-5 flex-1">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <h1 className="text-3xl font-heading font-bold text-foreground m-0">
-              Rohit Sharma
+              {user.name}
             </h1>
             <Link
               href="/profile/edit"
@@ -39,16 +46,16 @@ export function ProfileSummary() {
 
           <div className="flex flex-col gap-2">
             <span className="text-sm text-muted-foreground font-medium">
-              rohit.sharma@example.com
+              {user.email}
             </span>
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="size-4" />
-                <span>Bangalore, India</span>
+                <span>{user.location}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Calendar className="size-4" />
-                <span>Member since May 2024</span>
+                <span>Member since {user.joinedDate}</span>
               </div>
             </div>
           </div>
@@ -158,7 +165,7 @@ export function ProfileSummary() {
               <BookOpen className="size-4 text-muted-foreground" />
             </div>
             <span className="text-sm font-medium text-muted-foreground">
-              12 Courses Enrolled
+              {stats.enrolledCourses} Courses Enrolled
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -181,7 +188,7 @@ export function ProfileSummary() {
               </svg>
             </div>
             <span className="text-sm font-medium text-muted-foreground">
-              8 Courses Completed
+              {stats.completedCourses} Courses Completed
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -189,7 +196,7 @@ export function ProfileSummary() {
               <Award className="size-4 text-muted-foreground" />
             </div>
             <span className="text-sm font-medium text-muted-foreground">
-              25 Certificates Earned
+              {stats.certificatesEarned} Certificates Earned
             </span>
           </div>
           <div className="flex items-center gap-4">
@@ -212,7 +219,7 @@ export function ProfileSummary() {
               </svg>
             </div>
             <span className="text-sm font-medium text-muted-foreground">
-              102 Hours Learned
+              {stats.totalHoursLearned} Hours Learned
             </span>
           </div>
         </div>

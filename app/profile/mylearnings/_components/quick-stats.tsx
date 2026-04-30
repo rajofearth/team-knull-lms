@@ -1,19 +1,20 @@
 import { ArrowRight, Award, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
+import type { StudentDashboardData } from "@/lib/lms/types";
 
-export function QuickStats() {
-  const stats = [
+export function QuickStats({ stats }: { stats: StudentDashboardData["stats"] }) {
+  const statItems = [
     {
       label: "Enrolled Courses",
-      value: "12",
+      value: stats.enrolledCourses.toString(),
       icon: BookOpen,
       linkText: "Continue learning",
       linkHref: "/profile/mylearnings",
     },
     {
       label: "Completed Courses",
-      value: "8",
+      value: stats.completedCourses.toString(),
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -36,14 +37,14 @@ export function QuickStats() {
     },
     {
       label: "Certificates Earned",
-      value: "25",
+      value: stats.certificatesEarned.toString(),
       icon: Award,
       linkText: "View all certificates",
       linkHref: "/profile/certificates",
     },
     {
       label: "Total Hours Learned",
-      value: "102",
+      value: stats.totalHoursLearned.toString(),
       icon: () => (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +69,7 @@ export function QuickStats() {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-      {stats.map((stat) => {
+      {statItems.map((stat) => {
         const Icon = stat.icon;
         return (
           <Card

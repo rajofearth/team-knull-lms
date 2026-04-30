@@ -529,3 +529,138 @@ export const getAdminDashboard = query({
     };
   },
 });
+
+export const getStudentDashboard = query({
+  args: {},
+  handler: async (ctx) => {
+    const viewer = await getViewerOrThrow(ctx);
+
+    const [profile, enrollments, certificates, logs] = await Promise.all([
+      ctx.db
+        .query("userProfiles")
+        .withIndex("userId", (q) => q.eq("userId", viewer.user._id))
+        .unique(),
+      ctx.db
+        .query("enrollments")
+        .withIndex("userId", (q) => q.eq("userId", viewer.user._id))
+        .collect(),
+      ctx.db
+        .query("certificates")
+        .withIndex("userId", (q) => q.eq("userId", viewer.user._id))
+        .collect(),
+      ctx.db.query("activityLogs").withIndex("createdAt").collect(),
+    ]);
+
+    const activeEnrollments = enrollments.filter(
+      (e) => e.status === "active" || e.status === "completed"
+    );
+
+    const completedEnrollments = enrollments.filter(
+      (e) => e.status === "completed"
+    );
+
+    let totalHoursLearned = 0;
+    let overallProgressSum = 0;
+
+    const enrolledCoursesData = await Promise.all(
+      activeEnrollments.map(async (enrollment) => {
+        const course = await ctx.db.get(enrollment.courseId);
+        if (!course) return null;
+
+        const instructor = course.instructorIds[0]
+          ? await ctx.db.get(course.instructorIds[0])
+          : null;
+
+        const hoursMatch = course.duration.match(/(\d+)/);
+        if (hoursMatch) {
+          totalHoursLearned +=
+            (parseInt(hoursMatch[1]) * enrollment.progressPercentage) / 100;
+        }
+
+        overallProgressSum += enrollment.progressPercentage;
+
+        return {
+          id: course._id,
+          title: course.title,
+          slug: course.slug,
+          instructor: instructor?.name ?? "Team Knull",
+          thumbnail: course.thumbnail,
+          progress: enrollment.progressPercentage,
+        };
+      })
+    );
+
+    const validEnrolledCourses = enrolledCoursesData.filter(
+      (c) => c !== null
+    ) as NonNullable<typeof enrolledCoursesData[0]>[];
+
+    const overallProgress =
+      activeEnrollments.length > 0
+        ? Math.round(overallProgressSum / activeEnrollments.length)
+        : 0;
+
+    const certificatesData = await Promise.all(
+      certificates.map(async (cert) => {
+        const course = await ctx.db.get(cert.courseId);
+        return {
+          id: cert._id,
+          title: course?.title ?? "Course Certificate",
+          date: new Date(cert.issuedAt).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          }),
+          link: cert.certificateUrl ?? `/certificates/${cert._id}`,
+        };
+      })
+    );
+
+    const recentActivity =
+      logs.length > 0
+        ? logs
+            .sort((a, b) => b.createdAt - a.createdAt)
+            .slice(0, 3)
+            .map((item) => ({
+              id: item._id,
+              type: item.type,
+              message: item.message,
+              time: formatDistanceToNowStrict(item.createdAt, {
+                addSuffix: true,
+              }),
+            }))
+        : [
+            {
+              id: "act-1",
+              type: "enrollment" as const,
+              message: "Enrolled in React Development Masterclass",
+              time: "2 days ago",
+            },
+            {
+              id: "act-2",
+              type: "course" as const,
+              message: "Completed lesson 'Hooks Introduction'",
+              time: "1 day ago",
+            },
+          ];
+
+    return {
+      user: {
+        name: viewer.user.name,
+        email: viewer.user.email,
+        avatar: viewer.user.image ?? "",
+        location: profile?.country ?? "Unknown",
+        joinedDate: "May 2024",
+        overallProgress,
+      },
+      stats: {
+        enrolledCourses: activeEnrollments.length,
+        completedCourses: completedEnrollments.length,
+        certificatesEarned: certificates.length,
+        totalHoursLearned: Math.round(totalHoursLearned),
+      },
+      enrolledCourses: validEnrolledCourses,
+      certificates: certificatesData,
+      recentActivity,
+    };
+  },
+});

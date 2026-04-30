@@ -215,3 +215,39 @@ export interface AdminCourseListItem {
 export interface CourseCatalogData {
   courses: CourseListItem[];
 }
+
+export interface EnrolledCourseData {
+  id: string;
+  title: string;
+  slug: string;
+  instructor: string;
+  thumbnail: string;
+  progress: number;
+}
+
+export interface StudentCertificateData {
+  id: string;
+  title: string;
+  date: string;
+  link: string;
+}
+
+export interface StudentDashboardData {
+  user: {
+    name: string;
+    email: string;
+    avatar: string;
+    location: string;
+    joinedDate: string;
+    overallProgress: number;
+  };
+  stats: {
+    enrolledCourses: number;
+    completedCourses: number;
+    certificatesEarned: number;
+    totalHoursLearned: number;
+  };
+  enrolledCourses: EnrolledCourseData[];
+  certificates: StudentCertificateData[];
+  recentActivity: ActivityItemData[];
+}

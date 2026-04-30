@@ -1,8 +1,10 @@
 import { ArrowRight, Rocket } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import type { StudentDashboardData } from "@/lib/lms/types";
 
-export function FooterCta() {
+export function FooterCta({ user }: { user: StudentDashboardData["user"] }) {
+  const firstName = user.name.split(" ")[0] || "Student";
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 p-8 md:p-10 rounded-2xl bg-[#EEF2FF] w-full">
       <div className="flex items-center gap-6">
@@ -11,7 +13,7 @@ export function FooterCta() {
         </div>
         <div className="flex flex-col gap-1">
           <h2 className="text-xl font-heading font-bold text-foreground m-0">
-            Keep going, Rohit! 🚀
+            Keep going, {firstName}! 🚀
           </h2>
           <p className="text-sm text-muted-foreground m-0">
             You&apos;re making great progress. Stay consistent and achieve your
