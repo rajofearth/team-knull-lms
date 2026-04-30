@@ -1,5 +1,6 @@
 "use client";
 
+import { useQuery } from "convex/react";
 import {
   AlignCenter,
   Bold,
@@ -21,6 +22,7 @@ import {
   Underline,
   Upload,
   Video,
+  X,
 } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -36,6 +38,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { api } from "@/convex/_generated/api";
+import type { AdminInstructorListItem } from "@/lib/lms/types";
 import { cn } from "@/lib/utils";
 
 interface DetailsTabProps {
@@ -43,6 +47,15 @@ interface DetailsTabProps {
   setStatus: (status: string) => void;
   outcomes: string[];
   setActiveTab: (tab: string) => void;
+  selectedInstructorIds: string[];
+  onInstructorToggle: (id: string) => void;
+  title: string;
+  setTitle: (title: string) => void;
+  description: string;
+  setDescription: (description: string) => void;
+  onSaveDraft: () => void;
+  onPublish: () => void;
+  isSaving: boolean;
 }
 
 export function DetailsTab({
@@ -50,7 +63,19 @@ export function DetailsTab({
   setStatus,
   outcomes,
   setActiveTab,
+  selectedInstructorIds,
+  onInstructorToggle,
+  title,
+  setTitle,
+  description,
+  setDescription,
+  onSaveDraft,
+  onPublish,
+  isSaving,
 }: DetailsTabProps) {
+  const instructorsResult = useQuery(api.lms.getAdminInstructors);
+  const instructors = instructorsResult?.instructors || [];
+
   return (
     <div className="flex items-start w-full gap-6 pb-24">
       {/* COLUMN 1: Content (approx 46%) */}
@@ -65,6 +90,8 @@ export function DetailsTab({
           </div>
           <Input
             placeholder="Enter course title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             className="h-10 rounded-md px-3 bg-background border border-border text-ink-deep text-sm focus-visible:ring-0 focus-visible:border-ink-deep placeholder:text-text-muted"
           />
         </div>
@@ -79,6 +106,8 @@ export function DetailsTab({
           </div>
           <Textarea
             placeholder="Write a short description about the course"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             className="min-h-[100px] rounded-md px-3 py-2 bg-background border border-border text-ink-deep text-sm focus-visible:ring-0 focus-visible:border-ink-deep placeholder:text-text-muted resize-none"
           />
           <span className="absolute bottom-2 right-3 text-[10px] text-text-muted">
@@ -167,8 +196,11 @@ export function DetailsTab({
             <span className="text-red-500 text-xs">*</span>
           </div>
           <div className="flex flex-col gap-2 bg-surface-dim/30 p-4 rounded-lg border border-border/50">
-            {outcomes.map((outcome) => (
-              <div key={outcome} className="flex items-center gap-3">
+            {outcomes.map((outcome, index) => (
+              <div
+                key={`${outcome}-${index.toString()}`}
+                className="flex items-center gap-3"
+              >
                 <div className="size-1 rounded-full bg-text-secondary" />
                 <Input
                   defaultValue={outcome}
@@ -195,28 +227,52 @@ export function DetailsTab({
             <span className="text-red-500 text-xs">*</span>
           </div>
           <div className="flex flex-col gap-3">
-            <Select>
+            <Select onValueChange={onInstructorToggle}>
               <SelectTrigger className="h-10 rounded-md px-3 bg-background border border-border text-text-muted text-sm focus:ring-0 focus:border-ink-deep">
-                <SelectValue placeholder="Search instructors..." />
+                <SelectValue placeholder="Add instructors..." />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="john">John Smith</SelectItem>
+                {instructors
+                  .filter(
+                    (i: AdminInstructorListItem) =>
+                      !selectedInstructorIds.includes(i.id),
+                  )
+                  .map((instructor: AdminInstructorListItem) => (
+                    <SelectItem key={instructor.id} value={instructor.id}>
+                      {instructor.name}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
-            <div className="flex items-center gap-2 p-2 rounded-lg border border-border bg-surface-dim w-fit">
-              <Avatar className="size-8">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>JS</AvatarFallback>
-              </Avatar>
-              <span className="text-ink-deep font-sans font-medium text-xs pr-2">
-                John Smith
-              </span>
-              <button
-                type="button"
-                className="text-text-muted hover:text-red-500 transition-colors"
-              >
-                <Plus className="size-3.5 rotate-45" />
-              </button>
+
+            <div className="flex flex-wrap gap-2 mt-1">
+              {selectedInstructorIds.map((id) => {
+                const instructor = instructors.find(
+                  (i: AdminInstructorListItem) => i.id === id,
+                );
+                if (!instructor) return null;
+                return (
+                  <div
+                    key={id}
+                    className="flex items-center gap-2 p-1 pr-2 rounded-full border border-border bg-white shadow-sm"
+                  >
+                    <Avatar className="size-6">
+                      <AvatarImage src={instructor.avatar} />
+                      <AvatarFallback>{instructor.name[0]}</AvatarFallback>
+                    </Avatar>
+                    <span className="text-ink-deep font-sans font-medium text-[11px]">
+                      {instructor.name}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => onInstructorToggle(id)}
+                      className="text-text-muted hover:text-red-500 transition-colors ml-1"
+                    >
+                      <X className="size-3" />
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -541,16 +597,30 @@ export function DetailsTab({
       <div className="fixed bottom-0 left-[260px] right-0 h-20 bg-background border-t border-border px-10 flex items-center justify-end gap-3 z-10 shadow-lg">
         <Button
           variant="outline"
+          disabled={isSaving}
           className="h-10 px-6 font-medium text-sm border-border text-ink-deep"
         >
           Cancel
         </Button>
-        <Button className="h-10 px-6 font-medium text-sm bg-ink-deep hover:bg-black text-white flex items-center gap-2">
-          <FileCode className="size-4" /> Save as Draft
+        <Button
+          disabled={isSaving}
+          onClick={onSaveDraft}
+          className="h-10 px-6 font-medium text-sm bg-ink-deep hover:bg-black text-white flex items-center gap-2"
+        >
+          <FileCode className="size-4" />
+          {isSaving ? "Saving..." : "Save as Draft"}
         </Button>
         <Button
-          onClick={() => setActiveTab("curriculum")}
+          disabled={isSaving}
+          onClick={onPublish}
           className="h-10 px-6 font-medium text-sm bg-primary hover:bg-ink-deep text-white flex items-center gap-2"
+        >
+          {isSaving ? "Publishing..." : "Publish Course"}
+        </Button>
+        <Button
+          disabled={isSaving}
+          onClick={() => setActiveTab("curriculum")}
+          className="h-10 px-6 font-medium text-sm border border-border text-ink-deep hover:bg-surface-dim"
         >
           Continue to Curriculum <ChevronRight className="size-4" />
         </Button>

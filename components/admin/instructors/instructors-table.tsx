@@ -176,11 +176,14 @@ export function InstructorsTable({
                         <DropdownMenuItem className="text-xs font-medium font-sans rounded-sm">
                           View profile
                         </DropdownMenuItem>
-                        <Link href={`/admin/instructors/${instructor.id}/edit`}>
-                          <DropdownMenuItem className="text-xs font-medium font-sans rounded-sm cursor-pointer">
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href={`/admin/instructors/${instructor.id}/edit`}
+                            className="text-xs font-medium font-sans rounded-sm cursor-pointer"
+                          >
                             Edit instructor
-                          </DropdownMenuItem>
-                        </Link>
+                          </Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem className="text-xs font-medium font-sans text-red-600 rounded-sm">
                           Deactivate
                         </DropdownMenuItem>

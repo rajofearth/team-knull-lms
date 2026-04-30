@@ -312,7 +312,7 @@ export const listAdminCourses = query({
             : null;
 
           return {
-            id: course.slug,
+            id: course._id,
             title: course.title,
             subtitle: course.subtitle,
             thumbnail: course.thumbnail,
@@ -333,6 +333,20 @@ export const listAdminCourses = query({
           };
         }),
     );
+  },
+});
+
+export const getAdminCourse = query({
+  args: { courseId: v.id("courses") },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+    const course = await ctx.db.get(args.courseId);
+    if (!course) return null;
+
+    return {
+      ...course,
+      id: course._id,
+    };
   },
 });
 
@@ -492,19 +506,35 @@ export const addInstructor = mutation({
     status: v.union(v.literal("Active"), v.literal("Inactive")),
     phoneNumber: v.optional(v.string()),
     website: v.optional(v.string()),
+    assignedCourseIds: v.optional(v.array(v.id("courses"))),
   },
   handler: async (ctx, args) => {
     await requireAdmin(ctx);
+    const { assignedCourseIds, ...instructorData } = args;
+
     const instructorId = await ctx.db.insert("instructors", {
-      ...args,
+      ...instructorData,
       stats: {
-        courses: 0,
+        courses: assignedCourseIds?.length || 0,
         rating: 5.0,
         students: "0",
         yearsExperience: "0",
       },
       createdAt: Date.now(),
     });
+
+    if (assignedCourseIds && assignedCourseIds.length > 0) {
+      await Promise.all(
+        assignedCourseIds.map(async (courseId) => {
+          const course = await ctx.db.get(courseId);
+          if (course && !course.instructorIds.includes(instructorId)) {
+            await ctx.db.patch(courseId, {
+              instructorIds: [...course.instructorIds, instructorId],
+            });
+          }
+        }),
+      );
+    }
 
     await ctx.db.insert("activityLogs", {
       type: "instructor",
@@ -528,15 +558,134 @@ export const updateInstructor = mutation({
     status: v.union(v.literal("Active"), v.literal("Inactive")),
     phoneNumber: v.optional(v.string()),
     website: v.optional(v.string()),
+    assignedCourseIds: v.optional(v.array(v.id("courses"))),
   },
   handler: async (ctx, args) => {
     await requireAdmin(ctx);
-    const { instructorId, ...data } = args;
+    const { instructorId, assignedCourseIds, ...data } = args;
     await ctx.db.patch(instructorId, data);
+
+    if (assignedCourseIds !== undefined) {
+      // Get all courses current assigned to this instructor
+      const allCourses = await ctx.db.query("courses").collect();
+
+      await Promise.all(
+        allCourses.map(async (course) => {
+          const isAssigned = assignedCourseIds.includes(course._id);
+          const alreadyHas = course.instructorIds.includes(instructorId);
+
+          if (isAssigned && !alreadyHas) {
+            // Add to course
+            await ctx.db.patch(course._id, {
+              instructorIds: [...course.instructorIds, instructorId],
+            });
+          } else if (!isAssigned && alreadyHas) {
+            // Remove from course
+            await ctx.db.patch(course._id, {
+              instructorIds: course.instructorIds.filter(
+                (id) => id !== instructorId,
+              ),
+            });
+          }
+        }),
+      );
+    }
 
     await ctx.db.insert("activityLogs", {
       type: "update",
       message: `Updated instructor: ${args.name}`,
+      createdAt: Date.now(),
+    });
+  },
+});
+
+export const addCourse = mutation({
+  args: {
+    title: v.string(),
+    description: v.string(),
+    slug: v.string(),
+    instructorIds: v.array(v.id("instructors")),
+    status: v.union(
+      v.literal("draft"),
+      v.literal("published"),
+      v.literal("archived"),
+      v.literal("scheduled"),
+    ),
+  },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+    const courseId = await ctx.db.insert("courses", {
+      ...args,
+      subtitle: "",
+      detailedDescription: "",
+      thumbnail:
+        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
+      categoryId:
+        (await ctx.db.query("categories").first())?._id ??
+        ("" as Id<"categories">),
+      level: "Beginner",
+      duration: "0h",
+      totalLessons: 0,
+      totalProjects: 0,
+      rating: 0,
+      reviewsCount: 0,
+      studentsCount: 0,
+      price: 0,
+      visibility: "public",
+      pricingModel: "free",
+      language: "English",
+      tags: [],
+      whatYouWillLearn: [],
+      requirements: [],
+      syllabus: [],
+      applications: [],
+      certificateEnabled: false,
+      passingPercentage: 80,
+      lifetimeAccess: true,
+      downloadableResources: true,
+      discussionEnabled: true,
+      requireEnrollmentApproval: false,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
+
+    await ctx.db.insert("activityLogs", {
+      type: "course",
+      message: `Created course: ${args.title}`,
+      createdAt: Date.now(),
+    });
+
+    return courseId;
+  },
+});
+
+export const updateCourse = mutation({
+  args: {
+    courseId: v.id("courses"),
+    title: v.optional(v.string()),
+    description: v.optional(v.string()),
+    slug: v.optional(v.string()),
+    status: v.optional(
+      v.union(
+        v.literal("draft"),
+        v.literal("published"),
+        v.literal("archived"),
+        v.literal("scheduled"),
+      ),
+    ),
+    instructorIds: v.optional(v.array(v.id("instructors"))),
+  },
+  handler: async (ctx, args) => {
+    await requireAdmin(ctx);
+    const { courseId, ...data } = args;
+    await ctx.db.patch(courseId, {
+      ...data,
+      updatedAt: Date.now(),
+    });
+
+    await ctx.db.insert("activityLogs", {
+      type: "update",
+      message: `Updated course: ${args.title || "details"}`,
       createdAt: Date.now(),
     });
   },

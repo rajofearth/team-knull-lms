@@ -2,6 +2,7 @@
 
 import { ChevronDown, MoreHorizontal, Star } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -235,7 +236,11 @@ export function CoursesTable({ data }: CoursesTableProps) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>Edit course</DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href={`/admin/courses/${course.id}/edit`}>
+                          Edit course
+                        </Link>
+                      </DropdownMenuItem>
                       <DropdownMenuItem>View analytics</DropdownMenuItem>
                       <DropdownMenuItem className="text-red-600">
                         Delete course

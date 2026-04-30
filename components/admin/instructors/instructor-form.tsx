@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery } from "convex/react";
-import { ChevronDown, ChevronLeft, Globe, Upload } from "lucide-react";
+import { ChevronDown, ChevronLeft, Globe, Upload, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -61,6 +61,7 @@ export function InstructorForm({
     status: initialData?.status || "Active",
     phoneNumber: initialData?.phoneNumber || "",
     website: initialData?.website || "",
+    assignedCourseIds: initialData?.assignedCourses?.map((c) => c.id) || [],
   });
 
   const [
@@ -98,20 +99,21 @@ export function InstructorForm({
         avatarUrl = storageId;
       }
 
+      const payload = {
+        ...formData,
+        avatar: avatarUrl,
+        status: formData.status as "Active" | "Inactive",
+        assignedCourseIds: formData.assignedCourseIds as Id<"courses">[],
+      };
+
       if (isEditing && initialData) {
         await updateInstructor({
           instructorId: initialData.id as Id<"instructors">,
-          ...formData,
-          avatar: avatarUrl,
-          status: formData.status as "Active" | "Inactive",
+          ...payload,
         });
         toast.success("Instructor updated successfully");
       } else {
-        await addInstructor({
-          ...formData,
-          avatar: avatarUrl,
-          status: formData.status as "Active" | "Inactive",
-        });
+        await addInstructor(payload);
         toast.success("Instructor created successfully");
       }
       router.push("/admin/instructors");
@@ -409,16 +411,55 @@ export function InstructorForm({
             <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Assign Courses (Optional)
             </Label>
-            <Select>
+            <div className="flex flex-wrap gap-2 mb-2">
+              {formData.assignedCourseIds.map((id) => {
+                const course = allCourses.find((c) => c.id === id);
+                if (!course) return null;
+                return (
+                  <div
+                    key={id}
+                    className="flex items-center gap-1 bg-muted px-2 py-1 rounded-md border border-border"
+                  >
+                    <span className="text-xs font-medium">{course.title}</span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          assignedCourseIds: prev.assignedCourseIds.filter(
+                            (cid) => cid !== id,
+                          ),
+                        }))
+                      }
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      <X className="size-3" />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+            <Select
+              onValueChange={(val) => {
+                if (!formData.assignedCourseIds.includes(val)) {
+                  setFormData((prev) => ({
+                    ...prev,
+                    assignedCourseIds: [...prev.assignedCourseIds, val],
+                  }));
+                }
+              }}
+            >
               <SelectTrigger className="h-10 rounded-md border-border">
-                <SelectValue placeholder="Select courses" />
+                <SelectValue placeholder="Add courses..." />
               </SelectTrigger>
               <SelectContent className="rounded-md border-border">
-                {allCourses.map((course) => (
-                  <SelectItem key={course.id} value={course.id}>
-                    {course.title}
-                  </SelectItem>
-                ))}
+                {allCourses
+                  .filter((c) => !formData.assignedCourseIds.includes(c.id))
+                  .map((course) => (
+                    <SelectItem key={course.id} value={course.id}>
+                      {course.title}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
             <p className="text-[11px] text-muted-foreground">
