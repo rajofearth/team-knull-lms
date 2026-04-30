@@ -40,7 +40,6 @@ export default defineSchema({
     avatar: v.string(),
     bio: v.string(),
     status: v.optional(v.union(v.literal("Active"), v.literal("Inactive"))),
-    phoneNumber: v.optional(v.string()),
     website: v.optional(v.string()),
     socials: v.optional(
       v.object({

@@ -68,17 +68,43 @@ export function CourseInstructor({ instructors }: CourseInstructorProps) {
               Connect
             </div>
             <div className="flex gap-3">
-              {[Globe, Linkedin, GithubLight, X].map((Icon, i) => (
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  key={`social-${i + 1}`}
-                  className="size-10 rounded-lg border-border text-ink hover:bg-muted"
-                >
-                  <Icon className="size-5" />
-                </Button>
-              ))}
+              {[
+                {
+                  key: "website",
+                  icon: Globe,
+                  url: instructor.socials?.website,
+                },
+                {
+                  key: "linkedin",
+                  icon: Linkedin,
+                  url: instructor.socials?.linkedin,
+                },
+                {
+                  key: "github",
+                  icon: GithubLight,
+                  url: instructor.socials?.github,
+                },
+                { key: "twitter", icon: X, url: instructor.socials?.twitter },
+              ]
+                .filter((social) => social.url)
+                .map((social) => (
+                  <Button
+                    asChild
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    key={social.key}
+                    className="size-10 rounded-lg border-border text-ink hover:bg-muted"
+                  >
+                    <a
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <social.icon className="size-5" />
+                    </a>
+                  </Button>
+                ))}
             </div>
           </div>
         </div>

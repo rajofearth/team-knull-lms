@@ -45,7 +45,8 @@ import { cn } from "@/lib/utils";
 interface DetailsTabProps {
   status: string;
   setStatus: (status: string) => void;
-  outcomes: string[];
+  outcomes: { id: string; text: string }[];
+  setOutcomes: (outcomes: { id: string; text: string }[]) => void;
   setActiveTab: (tab: string) => void;
   selectedInstructorIds: string[];
   onInstructorToggle: (id: string) => void;
@@ -62,6 +63,7 @@ export function DetailsTab({
   status,
   setStatus,
   outcomes,
+  setOutcomes,
   setActiveTab,
   selectedInstructorIds,
   onInstructorToggle,
@@ -196,20 +198,37 @@ export function DetailsTab({
             <span className="text-red-500 text-xs">*</span>
           </div>
           <div className="flex flex-col gap-2 bg-surface-dim/30 p-4 rounded-lg border border-border/50">
-            {outcomes.map((outcome, index) => (
-              <div
-                key={`${outcome}-${index.toString()}`}
-                className="flex items-center gap-3"
-              >
+            {outcomes.map((outcome) => (
+              <div key={outcome.id} className="flex items-center gap-3">
                 <div className="size-1 rounded-full bg-text-secondary" />
                 <Input
-                  defaultValue={outcome}
+                  value={outcome.text}
+                  onChange={(e) => {
+                    const newOutcomes = outcomes.map((o) =>
+                      o.id === outcome.id ? { ...o, text: e.target.value } : o,
+                    );
+                    setOutcomes(newOutcomes);
+                  }}
                   className="h-9 bg-transparent border-0 border-b border-border/40 rounded-none px-0 focus-visible:ring-0 focus-visible:border-primary text-sm italic"
                 />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="size-8 text-text-muted hover:text-red-500"
+                  onClick={() => {
+                    setOutcomes(outcomes.filter((o) => o.id !== outcome.id));
+                  }}
+                >
+                  <Trash2 className="size-3.5" />
+                </Button>
               </div>
             ))}
             <Button
               variant="outline"
+              onClick={() => {
+                const newId = Math.random().toString(36).substr(2, 9);
+                setOutcomes([...outcomes, { id: newId, text: "" }]);
+              }}
               className="flex items-center w-fit rounded-md py-1.5 px-3 gap-2 bg-background border border-border text-ink-deep font-sans font-medium text-xs hover:bg-surface-dim transition-colors mt-2"
             >
               <Plus className="size-3.5" />

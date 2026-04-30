@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { formatDistanceToNowStrict } from "date-fns";
 import type { CourseDetailsData } from "../lib/lms/types";
-import type { Doc } from "./_generated/dataModel";
+import type { Doc, Id } from "./_generated/dataModel";
 import type { QueryCtx } from "./_generated/server";
 import { mutation, query } from "./_generated/server";
 import { authComponent } from "./betterAuth/auth";
@@ -204,6 +204,7 @@ export const getCourseDetails = query({
           avatar,
           bio: instructor.bio,
           stats: instructor.stats,
+          socials: instructor.socials,
           coursesOnPlatform: relatedCourses,
         };
       }),
@@ -504,8 +505,15 @@ export const addInstructor = mutation({
     bio: v.string(),
     slug: v.string(),
     status: v.union(v.literal("Active"), v.literal("Inactive")),
-    phoneNumber: v.optional(v.string()),
     website: v.optional(v.string()),
+    socials: v.optional(
+      v.object({
+        twitter: v.optional(v.string()),
+        linkedin: v.optional(v.string()),
+        github: v.optional(v.string()),
+        website: v.optional(v.string()),
+      }),
+    ),
     assignedCourseIds: v.optional(v.array(v.id("courses"))),
   },
   handler: async (ctx, args) => {
@@ -556,8 +564,15 @@ export const updateInstructor = mutation({
     bio: v.string(),
     slug: v.string(),
     status: v.union(v.literal("Active"), v.literal("Inactive")),
-    phoneNumber: v.optional(v.string()),
     website: v.optional(v.string()),
+    socials: v.optional(
+      v.object({
+        twitter: v.optional(v.string()),
+        linkedin: v.optional(v.string()),
+        github: v.optional(v.string()),
+        website: v.optional(v.string()),
+      }),
+    ),
     assignedCourseIds: v.optional(v.array(v.id("courses"))),
   },
   handler: async (ctx, args) => {
@@ -611,6 +626,7 @@ export const addCourse = mutation({
       v.literal("archived"),
       v.literal("scheduled"),
     ),
+    whatYouWillLearn: v.optional(v.array(v.string())),
   },
   handler: async (ctx, args) => {
     await requireAdmin(ctx);
@@ -635,7 +651,7 @@ export const addCourse = mutation({
       pricingModel: "free",
       language: "English",
       tags: [],
-      whatYouWillLearn: [],
+      whatYouWillLearn: args.whatYouWillLearn || [],
       requirements: [],
       syllabus: [],
       applications: [],
@@ -674,6 +690,7 @@ export const updateCourse = mutation({
       ),
     ),
     instructorIds: v.optional(v.array(v.id("instructors"))),
+    whatYouWillLearn: v.optional(v.array(v.string())),
   },
   handler: async (ctx, args) => {
     await requireAdmin(ctx);

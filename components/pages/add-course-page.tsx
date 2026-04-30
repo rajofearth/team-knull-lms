@@ -41,11 +41,16 @@ export function AddCoursePageClient({
   const [selectedInstructorIds, setSelectedInstructorIds] = useState<string[]>(
     initialData?.instructorIds || [],
   );
-  const [outcomes] = useState([
-    "Add key learning outcome",
-    "Add key learning outcome",
-    "Add key learning outcome",
-  ]);
+  const [outcomes, setOutcomes] = useState(
+    initialData?.whatYouWillLearn?.map((text, i) => ({
+      id: `initial-${i}`,
+      text,
+    })) || [
+      { id: "1", text: "Add key learning outcome" },
+      { id: "2", text: "Add key learning outcome" },
+      { id: "3", text: "Add key learning outcome" },
+    ],
+  );
   const [isSaving, setIsSaving] = useState(false);
 
   const addCourse = useMutation(api.lms.addCourse);
@@ -70,7 +75,12 @@ export function AddCoursePageClient({
         description,
         status: (isDraft ? "draft" : status) as Doc<"courses">["status"],
         instructorIds: selectedInstructorIds as Id<"instructors">[],
-        slug: title.toLowerCase().replace(/ /g, "-"),
+        slug: title
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, ""),
+        whatYouWillLearn: outcomes.map((o) => o.text),
       };
 
       if (isEditing && initialData) {
@@ -200,6 +210,7 @@ export function AddCoursePageClient({
             status={status}
             setStatus={setStatus}
             outcomes={outcomes}
+            setOutcomes={setOutcomes}
             setActiveTab={setActiveTab}
             selectedInstructorIds={selectedInstructorIds}
             onInstructorToggle={handleInstructorToggle}

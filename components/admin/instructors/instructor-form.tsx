@@ -1,7 +1,15 @@
 "use client";
 
 import { useMutation, useQuery } from "convex/react";
-import { ChevronDown, ChevronLeft, Globe, Upload, X } from "lucide-react";
+import {
+  ChevronLeft,
+  Github,
+  Globe,
+  Linkedin,
+  Twitter,
+  Upload,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -59,8 +67,13 @@ export function InstructorForm({
     bio: initialData?.bio || "",
     avatar: initialData?.avatar || "",
     status: initialData?.status || "Active",
-    phoneNumber: initialData?.phoneNumber || "",
     website: initialData?.website || "",
+    socials: {
+      twitter: initialData?.socials?.twitter || "",
+      linkedin: initialData?.socials?.linkedin || "",
+      github: initialData?.socials?.github || "",
+      website: initialData?.socials?.website || "",
+    },
     assignedCourseIds: initialData?.assignedCourses?.map((c) => c.id) || [],
   });
 
@@ -104,6 +117,12 @@ export function InstructorForm({
         avatar: avatarUrl,
         status: formData.status as "Active" | "Inactive",
         assignedCourseIds: formData.assignedCourseIds as Id<"courses">[],
+        socials: {
+          twitter: formData.socials.twitter || undefined,
+          linkedin: formData.socials.linkedin || undefined,
+          github: formData.socials.github || undefined,
+          website: formData.socials.website || undefined,
+        },
       };
 
       if (isEditing && initialData) {
@@ -308,36 +327,6 @@ export function InstructorForm({
                 )}
               </button>
             </div>
-
-            <div className="grid gap-2">
-              <Label
-                htmlFor="phone"
-                className="text-xs font-bold uppercase tracking-wider text-muted-foreground"
-              >
-                Phone Number
-              </Label>
-              <InputGroup>
-                <InputGroupAddon className="px-3 border-r-0 rounded-l-md bg-muted/30">
-                  <div className="flex items-center gap-1">
-                    <span className="text-xs">🇺🇸</span>
-                    <span className="text-xs font-bold">+1</span>
-                    <ChevronDown className="size-3" />
-                  </div>
-                </InputGroupAddon>
-                <InputGroupInput
-                  id="phone"
-                  placeholder="Enter phone number"
-                  value={formData.phoneNumber}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      phoneNumber: e.target.value,
-                    }))
-                  }
-                  className="rounded-r-md border-border"
-                />
-              </InputGroup>
-            </div>
           </div>
         </CardContent>
       </Card>
@@ -372,29 +361,91 @@ export function InstructorForm({
           </div>
 
           <div className="grid gap-2">
-            <Label
-              htmlFor="website"
-              className="text-xs font-bold uppercase tracking-wider text-muted-foreground"
-            >
-              Website (Optional)
+            <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              LinkedIn Profile
+            </Label>
+            <InputGroup>
+              <InputGroupAddon className="px-3 border-r-0 rounded-l-md bg-muted/30">
+                <Linkedin className="size-3.5 text-muted-foreground" />
+              </InputGroupAddon>
+              <InputGroupInput
+                placeholder="https://linkedin.com/in/username"
+                value={formData.socials.linkedin}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    socials: { ...prev.socials, linkedin: e.target.value },
+                  }))
+                }
+                className="rounded-r-md border-border"
+              />
+            </InputGroup>
+          </div>
+
+          <div className="grid gap-2">
+            <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Twitter / X
+            </Label>
+            <InputGroup>
+              <InputGroupAddon className="px-3 border-r-0 rounded-l-md bg-muted/30">
+                <Twitter className="size-3.5 text-muted-foreground" />
+              </InputGroupAddon>
+              <InputGroupInput
+                placeholder="https://x.com/username"
+                value={formData.socials.twitter}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    socials: { ...prev.socials, twitter: e.target.value },
+                  }))
+                }
+                className="rounded-r-md border-border"
+              />
+            </InputGroup>
+          </div>
+
+          <div className="grid gap-2">
+            <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              GitHub Profile
+            </Label>
+            <InputGroup>
+              <InputGroupAddon className="px-3 border-r-0 rounded-l-md bg-muted/30">
+                <Github className="size-3.5 text-muted-foreground" />
+              </InputGroupAddon>
+              <InputGroupInput
+                placeholder="https://github.com/username"
+                value={formData.socials.github}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    socials: { ...prev.socials, github: e.target.value },
+                  }))
+                }
+                className="rounded-r-md border-border"
+              />
+            </InputGroup>
+          </div>
+
+          <div className="grid gap-2">
+            <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Website
             </Label>
             <InputGroup>
               <InputGroupAddon className="px-3 border-r-0 rounded-l-md bg-muted/30">
                 <Globe className="size-3.5 text-muted-foreground" />
               </InputGroupAddon>
               <InputGroupInput
-                id="website"
                 placeholder="https://example.com"
-                value={formData.website}
+                value={formData.socials.website}
                 onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, website: e.target.value }))
+                  setFormData((prev) => ({
+                    ...prev,
+                    socials: { ...prev.socials, website: e.target.value },
+                  }))
                 }
                 className="rounded-r-md border-border"
               />
             </InputGroup>
-            <p className="text-[11px] text-muted-foreground">
-              Instructor's personal or professional website.
-            </p>
           </div>
         </CardContent>
       </Card>

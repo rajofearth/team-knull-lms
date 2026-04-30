@@ -23,6 +23,12 @@ export interface InstructorSummary {
     courses: number;
     rating: number;
   };
+  socials?: {
+    twitter?: string;
+    linkedin?: string;
+    github?: string;
+    website?: string;
+  };
 }
 
 export interface InstructorCourseSummary {
@@ -239,7 +245,6 @@ export interface AdminInstructorDetails {
   avatar: string;
   bio: string;
   status: "Active" | "Inactive";
-  phoneNumber?: string;
   website?: string;
   socials?: {
     twitter?: string;
