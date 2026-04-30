@@ -4,18 +4,32 @@ import { authComponent } from "../betterAuth/auth";
 
 type AuthCtx = QueryCtx | MutationCtx;
 
-export async function getViewerOrThrow(ctx: AuthCtx) {
-  const user = await authComponent.getAuthUser(ctx);
-  const profile = await ctx.db
-    .query("userProfiles")
-    .withIndex("userId", (query) => query.eq("userId", user._id))
-    .unique();
+export async function getViewer(ctx: AuthCtx) {
+  try {
+    const user = await authComponent.getAuthUser(ctx);
+    if (!user) return null;
 
-  return {
-    user,
-    profile,
-    role: profile?.role ?? "student",
-  } as const;
+    const profile = await ctx.db
+      .query("userProfiles")
+      .withIndex("userId", (query) => query.eq("userId", user._id))
+      .unique();
+
+    return {
+      user,
+      profile,
+      role: profile?.role ?? "student",
+    } as const;
+  } catch (_error) {
+    return null;
+  }
+}
+
+export async function getViewerOrThrow(ctx: AuthCtx) {
+  const viewer = await getViewer(ctx);
+  if (!viewer) {
+    throw new ConvexError("Unauthorized");
+  }
+  return viewer;
 }
 
 export async function requireAdmin(ctx: AuthCtx) {

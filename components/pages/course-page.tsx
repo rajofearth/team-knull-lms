@@ -1,7 +1,11 @@
 "use client";
 
+import { useMutation } from "convex/react";
+import { Lock } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import { CourseHeader } from "@/components/course/course-header";
 import { CourseInstructor } from "@/components/course/course-instructor";
 import { CourseOverview } from "@/components/course/course-overview";
@@ -12,11 +16,38 @@ import { ResourcesCard } from "@/components/course/resources-card";
 import { VideoPlayer } from "@/components/course/video-player";
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/ui/button";
+import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
 import type { CourseDetailsData } from "@/lib/lms/types";
 import { cn } from "@/lib/utils";
 
 export function CoursePageClient({ course }: { course: CourseDetailsData }) {
-  const [activeTab, setActiveTab] = useState("curriculum");
+  const router = useRouter();
+  const enroll = useMutation(api.lms.enrollCourse);
+  const [isEnrolling, setIsEnrolling] = useState(false);
+  const [activeTab, setActiveTab] = useState(
+    course.isEnrolled ? "curriculum" : "overview",
+  );
+
+  const handleEnroll = async () => {
+    if (!course.isLoggedIn) {
+      router.push("/login");
+      return;
+    }
+
+    try {
+      setIsEnrolling(true);
+      await enroll({ courseId: course.id as Id<"courses"> });
+      toast.success("Successfully enrolled in the course!");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to enroll. Please try again.");
+    } finally {
+      setIsEnrolling(false);
+    }
+  };
+
   const [activeLessonId, setActiveLessonId] = useState(
     course.modules
       .flatMap((module) => module.lessons)
@@ -121,108 +152,150 @@ export function CoursePageClient({ course }: { course: CourseDetailsData }) {
         </div>
 
         <div className="flex items-start gap-12 px-20 py-8 antialiased [font-synthesis:none]">
-          <CourseHeader course={course} />
+          <CourseHeader
+            course={course}
+            onEnroll={handleEnroll}
+            isEnrolling={isEnrolling}
+          />
           <CourseProgressCard progress={course.progress} />
         </div>
 
         <CourseTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
         <div className="flex min-h-[600px] w-full gap-10 bg-surface px-20 py-12">
-          {activeTab === "curriculum" && (
-            <>
-              <CurriculumSidebar
-                modules={course.modules}
-                activeLessonId={activeLessonId}
-                onLessonSelect={(lesson) => setActiveLessonId(lesson.id)}
-              />
+          {activeTab === "curriculum" &&
+            (course.isEnrolled ? (
+              <>
+                <CurriculumSidebar
+                  modules={course.modules}
+                  activeLessonId={activeLessonId}
+                  onLessonSelect={(lesson) => setActiveLessonId(lesson.id)}
+                />
 
-              <div className="flex grow basis-[0%] flex-col gap-8">
-                <VideoPlayer />
+                <div className="flex grow basis-[0%] flex-col gap-8">
+                  <VideoPlayer />
 
-                <div>
-                  <div className="m-0 text-2xl leading-8 tracking-tight font-heading font-bold text-ink">
-                    {activeLesson.title}
+                  <div>
+                    <div className="m-0 text-2xl leading-8 tracking-tight font-heading font-bold text-ink">
+                      {activeLesson.title}
+                    </div>
+                    <div className="mx-0 mt-2.5 mb-0 max-w-2xl text-sm leading-relaxed font-sans text-text-secondary">
+                      {activeLesson.description ||
+                        "Learn more about this topic in the video lecture above."}
+                    </div>
                   </div>
-                  <div className="mx-0 mt-2.5 mb-0 max-w-2xl text-sm leading-relaxed font-sans text-text-secondary">
-                    {activeLesson.description ||
-                      "Learn more about this topic in the video lecture above."}
+
+                  <div className="mt-2 flex justify-between">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className={cn(
+                        "flex items-center gap-2.5 rounded-lg border-[1.5px] border-border px-6 py-3 transition-colors",
+                        activeLessonId === allLessons[0].id
+                          ? "cursor-not-allowed opacity-50"
+                          : "cursor-pointer hover:bg-canvas",
+                      )}
+                      onClick={handlePrevLesson}
+                      disabled={activeLessonId === allLessons[0].id}
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        className="stroke-ink"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ flexShrink: "0" }}
+                      >
+                        <title>Previous lesson</title>
+                        <line x1="19" y1="12" x2="5" y2="12" />
+                        <polyline points="12 19 5 12 12 5" />
+                      </svg>
+                      <div className="inline-block text-sm leading-none font-bold font-sans text-ink-secondary">
+                        Previous Lesson
+                      </div>
+                    </Button>
+                    <Button
+                      type="button"
+                      className={cn(
+                        "flex items-center gap-2.5 rounded-lg bg-ink px-6 py-3 transition-opacity",
+                        activeLessonId === allLessons[allLessons.length - 1].id
+                          ? "cursor-not-allowed opacity-50"
+                          : "cursor-pointer hover:opacity-90",
+                      )}
+                      onClick={handleNextLesson}
+                      disabled={
+                        activeLessonId === allLessons[allLessons.length - 1].id
+                      }
+                    >
+                      <div className="inline-block text-sm leading-none font-bold font-sans text-canvas">
+                        Next Lesson
+                      </div>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ flexShrink: "0" }}
+                      >
+                        <title>Next lesson</title>
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
+                    </Button>
                   </div>
                 </div>
 
-                <div className="mt-2 flex justify-between">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className={cn(
-                      "flex items-center gap-2.5 rounded-lg border-[1.5px] border-border px-6 py-3 transition-colors",
-                      activeLessonId === allLessons[0].id
-                        ? "cursor-not-allowed opacity-50"
-                        : "cursor-pointer hover:bg-canvas",
-                    )}
-                    onClick={handlePrevLesson}
-                    disabled={activeLessonId === allLessons[0].id}
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      className="stroke-ink"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ flexShrink: "0" }}
-                    >
-                      <title>Previous lesson</title>
-                      <line x1="19" y1="12" x2="5" y2="12" />
-                      <polyline points="12 19 5 12 12 5" />
-                    </svg>
-                    <div className="inline-block text-sm leading-none font-bold font-sans text-ink-secondary">
-                      Previous Lesson
-                    </div>
-                  </Button>
-                  <Button
-                    type="button"
-                    className={cn(
-                      "flex items-center gap-2.5 rounded-lg bg-ink px-6 py-3 transition-opacity",
-                      activeLessonId === allLessons[allLessons.length - 1].id
-                        ? "cursor-not-allowed opacity-50"
-                        : "cursor-pointer hover:opacity-90",
-                    )}
-                    onClick={handleNextLesson}
-                    disabled={
-                      activeLessonId === allLessons[allLessons.length - 1].id
-                    }
-                  >
-                    <div className="inline-block text-sm leading-none font-bold font-sans text-canvas">
-                      Next Lesson
-                    </div>
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="white"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{ flexShrink: "0" }}
-                    >
-                      <title>Next lesson</title>
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  </Button>
+                <div className="flex flex-col gap-6">
+                  <ResourcesCard resources={course.resources} />
                 </div>
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center w-full py-20 bg-canvas rounded-2xl border border-border/50 shadow-sm">
+                <div className="size-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <Lock className="size-8 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold font-heading text-ink mb-2">
+                  Enroll to Start Learning
+                </h2>
+                <p className="text-text-secondary font-sans text-center max-w-md mb-8">
+                  Unlock full access to all course materials, including videos,
+                  resources, and projects.
+                </p>
+                {course.isLoggedIn ? (
+                  <Button
+                    className="bg-primary hover:bg-ink px-10 h-12 rounded-lg font-bold text-white shadow-lg shadow-primary/20 transition-all active:scale-95"
+                    onClick={handleEnroll}
+                    disabled={isEnrolling}
+                  >
+                    {isEnrolling ? "Enrolling..." : "Enroll in this Course"}
+                  </Button>
+                ) : (
+                  <div className="flex flex-col items-center gap-4">
+                    <Button
+                      className="bg-primary hover:bg-ink px-10 h-12 rounded-lg font-bold text-white shadow-lg shadow-primary/20 transition-all active:scale-95"
+                      onClick={() => router.push("/login")}
+                    >
+                      Log in to Enroll
+                    </Button>
+                    <p className="text-xs text-text-muted">
+                      Don't have an account?{" "}
+                      <Link href="/signup" className="text-primary font-bold">
+                        Sign up
+                      </Link>
+                    </p>
+                  </div>
+                )}
               </div>
-
-              <div className="flex flex-col gap-6">
-                <ResourcesCard resources={course.resources} />
-              </div>
-            </>
-          )}
+            ))}
 
           {activeTab === "overview" && (
             <div className="w-full">

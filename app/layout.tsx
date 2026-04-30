@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
-import { AppSessionProvider } from "@/components/auth/session-context";
-import { ConvexClientProvider } from "@/components/ConvexClientProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { ConvexProviderWithToken } from "@/components/ConvexProviderWithToken";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,7 +27,6 @@ export const metadata: Metadata = {
   description:
     "Explore premium courses, learn at your own pace, and earn certificates to showcase your skills. Join thousands of learners on Team Knull LMS.",
 };
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -42,11 +39,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full antialiased font-sans">
         <Suspense fallback={null}>
-          <ConvexClientProvider>
-            <AppSessionProvider>
-              <TooltipProvider>{children}</TooltipProvider>
-            </AppSessionProvider>
-          </ConvexClientProvider>
+          <ConvexProviderWithToken>{children}</ConvexProviderWithToken>
         </Suspense>
       </body>
     </html>

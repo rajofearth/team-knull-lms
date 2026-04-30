@@ -126,6 +126,8 @@ export interface CourseDetailsData extends CourseListItem {
       coursesOnPlatform: InstructorCourseSummary[];
     }
   >;
+  isEnrolled: boolean;
+  isLoggedIn: boolean;
 }
 
 export interface ViewerSessionData {

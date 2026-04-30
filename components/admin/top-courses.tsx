@@ -1,5 +1,8 @@
+"use client";
+
 import { MoreHorizontal, Star } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -13,8 +16,39 @@ import type { TopCourseData } from "@/lib/lms/types";
 interface TopCoursesProps {
   courses: TopCourseData[];
 }
-
 export function TopCourses({ courses }: TopCoursesProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <Card className="flex-2 min-w-0 rounded-md bg-white border border-border shadow-none ring-0 p-0">
+        <CardContent className="flex flex-col gap-5 p-5">
+          <div className="flex items-center justify-between">
+            <h3 className="font-heading font-semibold text-lg text-foreground">
+              Top Courses
+            </h3>
+            <div className="size-8 rounded-md bg-muted animate-pulse" />
+          </div>
+          <div className="flex flex-col gap-4">
+            {["s1", "s2", "s3", "s4", "s5"].map((id) => (
+              <div key={id} className="flex items-center gap-3">
+                <div className="w-12 h-8 rounded shrink-0 bg-muted animate-pulse" />
+                <div className="flex flex-col gap-2">
+                  <div className="w-32 h-4 bg-muted animate-pulse" />
+                  <div className="w-20 h-3 bg-muted animate-pulse" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="flex-2 min-w-0 rounded-md bg-white border border-border shadow-none ring-0 p-0">
       <CardContent className="flex flex-col gap-5 p-5">

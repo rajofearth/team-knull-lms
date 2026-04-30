@@ -2,21 +2,19 @@
 
 import { Button } from "@/components/ui/button";
 
+import type { CourseDetailsData } from "@/lib/lms/types";
+
 interface CourseHeaderProps {
-  course: {
-    title: string;
-    description: string;
-    rating: number;
-    reviewsCount: number | string;
-    studentsCount: string;
-    level: string;
-    duration: string;
-    thumbnail: string;
-    badge?: string;
-  };
+  course: CourseDetailsData;
+  onEnroll: () => void;
+  isEnrolling: boolean;
 }
 
-export function CourseHeader({ course }: CourseHeaderProps) {
+export function CourseHeader({
+  course,
+  onEnroll,
+  isEnrolling,
+}: CourseHeaderProps) {
   return (
     <div className="flex-1 flex items-start gap-12">
       <div className="relative w-85 h-52.5 shrink-0 rounded-xl overflow-clip items-center flex gap-1 shadow-card">
@@ -75,9 +73,19 @@ export function CourseHeader({ course }: CourseHeaderProps) {
         </div>
 
         <div className="flex gap-4">
-          <Button className="rounded-lg py-3.5 px-8 h-auto bg-ink text-canvas cursor-pointer hover:opacity-90 font-sans font-bold text-sm tracking-wide">
-            Continue Learning
-          </Button>
+          {course.isEnrolled ? (
+            <Button className="rounded-lg py-3.5 px-8 h-auto bg-ink text-canvas cursor-pointer hover:opacity-90 font-sans font-bold text-sm tracking-wide">
+              Continue Learning
+            </Button>
+          ) : (
+            <Button
+              className="rounded-lg py-3.5 px-8 h-auto bg-primary text-white cursor-pointer hover:opacity-90 font-sans font-bold text-sm tracking-wide shadow-lg shadow-primary/20 active:scale-95 transition-all"
+              onClick={onEnroll}
+              disabled={isEnrolling}
+            >
+              {isEnrolling ? "Enrolling..." : "Enroll Now"}
+            </Button>
+          )}
           <Button
             variant="outline"
             className="flex items-center rounded-lg py-3.5 px-8 h-auto gap-2.5 bg-canvas border-[1.5px] border-solid border-border-alt cursor-pointer hover:bg-surface font-sans font-bold text-sm text-ink"

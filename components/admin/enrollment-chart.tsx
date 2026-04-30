@@ -80,9 +80,7 @@ export function EnrollmentChart({ data }: EnrollmentChartProps) {
               axisLine={false}
               tickLine={false}
               tickMargin={10}
-              tickFormatter={(value) => `${Number(value) / 1000}K`}
-              domain={[0, 8000]}
-              ticks={[0, 2000, 4000, 6000, 8000]}
+              tickFormatter={(value) => String(value)}
             />
             <XAxis
               dataKey="date"

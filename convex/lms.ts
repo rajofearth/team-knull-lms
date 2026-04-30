@@ -5,12 +5,30 @@ import type { Doc, Id } from "./_generated/dataModel";
 import type { QueryCtx } from "./_generated/server";
 import { mutation, query } from "./_generated/server";
 import { authComponent } from "./betterAuth/auth";
-import { getViewerOrThrow, requireAdmin } from "./lib/auth";
+import { getViewer, getViewerOrThrow, requireAdmin } from "./lib/auth";
 
 const countryColors = ["#111827", "#374151", "#6B7280", "#9CA3AF", "#D1D5DB"];
 
 function formatCount(value: number) {
   return new Intl.NumberFormat("en-US").format(value);
+}
+
+const NOW = Date.now();
+const THIRTY_DAYS_AGO = NOW - 30 * 24 * 60 * 60 * 1000;
+const SIXTY_DAYS_AGO = NOW - 60 * 24 * 60 * 60 * 1000;
+
+function calculateTrend(current: number, previous: number) {
+  if (previous === 0) {
+    return {
+      badge: current > 0 ? "+100%" : "0.0%",
+      trend: "up" as const,
+      secondary: "0.0%",
+    };
+  }
+  const diff = ((current - previous) / previous) * 100;
+  const trend = diff >= 0 ? ("up" as const) : ("down" as const);
+  const badge = `${diff >= 0 ? "+" : ""}${diff.toFixed(1)}%`;
+  return { badge, trend, secondary: `${Math.abs(diff).toFixed(1)}%` };
 }
 
 function mapCourseStatus(
@@ -111,7 +129,7 @@ export const getCourseDetails = query({
     slug: v.string(),
   },
   handler: async (ctx, args) => {
-    const viewer = await getViewerOrThrow(ctx);
+    const viewer = await getViewer(ctx);
     const course = await ctx.db
       .query("courses")
       .withIndex("slug", (q) => q.eq("slug", args.slug))
@@ -121,7 +139,7 @@ export const getCourseDetails = query({
       return null;
     }
 
-    if (course.status !== "published" && viewer.role !== "admin") {
+    if (course.status !== "published" && viewer?.role !== "admin") {
       return null;
     }
 
@@ -134,12 +152,14 @@ export const getCourseDetails = query({
         .query("courseResources")
         .withIndex("courseId_order", (q) => q.eq("courseId", course._id))
         .collect(),
-      ctx.db
-        .query("enrollments")
-        .withIndex("userId_courseId", (q) =>
-          q.eq("userId", viewer.user._id).eq("courseId", course._id),
-        )
-        .unique(),
+      viewer
+        ? ctx.db
+            .query("enrollments")
+            .withIndex("userId_courseId", (q) =>
+              q.eq("userId", viewer.user._id).eq("courseId", course._id),
+            )
+            .unique()
+        : null,
     ]);
 
     const lessonsByModule = new Map<string, Doc<"courseLessons">[]>();
@@ -287,6 +307,8 @@ export const getCourseDetails = query({
       instructors: instructors.filter(
         (instructor) => instructor !== null,
       ) as CourseDetailsData["instructors"],
+      isEnrolled: !!enrollment,
+      isLoggedIn: !!viewer,
     };
   },
 });
@@ -361,6 +383,14 @@ export const getAdminInstructors = query({
       ctx.db.query("enrollments").collect(),
     ]);
 
+    const enrollmentCountsByCourse = new Map<string, number>();
+    for (const enrollment of enrollments) {
+      enrollmentCountsByCourse.set(
+        enrollment.courseId,
+        (enrollmentCountsByCourse.get(enrollment.courseId) ?? 0) + 1,
+      );
+    }
+
     const instructorList = await Promise.all(
       instructors
         .sort((a, b) => b.createdAt - a.createdAt)
@@ -369,7 +399,7 @@ export const getAdminInstructors = query({
             c.instructorIds.includes(instructor._id),
           );
           const totalEnrollments = instructorCourses.reduce(
-            (sum, c) => sum + c.studentsCount,
+            (sum, c) => sum + (enrollmentCountsByCourse.get(c._id) ?? 0),
             0,
           );
 
@@ -400,12 +430,42 @@ export const getAdminInstructors = query({
         }),
     );
 
-    const totalInstructors = instructors.length;
+    const instructorTrend = calculateTrend(
+      instructors.filter((i) => i.createdAt > THIRTY_DAYS_AGO).length,
+      instructors.filter(
+        (i) => i.createdAt > SIXTY_DAYS_AGO && i.createdAt <= THIRTY_DAYS_AGO,
+      ).length,
+    );
+
     const activeInstructors = instructors.filter(
-      (i) => (i.status as string) === "Active",
+      (i) => i.status === "Active",
     ).length;
-    const totalCourses = courses.length;
-    const totalEnrollments = enrollments.length;
+    const activeTrend = calculateTrend(
+      instructors.filter(
+        (i) => i.status === "Active" && i.createdAt > THIRTY_DAYS_AGO,
+      ).length,
+      instructors.filter(
+        (i) =>
+          i.status === "Active" &&
+          i.createdAt > SIXTY_DAYS_AGO &&
+          i.createdAt <= THIRTY_DAYS_AGO,
+      ).length,
+    );
+
+    const courseTrend = calculateTrend(
+      courses.filter((c) => c.createdAt > THIRTY_DAYS_AGO).length,
+      courses.filter(
+        (c) => c.createdAt > SIXTY_DAYS_AGO && c.createdAt <= THIRTY_DAYS_AGO,
+      ).length,
+    );
+
+    const enrollmentTrend = calculateTrend(
+      enrollments.filter((e) => e.enrolledAt > THIRTY_DAYS_AGO).length,
+      enrollments.filter(
+        (e) => e.enrolledAt > SIXTY_DAYS_AGO && e.enrolledAt <= THIRTY_DAYS_AGO,
+      ).length,
+    );
+
     const avgRating =
       instructors.reduce((sum, i) => sum + i.stats.rating, 0) /
       (instructors.length || 1);
@@ -415,10 +475,8 @@ export const getAdminInstructors = query({
         {
           id: "total-instructors",
           label: "Total Instructors",
-          value: formatCount(totalInstructors),
-          badge: "+5.0%",
-          secondary: "18.0%",
-          trend: "up" as const,
+          value: formatCount(instructors.length),
+          ...instructorTrend,
           comparison: "vs previous month",
           icon: "user" as const,
         },
@@ -426,29 +484,23 @@ export const getAdminInstructors = query({
           id: "active-instructors",
           label: "Active Instructors",
           value: formatCount(activeInstructors),
-          badge: "+5.0%",
-          secondary: "18.0%",
-          trend: "up" as const,
+          ...activeTrend,
           comparison: "vs previous month",
           icon: "book" as const,
         },
         {
           id: "total-courses",
           label: "Total Courses",
-          value: formatCount(totalCourses),
-          badge: "+8.1%",
-          secondary: "18.0%",
-          trend: "up" as const,
+          value: formatCount(courses.length),
+          ...courseTrend,
           comparison: "vs previous month",
           icon: "database" as const,
         },
         {
           id: "total-enrollments",
           label: "Total Enrollments",
-          value: formatCount(totalEnrollments),
-          badge: "+15.3%",
-          secondary: "18.0%",
-          trend: "up" as const,
+          value: formatCount(enrollments.length),
+          ...enrollmentTrend,
           comparison: "vs previous month",
           icon: "mail" as const,
         },
@@ -723,7 +775,6 @@ export const getAdminDashboard = query({
       ]);
 
     const students = profiles.filter((profile) => profile.role === "student");
-    const paidCourses = courses.filter((course) => course.price > 0);
     const revenue = enrollments.reduce((total, enrollment) => {
       const course = courses.find(
         (candidate) => candidate._id === enrollment.courseId,
@@ -731,14 +782,25 @@ export const getAdminDashboard = query({
       return total + (course?.price ?? 0);
     }, 0);
 
+    const enrollmentCountsByCourse = new Map<string, number>();
+    for (const enrollment of enrollments) {
+      enrollmentCountsByCourse.set(
+        enrollment.courseId,
+        (enrollmentCountsByCourse.get(enrollment.courseId) ?? 0) + 1,
+      );
+    }
+
     const topCourses = courses
-      .slice()
-      .sort((a, b) => b.studentsCount - a.studentsCount)
+      .map((course) => ({
+        ...course,
+        actualEnrollments: enrollmentCountsByCourse.get(course._id) ?? 0,
+      }))
+      .sort((a, b) => b.actualEnrollments - a.actualEnrollments)
       .slice(0, 5)
       .map((course) => ({
         id: course.slug,
         title: course.title,
-        enrollments: `${formatCount(course.studentsCount)} Enrollments`,
+        enrollments: `${formatCount(course.actualEnrollments)} Enrollments`,
         rating: course.rating,
         thumbnail: course.thumbnail,
       }));
@@ -825,15 +887,61 @@ export const getAdminDashboard = query({
       };
     });
 
+    const studentTrend = calculateTrend(
+      students.filter((s) => s._creationTime > THIRTY_DAYS_AGO).length,
+      students.filter(
+        (s) =>
+          s._creationTime > SIXTY_DAYS_AGO &&
+          s._creationTime <= THIRTY_DAYS_AGO,
+      ).length,
+    );
+
+    const courseTrend = calculateTrend(
+      courses.filter((c) => c.createdAt > THIRTY_DAYS_AGO).length,
+      courses.filter(
+        (c) => c.createdAt > SIXTY_DAYS_AGO && c.createdAt <= THIRTY_DAYS_AGO,
+      ).length,
+    );
+
+    const instructorTrend = calculateTrend(
+      instructors.filter((i) => i.createdAt > THIRTY_DAYS_AGO).length,
+      instructors.filter(
+        (i) => i.createdAt > SIXTY_DAYS_AGO && i.createdAt <= THIRTY_DAYS_AGO,
+      ).length,
+    );
+
+    const enrollmentTrend = calculateTrend(
+      enrollments.filter((e) => e.enrolledAt > THIRTY_DAYS_AGO).length,
+      enrollments.filter(
+        (e) => e.enrolledAt > SIXTY_DAYS_AGO && e.enrolledAt <= THIRTY_DAYS_AGO,
+      ).length,
+    );
+
+    const currentRevenue = enrollments
+      .filter((e) => e.enrolledAt > THIRTY_DAYS_AGO)
+      .reduce((total, e) => {
+        const course = courses.find((c) => c._id === e.courseId);
+        return total + (course?.price ?? 0);
+      }, 0);
+
+    const previousRevenue = enrollments
+      .filter(
+        (e) => e.enrolledAt > SIXTY_DAYS_AGO && e.enrolledAt <= THIRTY_DAYS_AGO,
+      )
+      .reduce((total, e) => {
+        const course = courses.find((c) => c._id === e.courseId);
+        return total + (course?.price ?? 0);
+      }, 0);
+
+    const revenueTrend = calculateTrend(currentRevenue, previousRevenue);
+
     return {
       statCards: [
         {
           id: "total-students",
           label: "Total Students",
           value: formatCount(students.length),
-          badge: "+12.5%",
-          secondary: "18.0%",
-          trend: "up" as const,
+          ...studentTrend,
           comparison: "vs previous month",
           icon: "users" as const,
         },
@@ -841,9 +949,7 @@ export const getAdminDashboard = query({
           id: "total-courses",
           label: "Total Courses",
           value: formatCount(courses.length),
-          badge: "+8.1%",
-          secondary: "18.0%",
-          trend: "up" as const,
+          ...courseTrend,
           comparison: "vs previous month",
           icon: "book" as const,
         },
@@ -851,9 +957,7 @@ export const getAdminDashboard = query({
           id: "total-instructors",
           label: "Total Instructors",
           value: formatCount(instructors.length),
-          badge: "+5.0%",
-          secondary: "18.0%",
-          trend: "up" as const,
+          ...instructorTrend,
           comparison: "vs previous month",
           icon: "user" as const,
         },
@@ -861,9 +965,7 @@ export const getAdminDashboard = query({
           id: "enrollments",
           label: "Enrollments",
           value: formatCount(enrollments.length),
-          badge: "+15.3%",
-          secondary: "18.0%",
-          trend: "up" as const,
+          ...enrollmentTrend,
           comparison: "vs previous month",
           icon: "monitor" as const,
         },
@@ -871,9 +973,7 @@ export const getAdminDashboard = query({
           id: "revenue",
           label: "Revenue",
           value: `$${formatCount(revenue)}`,
-          badge: paidCourses.length > 0 ? "+18.7%" : "0.0%",
-          secondary: "18.7%",
-          trend: "up" as const,
+          ...revenueTrend,
           comparison: "vs previous month",
           icon: "dollar" as const,
         },
@@ -1131,5 +1231,50 @@ export const updateUserProfile = mutation({
     }
 
     return { success: true };
+  },
+});
+
+export const enrollCourse = mutation({
+  args: { courseId: v.id("courses") },
+  handler: async (ctx, args) => {
+    const viewer = await getViewerOrThrow(ctx);
+
+    // Check if already enrolled
+    const existing = await ctx.db
+      .query("enrollments")
+      .withIndex("userId_courseId", (q) =>
+        q.eq("userId", viewer.user._id).eq("courseId", args.courseId),
+      )
+      .unique();
+
+    if (existing) return existing._id;
+
+    const now = Date.now();
+    const enrollmentId = await ctx.db.insert("enrollments", {
+      userId: viewer.user._id,
+      courseId: args.courseId,
+      enrolledAt: now,
+      progressPercentage: 0,
+      lessonsCompleted: 0,
+      projectsCompleted: 0,
+      quizScore: 0,
+      status: "active",
+    });
+
+    // Log activity and update course student count
+    const course = await ctx.db.get(args.courseId);
+    if (course) {
+      await ctx.db.patch(args.courseId, {
+        studentsCount: (course.studentsCount || 0) + 1,
+      });
+    }
+
+    await ctx.db.insert("activityLogs", {
+      type: "enrollment",
+      message: `Enrolled in "${course?.title}"`,
+      createdAt: now,
+    });
+
+    return enrollmentId;
   },
 });
