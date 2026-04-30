@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Search, ShoppingBag } from "lucide-react";
+import { Menu, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAppSession } from "@/components/auth/session-context";
@@ -13,11 +13,9 @@ import {
 } from "@/components/ui/sheet";
 
 const navItems = [
-  "Courses",
-  "Categories",
-  "My Learning",
-  "Certifications",
-  "About",
+  { label: "Courses", href: "/courses" },
+  { label: "My Learning", href: "/profile/mylearnings" },
+  { label: "About", href: "/about" },
 ];
 
 export function Navbar() {
@@ -59,11 +57,11 @@ export function Navbar() {
       <div className="hidden lg:flex items-center gap-8">
         {navItems.map((item) => (
           <Link
-            key={item}
-            href={`/${item.toLowerCase().replace(" ", "-")}`}
+            key={item.label}
+            href={item.href}
             className="text-text-muted hover:text-ink font-heading font-medium text-sm transition-colors"
           >
-            {item}
+            {item.label}
           </Link>
         ))}
       </div>
@@ -119,14 +117,12 @@ export function Navbar() {
               <div className="flex flex-1 flex-col gap-2 px-4 py-4">
                 {navItems.map((item) => (
                   <Button
-                    key={item}
+                    key={item.label}
                     asChild
                     variant="ghost"
                     className="h-auto justify-start rounded-lg px-4 py-3 font-heading text-sm font-medium text-text-muted hover:bg-muted hover:text-ink"
                   >
-                    <Link href={`/${item.toLowerCase().replace(" ", "-")}`}>
-                      {item}
-                    </Link>
+                    <Link href={item.href}>{item.label}</Link>
                   </Button>
                 ))}
               </div>
@@ -155,13 +151,6 @@ export function Navbar() {
             </div>
           </SheetContent>
         </Sheet>
-        <Button
-          variant="ghost"
-          className="text-text-muted hover:text-ink transition-colors"
-          aria-label="Search"
-        >
-          <Search size={20} strokeWidth={2} />
-        </Button>
         <Button
           variant="ghost"
           className="text-text-muted hover:text-ink transition-colors"

@@ -143,7 +143,7 @@ export function CoursesTable({ data }: CoursesTableProps) {
                         title={course.subtitle}
                       >
                         {course.subtitle.length > 50
-                          ? course.subtitle.slice(0, 50) + "…"
+                          ? `${course.subtitle.slice(0, 50)}…`
                           : course.subtitle}
                       </span>
                     </div>
