@@ -7,7 +7,11 @@ import { Progress } from "@/components/ui/progress";
 
 import type { StudentDashboardData } from "@/lib/lms/types";
 
-export function EnrolledCourses({ courses }: { courses: StudentDashboardData["enrolledCourses"] }) {
+export function EnrolledCourses({
+  courses,
+}: {
+  courses: StudentDashboardData["enrolledCourses"];
+}) {
   if (courses.length === 0) {
     return (
       <div className="flex flex-col gap-6 w-full">
@@ -17,8 +21,13 @@ export function EnrolledCourses({ courses }: { courses: StudentDashboardData["en
           </h2>
         </div>
         <Card className="flex flex-col items-center justify-center p-10 rounded-2xl border-border shadow-none bg-white text-center">
-          <span className="text-muted-foreground">You are not enrolled in any courses yet.</span>
-          <Button asChild className="mt-4 rounded-xl bg-foreground text-background hover:bg-foreground/90 font-semibold">
+          <span className="text-muted-foreground">
+            You are not enrolled in any courses yet.
+          </span>
+          <Button
+            asChild
+            className="mt-4 rounded-xl bg-foreground text-background hover:bg-foreground/90 font-semibold"
+          >
             <Link href="/courses">Explore Courses</Link>
           </Button>
         </Card>

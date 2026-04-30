@@ -10,7 +10,10 @@ interface CertificatesAndActivityProps {
   activity: StudentDashboardData["recentActivity"];
 }
 
-export function CertificatesAndActivity({ certificates, activity }: CertificatesAndActivityProps) {
+export function CertificatesAndActivity({
+  certificates,
+  activity,
+}: CertificatesAndActivityProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
       {/* My Certificates */}

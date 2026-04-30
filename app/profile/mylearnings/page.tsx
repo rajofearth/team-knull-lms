@@ -19,9 +19,9 @@ export default async function MyLearningsPage() {
       <ProfileSummary user={dashboard.user} stats={dashboard.stats} />
       <QuickStats stats={dashboard.stats} />
       <EnrolledCourses courses={dashboard.enrolledCourses} />
-      <CertificatesAndActivity 
-        certificates={dashboard.certificates} 
-        activity={dashboard.recentActivity} 
+      <CertificatesAndActivity
+        certificates={dashboard.certificates}
+        activity={dashboard.recentActivity}
       />
       <RecommendedCourses courses={catalog.slice(0, 4)} />
       <FooterCta user={dashboard.user} />

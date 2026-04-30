@@ -552,11 +552,11 @@ export const getStudentDashboard = query({
     ]);
 
     const activeEnrollments = enrollments.filter(
-      (e) => e.status === "active" || e.status === "completed"
+      (e) => e.status === "active" || e.status === "completed",
     );
 
     const completedEnrollments = enrollments.filter(
-      (e) => e.status === "completed"
+      (e) => e.status === "completed",
     );
 
     let totalHoursLearned = 0;
@@ -587,12 +587,12 @@ export const getStudentDashboard = query({
           thumbnail: course.thumbnail,
           progress: enrollment.progressPercentage,
         };
-      })
+      }),
     );
 
     const validEnrolledCourses = enrolledCoursesData.filter(
-      (c) => c !== null
-    ) as NonNullable<typeof enrolledCoursesData[0]>[];
+      (c) => c !== null,
+    ) as NonNullable<(typeof enrolledCoursesData)[0]>[];
 
     const overallProgress =
       activeEnrollments.length > 0
@@ -612,7 +612,7 @@ export const getStudentDashboard = query({
           }),
           link: cert.certificateUrl ?? `/certificates/${cert._id}`,
         };
-      })
+      }),
     );
 
     const recentActivity =

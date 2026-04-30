@@ -3,7 +3,11 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import type { StudentDashboardData } from "@/lib/lms/types";
 
-export function QuickStats({ stats }: { stats: StudentDashboardData["stats"] }) {
+export function QuickStats({
+  stats,
+}: {
+  stats: StudentDashboardData["stats"];
+}) {
   const statItems = [
     {
       label: "Enrolled Courses",

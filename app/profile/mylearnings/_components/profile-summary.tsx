@@ -23,7 +23,10 @@ export function ProfileSummary({ user, stats }: ProfileSummaryProps) {
       <div className="flex flex-col md:flex-row gap-8 flex-1 w-full">
         <div className="relative size-[120px] rounded-full overflow-hidden shrink-0 border border-border">
           <Image
-            src={user.avatar || "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200&auto=format&fit=crop"}
+            src={
+              user.avatar ||
+              "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200&auto=format&fit=crop"
+            }
             alt={user.name}
             fill
             className="object-cover"
