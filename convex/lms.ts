@@ -368,7 +368,7 @@ export const getAdminDashboard = query({
 
     const byCountry = new Map<string, number>();
     for (const student of students) {
-      const country = student.country?.trim() || "Others";
+      const country = student.location?.trim() || "Others";
       byCountry.set(country, (byCountry.get(country) ?? 0) + 1);
     }
 
@@ -648,7 +648,7 @@ export const getStudentDashboard = query({
         name: viewer.user.name,
         email: viewer.user.email,
         avatar: viewer.user.image ?? "",
-        location: profile?.country ?? "Unknown",
+        location: profile?.location ?? "Unknown",
         joinedDate: "May 2024",
         overallProgress,
       },
@@ -662,5 +662,97 @@ export const getStudentDashboard = query({
       certificates: certificatesData,
       recentActivity,
     };
+  },
+});
+
+export const getUserProfile = query({
+  args: {},
+  handler: async (ctx) => {
+    const viewer = await getViewerOrThrow(ctx);
+
+    const profile = await ctx.db
+      .query("userProfiles")
+      .withIndex("userId", (q) => q.eq("userId", viewer.user._id))
+      .unique();
+
+    const isProfileComplete = Boolean(
+      profile?.location && profile?.bio && profile?.phoneNumber,
+    );
+
+    return {
+      user: {
+        id: viewer.user._id,
+        name: viewer.user.name,
+        email: viewer.user.email,
+        image: viewer.user.image,
+        memberSince: new Date(viewer.user.createdAt).toLocaleDateString(
+          "en-US",
+          { month: "long", year: "numeric" },
+        ),
+      },
+      profile: {
+        location: profile?.location ?? "",
+        bio: profile?.bio ?? "",
+        dateOfBirth: profile?.dateOfBirth ?? "",
+        phoneNumber: profile?.phoneNumber ?? "",
+        socials: profile?.socials ?? { google: "", github: "", linkedin: "" },
+      },
+      isProfileComplete,
+    };
+  },
+});
+
+export const updateUserProfile = mutation({
+  args: {
+    name: v.optional(v.string()),
+    location: v.optional(v.string()),
+    bio: v.optional(v.string()),
+    dateOfBirth: v.optional(v.string()),
+    phoneNumber: v.optional(v.string()),
+    socials: v.optional(
+      v.object({
+        google: v.optional(v.string()),
+        github: v.optional(v.string()),
+        linkedin: v.optional(v.string()),
+      }),
+    ),
+  },
+  handler: async (ctx, args) => {
+    const viewer = await getViewerOrThrow(ctx);
+
+    if (args.name && args.name !== viewer.user.name) {
+      await ctx.db.patch(viewer.user._id, { name: args.name });
+    }
+
+    const profile = await ctx.db
+      .query("userProfiles")
+      .withIndex("userId", (q) => q.eq("userId", viewer.user._id))
+      .unique();
+
+    const profileUpdates = {
+      location: args.location !== undefined ? args.location : profile?.location,
+      bio: args.bio !== undefined ? args.bio : profile?.bio,
+      dateOfBirth:
+        args.dateOfBirth !== undefined
+          ? args.dateOfBirth
+          : profile?.dateOfBirth,
+      phoneNumber:
+        args.phoneNumber !== undefined
+          ? args.phoneNumber
+          : profile?.phoneNumber,
+      socials: args.socials !== undefined ? args.socials : profile?.socials,
+    };
+
+    if (profile) {
+      await ctx.db.patch(profile._id, profileUpdates);
+    } else {
+      await ctx.db.insert("userProfiles", {
+        userId: viewer.user._id,
+        role: "student",
+        ...profileUpdates,
+      });
+    }
+
+    return { success: true };
   },
 });

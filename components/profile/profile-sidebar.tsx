@@ -6,11 +6,6 @@ import {
   Gift,
   HelpCircle,
   LayoutDashboard,
-  Map as MapIcon,
-  MessageSquare,
-  Settings,
-  Star,
-  Trophy,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,15 +21,11 @@ import {
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 
+// Navigation items for the user profile area
 const profileNavItems = [
   { label: "Overview", href: "/profile/overview", icon: LayoutDashboard },
   { label: "My Courses", href: "/profile/mylearnings", icon: BookOpen },
-  { label: "Wishlist", href: "/profile/wishlist", icon: Star },
-  { label: "Achievements", href: "/profile/achievements", icon: Trophy },
   { label: "Certificates", href: "/profile/certificates", icon: Award },
-  { label: "Learning Paths", href: "/profile/paths", icon: MapIcon },
-  { label: "Reviews", href: "/profile/reviews", icon: MessageSquare },
-  { label: "Settings", href: "/profile/settings", icon: Settings },
 ];
 
 export function ProfileSidebar() {

@@ -251,3 +251,25 @@ export interface StudentDashboardData {
   certificates: StudentCertificateData[];
   recentActivity: ActivityItemData[];
 }
+
+export interface UserProfileData {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    image?: string | null;
+    memberSince: string;
+  };
+  profile: {
+    location: string;
+    bio: string;
+    dateOfBirth: string;
+    phoneNumber: string;
+    socials: {
+      google?: string;
+      github?: string;
+      linkedin?: string;
+    };
+  };
+  isProfileComplete: boolean;
+}

@@ -41,14 +41,21 @@ const inputGroupAddonVariants = cva(
   },
 );
 
+import { Slot } from "radix-ui";
+
 function InputGroupAddon({
   className,
   align = "inline-start",
+  asChild,
   ...props
 }: React.ComponentProps<"button"> &
-  VariantProps<typeof inputGroupAddonVariants>) {
+  VariantProps<typeof inputGroupAddonVariants> & {
+    asChild?: boolean;
+  }) {
+  const Comp = asChild ? Slot.Root : "button";
+
   return (
-    <button
+    <Comp
       type="button"
       data-slot="input-group-addon"
       data-align={align}
