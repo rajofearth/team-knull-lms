@@ -574,7 +574,7 @@ export const getStudentDashboard = query({
         const hoursMatch = course.duration.match(/(\d+)/);
         if (hoursMatch) {
           totalHoursLearned +=
-            (parseInt(hoursMatch[1]) * enrollment.progressPercentage) / 100;
+            (parseInt(hoursMatch[1], 10) * enrollment.progressPercentage) / 100;
         }
 
         overallProgressSum += enrollment.progressPercentage;
